@@ -1,0 +1,424 @@
+%----------------------------------------------------------------
+%
+%  File    :  thesis.tex
+%
+%  Authors :  David Walser, Wien, Austria
+% 
+%  Created :  08 Feb 2022
+% 
+%  Changed :  08 Feb 2022
+%
+%  For suggestions and remarks write to: sebastian.ukleja@fh-campuswien.ac.at 
+%----------------------------------------------------------------
+
+% --- Setup for the document ------------------------------------
+
+%Class for a book like style:
+\documentclass[11pt,a4paper,oneside]{scrbook}
+%For a more paper like style use this class instead:
+%\documentclass[11pt,a4paper,oneside]{thesis}
+
+%input encoding for windows in utf-8 needed for Ä,Ö,Ü etc..:
+\usepackage[utf8]{inputenc}
+%input encoding for linux:
+%\usepackage[latin1]{inputenc}
+%input encoding for mac:
+%\usepackage[applemac]{inputenc}
+
+\usepackage[ngerman]{babel}
+%for english use this instead:
+%\usepackage[english]{babel}
+
+%needed for font encoding
+\usepackage[T1]{fontenc}
+
+% want Arial? uncomment next two lines...
+%\usepackage{uarial}
+%\renewcommand{\familydefault}{\sfdefault}
+
+%some formatting packages
+\usepackage[bf,sf]{subfigure}
+\renewcommand{\subfigtopskip}{0mm}
+\renewcommand{\subfigcapmargin}{0mm}
+
+%For better font resolution in pdf files
+\usepackage{lmodern}
+
+\usepackage{url}
+
+%\usepackage{latexsym}
+
+\usepackage{geometry} % define pagesize in more detail
+
+% --- Settings for header and footer ---------------------------------
+\usepackage{scrlayer-scrpage}
+\clearscrheadfoot
+\pagestyle{scrheadings}
+\automark{chapter}
+
+%Left header shows chapter and chapter name, will not display on first chapter page use \ihead*{\leftmark} to show on every page
+\ihead{\leftmark} 	
+%\ohead*{\rightmark}	%optional right header
+\ifoot*{Student*In}		%left footer shows student name
+\ofoot*{\thepage}		%right footer shows pagination
+%---------------------------------------------------------------------
+
+\usepackage{colortbl} % define colored backgrounds for tables
+
+\usepackage{courier} %for listings
+\usepackage{listings} % nicer code formatting
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
+\usepackage{graphicx}
+  \pdfcompresslevel=9
+  \pdfpageheight=297mm
+  \pdfpagewidth=210mm
+  \usepackage[         % hyperref should be last package loaded
+    pdftex, 		   % needed for pdf compiling, DO NOT compile with LaTeX
+    bookmarks,
+    bookmarksnumbered,
+    linktocpage,
+    pagebackref,
+    pdfview={Fit},
+    pdfstartview={Fit},
+    pdfpagemode=UseOutlines,                 % open bookmarks in Acrobat
+  ]{hyperref}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
+\usepackage{bookmark}
+
+\usepackage[title]{appendix}
+
+%paper format
+\geometry{a4paper,left=30mm,right=25mm, top=30mm, bottom=30mm}
+
+\setlength{\parskip}{3pt plus 1pt minus 0pt}       % vert. space before a paragraph
+
+\setcounter{tocdepth}{1}        % lowest section level entered in ToC
+\setcounter{secnumdepth}{2}     % lowest section level still numbered
+
+%Start of your document beginning with title page
+\begin{document}
+\frontmatter
+
+% --- Main Title Page ------------------------------------------------
+\begin{titlepage}
+\begin{picture}(50,50)
+\put(-70,40){\hbox{\includegraphics{images/logo.png}}}
+\end{picture}
+
+\vspace*{-5.8cm}
+
+\begin{center}
+
+\vspace{6.2cm}
+
+\hspace*{-1.0cm} {\LARGE \textbf{Bildähnlichkeitserkennung von Markenlogos mithilfe von Machine Learning \\}}
+\vspace{0.2cm}
+\hspace*{-1.0cm} Untertitel \\
+
+\vspace{2.0cm}
+
+\hspace*{-1.0cm} { \textbf{Masterarbeit\\}}
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} Eingereicht in teilweiser Erfüllung der Anforderungen zur Erlangung des akademischen Grades: \\
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} \textbf{Master of Science in Engineering\\}
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} an der FH Campus Wien \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} Studienfach: Software Design and Engineering \\
+
+\vspace{1.6cm}
+
+\hspace*{-1.0cm} \textbf{Autor:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} David Walser \\
+
+\vspace{0.7cm}
+
+\hspace*{-1.0cm} \textbf{Matrikelnummer:}\\
+\vspace{0.2cm}
+\hspace*{-1.0cm} 01609388 \\
+
+\vspace{0.7cm}
+
+\hspace*{-1.0cm} \textbf{Betreuer:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} FH-Prof. DI Dr. Igor Miladinovic \\
+
+\vspace{0.7cm}
+
+% Reviewer if needed:
+%\hspace*{-1.0cm} \textbf{Reviewer: (optional)} \\
+%\vspace{0.2cm}
+%\hspace*{-1.0cm} Titel Vorname Nachname \\
+
+
+\vspace{1.0cm}
+
+\hspace*{-1.0cm} \textbf{Datum:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} 02.02.2022 \\
+
+\end{center}
+\end{titlepage}
+
+\newpage
+\setcounter{page}{1}
+
+\vspace*{16cm}
+
+% --- Declaration of authorship ----------------------------------------------------
+\hspace*{-0.7cm} \underline{Erklärung der Urheberschaft:}\\\\
+Ich erkläre hiermit diese Masterarbeit eigenständig verfasst zu haben. Ich habe keine anderen Quellen, als die in der Arbeit gelisteten verwendet, noch habe ich jegliche unerlaubte Hilfe in Anspruch genommen\\\\
+Ich versichere diese Masterarbeit in keinerlei Form jemandem Anderen oder einer anderen Institution zur Verfügung gestellt zu haben, weder in Österreich noch im Ausland.\\\\
+Weiters versichere ich, dass jegliche Kopie (gedruckt oder digital) identisch ist.
+\\\\\\
+Datum: \hspace{6cm} Unterschrift:\\
+
+% --- English Abstract ----------------------------------------------------
+\cleardoublepage
+\chapter*{Abstract}
+(E.g. ``This thesis investigates...'')
+
+
+% --- German Abstract ----------------------------------------------------
+
+\cleardoublepage
+\chapter*{Kurzfassung}
+(Z.B. ``Diese Arbeit untersucht...'')
+
+% --- Abbrevations ----------------------------------------------------
+\newpage\noindent
+\chapter*{Abkürzungen}
+\vspace{0.65cm}
+
+\begin{table*}[htbp]
+		\begin{tabular}{ll}
+			ÖPA & Österreichisches Patentamt \\
+			ARP & Address Resolution Protocol \\
+			GPRS & General Packet Radio Service \\
+			GSM  &  Global System for Mobile communication \\
+			WLAN & Wireless Local Area Network \\
+		\end{tabular}
+\end{table*}
+
+% --- Key terms ----------------------------------------------------
+\newpage
+\chapter*{Schlüsselbegriffe}
+\vspace{0.65cm}
+
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\item[] GSM
+	\item[] Mobilfunk
+	\item[] Zugriffsverfahren
+\end{itemize}
+
+% --- Table of contents autogenerated ------------------------------------
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+
+% --- Begin of Thesis ----------------------------------------------------
+\mainmatter
+\chapter{Einführung}
+\label{chap:intro}
+\section{Problembeschreibung}
+\label{sec:Problembeschreibung}
+Für uns Menschen ist es eine ziemlich einfache Aufgabe zu ermitteln ob ein Bild ähnlich zu einem anderen ist oder nicht. Wir erkennen 
+
+\chapter{Einführung}
+\label{chap:intro}
+
+Textkörper mit Bild
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/buecher.png}
+	\caption{Ein Stapel Bücher}
+	\label{fig:buecher}
+\end{figure}
+
+
+Textkörper Fortsetzung mit Verweis auf den wundervollen Stapel Bücher in Abbildung \ref{fig:buecher}. 
+
+
+\section{Unterkapitel 1}
+\label{sec:Unterkapitel1}
+
+Textkörper mit Formel:
+
+\begin{equation}
+U(j\omega)=\int^{\infty}_{-\infty}{u(t) \cdot e^{-j\omega t}dt}
+\label{form:form1}
+\end{equation}
+
+Textkörper Fortsetzung mit Verweis auf Formel \ref{form:form1}. Und nicht zu vergessen: es gibt auch noch eine tolle Abbildung in Kapitel \ref{chap:intro}, nämlich Abbildung \ref{fig:buecher}. 
+
+
+\subsection{Unter-Unterkapitel 11}
+\label{sec:UnterUnterkapitel11}
+
+Textkörper mit direktem Zitat und Seitenanzahl:
+``It would be very easy to show how technical or report writing differed from other writing'' \cite[p.~3]{young2002technical}.
+
+\subsection{Unter-Unterkapitel 12}
+\label{sec:UnterUnterkapitel12}
+
+Textkörper mit Referenzen:
+Für weiterführende Informationen zum wissenschaftlichen Schreiben siehe "J. Schimel, Writing Science" \cite{schimel2012writing}. Es wird empfohlen den Sprachleitfaden der FH Campus Wien \cite{alker2006} zu berücksichtigen und die Checkliste für wissenschafltiches Schreiben \cite{petz2018} zu verwenden. Beide Leitfäden sind im FH Portal zu finden.
+
+\chapter{Kapitel 2}
+\label{chap:back}
+
+Textkörper mit noch einem Bild
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics{images/birne}
+	\caption{Eine Glühbirne}
+	\label{fig:birne}
+\end{figure}
+
+
+
+\section{Unterkapitel 21}
+\label{sec:Unterkapitel21}
+
+Textkörper mit Tabelle.
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{|l|c|r|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Spalte 1 & Spalte 2 & Spalte 3 \\
+		\hline
+		Affen & Giraffen & Löwen \\
+		Apfel & Birnen & Bananen \\
+		Irgend & et & was \\
+		\hline	
+		\end{tabular}
+	\caption{Beispiel für eine Tabelle}
+	\label{tab:BeispielFuerEineTabelle}
+\end{table*}
+
+Man beachte die Gegenüberstellung in Tabelle \ref{tab:BeispielFuerEineTabelle}.
+
+%Online Tabellengenerator für Latex: https://www.tablesgenerator.com/
+
+\section{Unterkapitel 23}
+\label{sec:Unterkapite23}
+
+Aufzählungen:
+
+Nummeriert:
+
+\begin{enumerate}
+	\item Punkt 1
+	\item Punkt 2
+\end{enumerate}
+
+Mit Bullet Points:
+
+\begin{itemize}
+	\item Punkt 1
+	\item Punkt 2
+\end{itemize}
+
+Mit Beschreibungen:
+
+\begin{description}
+	\item[Item 1] das ist der 1.Punkt
+	\item[Item 2] und das der 2.
+\end{description}
+
+
+Auch Programmcodes können an entsprechender Stelle eingefügt werden, man beachte dazu auch Listing \ref{lst:conv}.
+
+% see also http://mirror.easyname.at/ctan/macros/latex/contrib/listings/listings.pdf for options
+
+\begin{lstlisting}[frame=lines, caption=Simple Listing, captionpos=b, label = lst:conv, language=C, showstringspaces=false]
+#include <stdio.h>
+int main()
+{
+	int i, n, t1 = 0, t2 = 1, nextTerm;
+
+	printf("Enter the number of terms: ");
+	scanf("%d", &n);
+
+	printf("Fibonacci Series: ");
+
+	for (i = 1; i <= n; ++i)
+	{
+		printf("%d, ", t1);
+		nextTerm = t1 + t2;
+		t1 = t2;
+		t2 = nextTerm;
+	}
+	return 0;
+}
+\end{lstlisting}
+
+Und zuguterletzt, Formeln mitten im Fliesstext, wie z.B. $a^2+b^2=c^2$, in einem Absatz.
+
+\newpage
+\chapter{Related Work}
+
+\newpage
+\chapter{Zusammenfassung}
+
+\newpage
+\chapter{Ausblick}
+
+\newpage
+
+% --- Bibliography ------------------------------------------------------
+
+%IEEE Citation [1]
+\bibliographystyle{IEEEtran}
+%for alphanumeric citation eg.: [ABC19]
+%\bibliographystyle{alpha}
+
+% List references I definitely want in the bibliography,
+% regardless of whether or not I cite them in the thesis.
+
+\newpage
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibliography{testBib}
+
+\newpage
+
+% --- List of Figures ----------------------------------------------------
+
+\addcontentsline{toc}{chapter}{Abbildungen}
+\listoffigures
+
+
+% --- List of Tables -----------------------------------------------------
+
+\newpage
+\addcontentsline{toc}{chapter}{Tabellen}
+\listoftables
+
+% --- Appendix A -----------------------------------------------------
+
+\newpage
+\appendix
+\backmatter
+\begin{appendices}
+\chapter{Appendix}
+
+(Hier können Schaltpläne, Programme usw. eingefügt werden.)
+
+\clearpage
+\end{appendices}
+
+\end{document}

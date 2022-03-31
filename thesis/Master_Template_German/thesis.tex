@@ -20,7 +20,7 @@
 
 %input encoding for windows in utf-8 needed for Ä,Ö,Ü etc..:
 \usepackage[utf8]{inputenc}
-%input encoding for linux:
+%input encoding for linux: 
 %\usepackage[latin1]{inputenc}
 %input encoding for mac:
 %\usepackage[applemac]{inputenc}
@@ -59,7 +59,7 @@
 %Left header shows chapter and chapter name, will not display on first chapter page use \ihead*{\leftmark} to show on every page
 \ihead{\leftmark} 	
 %\ohead*{\rightmark}	%optional right header
-\ifoot*{Student*In}		%left footer shows student name
+\ifoot*{David Walser}		%left footer shows student name
 \ofoot*{\thepage}		%right footer shows pagination
 %---------------------------------------------------------------------
 
@@ -232,148 +232,219 @@ Datum: \hspace{6cm} Unterschrift:\\
 \label{chap:intro}
 \section{Problembeschreibung}
 \label{sec:Problembeschreibung}
-Für uns Menschen ist es eine ziemlich einfache Aufgabe zu ermitteln ob ein Bild ähnlich zu einem anderen ist oder nicht. Wir erkennen 
+Für uns Menschen ist es eine ziemlich einfache Aufgabe zu ermitteln ob ein Bild ähnlich zu einem anderen ist oder nicht. 
+Wir erkennen alle Möglichen Merkmale eines Bildes, wie Farben, Texte oder Muster, ohne große Schwierigkeiten.
+Es stellt jedoch eine Herausforderung dar, wenn ein Bild mit 400.000 anderen Bildern verglichen und auf ähnlichkeit geprüft wird.
+Im Jahre 2020 wurden 6260 neue Marken beim österreichischen Patentamt angemeldet. \cite{oepastatistik2020}
+Die meisten dieser Marken werden in Kombination mit einem Bild, auch Logo genannt, registriert.
+Damit es bei einer Neuanmeldung nicht zu einer unmittelbaren Verwechslungsgefahr mit bereits bestehenden Marken kommt, bietet das österreichische Patentamt einen Dienst an, bei dem Daten zu einer Marke angegeben werden, und überprüft wird, ob es Ähnlichkeiten mit bereits angemeldeten Marken gibt. \cite{oepamarkenaehnlichkeitsrecherche}
+Ein Hauptbestandteil dieser Ähnlichkeitsrecherche ist die Überprüfung von Ähnlichkeiten der Logos. 
 
-\chapter{Einführung}
-\label{chap:intro}
+\section{Motivation und Ziel}
+\label{sec:motivationundziel}
+Machine Learning ist ein aufkommendes und zukunftsweisendes Thema.
+Es wurde 2017 ein Wachstum des machine learning Marktes von 1.03 Milliarden \$ in 2016 auf 8.81 Milliarden \$ im Jahre 2022 erwartet, was einer Wachstumsrate von 44.1\% entsprechen würde. \cite{researchandmarkets}
+Technologisch gesehen ist der mit dieser Masterarbeit verbundene Prototyp eine große Herausforderung, da zur Umsetzung allerneuste Technologien und Frameworks benötigt werden.
+Eine weitere Herausforderung wird es sein, wie genau die vom österreichischen Patentamt dankenswerter weise zur Verfügung gestellten Daten zu analysieren und kategorisieren.
+Ziel dieser Masterarbeit ist es das Patentamt bei der Ähnlichkeitsrecherche zu unterstützen, in dem ein Prototyp entwickelt wird, welcher Ähnlichkeiten bei Bildern erkennt.
+Außerdem soll diese Masterarbeit einen Überblick über Machine Learning, mit Fokus auf Bildverarbeitung, enthalten.
+Ein weitereres Ziel dieser Arbeit ist es die Forschungsfrage \begin{quotation}Welche Unterschiede weisen verschiedene ML Algorithmen auf, im Bezug auf Erkennungsrate einer Ähnlichkeitsüberprüfung von Bildern?\end{quotation} zu beantworten.
 
-Textkörper mit Bild
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[height=5cm]{images/buecher.png}
-	\caption{Ein Stapel Bücher}
-	\label{fig:buecher}
-\end{figure}
-
-
-Textkörper Fortsetzung mit Verweis auf den wundervollen Stapel Bücher in Abbildung \ref{fig:buecher}. 
-
-
-\section{Unterkapitel 1}
-\label{sec:Unterkapitel1}
-
-Textkörper mit Formel:
-
-\begin{equation}
-U(j\omega)=\int^{\infty}_{-\infty}{u(t) \cdot e^{-j\omega t}dt}
-\label{form:form1}
-\end{equation}
-
-Textkörper Fortsetzung mit Verweis auf Formel \ref{form:form1}. Und nicht zu vergessen: es gibt auch noch eine tolle Abbildung in Kapitel \ref{chap:intro}, nämlich Abbildung \ref{fig:buecher}. 
+\chapter{Machine learning}
+\label{chap:machinelearning}
+Machine Learning ist ein Anwendungsgebiet von küntlicher Intelligenz welches bereits seit vielen Jahren die Forschung und Wirtschaft unterstützt. \cite{datasolutml}
+Ein Alltag ohne dem Interagieren mit Machine Learning ist heutzutage kaum mehr wegzudenken.
+Bei der Benutzung von sozialen Medien, online Shopping oder Bankdiensten komm Machine Learning bereits zum Einsatz. \cite{oracleml}
+Netflix bietet mithilfe von Machine Learning personalisierte Film und Serienempfehlungen an, und zusätzlich unterstützt Machine Learning bei der Optimierung der Produktion von Filmen und TV Shows. \cite{netflixml}
+Facebooks Algorithmus kann bereits mit 100 bis 150 Likes die Persöhnlichlkeit einer Person genauer beschreiben als deren Familienmitglieder oder Freunde. \cite{facebookml}
+Bereits seit den 1990er Jahren beeinflusst Machine Learning in Form des Spam Filters das Leben vieler. \cite{géron2019hands-on}
 
 
-\subsection{Unter-Unterkapitel 11}
-\label{sec:UnterUnterkapitel11}
+\section{Supervised machine learning}
+\label{sec:supervised}
+tbd.
 
-Textkörper mit direktem Zitat und Seitenanzahl:
-``It would be very easy to show how technical or report writing differed from other writing'' \cite[p.~3]{young2002technical}.
+\section{Unsupervised machine learning}
+\label{sec:unsupervised}
+tbd.
 
-\subsection{Unter-Unterkapitel 12}
-\label{sec:UnterUnterkapitel12}
+\section{Reinforcement learning}
+\label{sec:reinforcement}
+tbd.
 
-Textkörper mit Referenzen:
-Für weiterführende Informationen zum wissenschaftlichen Schreiben siehe "J. Schimel, Writing Science" \cite{schimel2012writing}. Es wird empfohlen den Sprachleitfaden der FH Campus Wien \cite{alker2006} zu berücksichtigen und die Checkliste für wissenschafltiches Schreiben \cite{petz2018} zu verwenden. Beide Leitfäden sind im FH Portal zu finden.
+\chapter{Bildbezogenes machine learning}
+\label{sec:imagerelatedml}
+tbd.
 
-\chapter{Kapitel 2}
-\label{chap:back}
+\section{Wie computer sehen}
+\label{sec:howcomputersee}
+tbd.
 
-Textkörper mit noch einem Bild
+\section{Bilderkennung und klassifizierung}
+\label{sec:recognitionandclassification}
+tbd.
 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics{images/birne}
-	\caption{Eine Glühbirne}
-	\label{fig:birne}
-\end{figure}
+\section{Algorithmen für Bildähnlichkeitserkennung}
+\label{sec:algorithmsimagesimilarity}
 
+\chapter{Prototyp zur Bildähnlichkeitserkennung von Markenlogos}
+\label{chap:prototype}
 
+\section{Daten}
+\label{sec:data}
 
-\section{Unterkapitel 21}
-\label{sec:Unterkapitel21}
+\section{Bildvorverarbeitung}
+\label{sec:imagepreprocessing}
 
-Textkörper mit Tabelle.
-
-\begin{table*}[htbp]
-	\centering
-		\begin{tabular}{|l|c|r|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Spalte 1 & Spalte 2 & Spalte 3 \\
-		\hline
-		Affen & Giraffen & Löwen \\
-		Apfel & Birnen & Bananen \\
-		Irgend & et & was \\
-		\hline	
-		\end{tabular}
-	\caption{Beispiel für eine Tabelle}
-	\label{tab:BeispielFuerEineTabelle}
-\end{table*}
-
-Man beachte die Gegenüberstellung in Tabelle \ref{tab:BeispielFuerEineTabelle}.
-
-%Online Tabellengenerator für Latex: https://www.tablesgenerator.com/
-
-\section{Unterkapitel 23}
-\label{sec:Unterkapite23}
-
-Aufzählungen:
-
-Nummeriert:
-
-\begin{enumerate}
-	\item Punkt 1
-	\item Punkt 2
-\end{enumerate}
-
-Mit Bullet Points:
-
-\begin{itemize}
-	\item Punkt 1
-	\item Punkt 2
-\end{itemize}
-
-Mit Beschreibungen:
-
-\begin{description}
-	\item[Item 1] das ist der 1.Punkt
-	\item[Item 2] und das der 2.
-\end{description}
+\section{Algorithmus}
+\label{sec:algorithm}
 
 
-Auch Programmcodes können an entsprechender Stelle eingefügt werden, man beachte dazu auch Listing \ref{lst:conv}.
 
-% see also http://mirror.easyname.at/ctan/macros/latex/contrib/listings/listings.pdf for options
 
-\begin{lstlisting}[frame=lines, caption=Simple Listing, captionpos=b, label = lst:conv, language=C, showstringspaces=false]
-#include <stdio.h>
-int main()
-{
-	int i, n, t1 = 0, t2 = 1, nextTerm;
 
-	printf("Enter the number of terms: ");
-	scanf("%d", &n);
+%\chapter{Examples}
+%\label{chap:intro}
+%Textkörper mit Bild
+%
+%\begin{figure}[htbp]
+%	\centering
+%		\includegraphics[height=5cm]{images/buecher.png}
+%	\caption{Ein Stapel Bücher}
+%	\label{fig:buecher}
+%\end{figure}
+%
+%
+%Textkörper Fortsetzung mit Verweis auf den wundervollen Stapel Bücher in Abbildung \ref{fig:buecher}. 
+%
+%
+%\section{Unterkapitel 1}
+%\label{sec:Unterkapitel1}
+%
+%Textkörper mit Formel:
+%
+%\begin{equation}
+%U(j\omega)=\int^{\infty}_{-\infty}{u(t) \cdot e^{-j\omega t}dt}
+%\label{form:form1}
+%\end{equation}
+%
+%Textkörper Fortsetzung mit Verweis auf Formel \ref{form:form1}. Und nicht zu vergessen: es gibt auch noch eine tolle Abbildung in Kapitel \ref{chap:intro}, nämlich Abbildung \ref{fig:buecher}. 
+%
+%
+%\subsection{Unter-Unterkapitel 11}
+%\label{sec:UnterUnterkapitel11}
+%
+%Textkörper mit direktem Zitat und Seitenanzahl:
+%``It would be very easy to show how technical or report writing differed from other writing'' \cite[p.~3]{young2002technical}.
+%
+%\subsection{Unter-Unterkapitel 12}
+%\label{sec:UnterUnterkapitel12}
+%
+%Textkörper mit Referenzen:
+%Für weiterführende Informationen zum wissenschaftlichen Schreiben siehe "J. Schimel, Writing Science" \cite{schimel2012writing}. Es wird empfohlen den Sprachleitfaden der FH Campus Wien \cite{alker2006} zu berücksichtigen und die Checkliste für wissenschafltiches Schreiben \cite{petz2018} zu verwenden. Beide Leitfäden sind im FH Portal zu finden.
+%
+%\chapter{Kapitel 2}
+%\label{chap:back}
+%
+%Textkörper mit noch einem Bild
+%
+%\begin{figure}[htbp]
+%	\centering
+%		\includegraphics{images/birne}
+%	\caption{Eine Glühbirne}
+%	\label{fig:birne}
+%\end{figure}
+%
+%
+%
+%\section{Unterkapitel 21}
+%\label{sec:Unterkapitel21}
+%
+%Textkörper mit Tabelle.
+%
+%\begin{table*}[htbp]
+%	\centering
+%		\begin{tabular}{|l|c|r|}
+%		\hline
+%		\rowcolor[gray]{0.9}
+%		Spalte 1 & Spalte 2 & Spalte 3 \\
+%		\hline
+%		Affen & Giraffen & Löwen \\
+%		Apfel & Birnen & Bananen \\
+%		Irgend & et & was \\
+%		\hline	
+%		\end{tabular}
+%	\caption{Beispiel für eine Tabelle}
+%	\label{tab:BeispielFuerEineTabelle}
+%\end{table*}
+%
+%Man beachte die Gegenüberstellung in Tabelle \ref{tab:BeispielFuerEineTabelle}.
+%
+%%Online Tabellengenerator für Latex: https://www.tablesgenerator.com/
+%
+%\section{Unterkapitel 23}
+%\label{sec:Unterkapite23}
+%
+%Aufzählungen:
+%
+%Nummeriert:
+%
+%\begin{enumerate}
+%	\item Punkt 1
+%	\item Punkt 2
+%\end{enumerate}
+%
+%Mit Bullet Points:
+%
+%\begin{itemize}
+%	\item Punkt 1
+%	\item Punkt 2
+%\end{itemize}
+%
+%Mit Beschreibungen:
+%
+%\begin{description}
+%	\item[Item 1] das ist der 1.Punkt
+%	\item[Item 2] und das der 2.
+%\end{description}
+%
+%
+%Auch Programmcodes können an entsprechender Stelle eingefügt werden, man beachte dazu auch Listing \ref{lst:conv}.
+%
+%% see also http://mirror.easyname.at/ctan/macros/latex/contrib/listings/listings.pdf for options
+%
+%\begin{lstlisting}[frame=lines, caption=Simple Listing, captionpos=b, label = lst:conv, language=C, showstringspaces=false]
+%#include <stdio.h>
+%int main()
+%{
+%	int i, n, t1 = 0, t2 = 1, nextTerm;
+%
+%	printf("Enter the number of terms: ");
+%	scanf("%d", &n);
+%
+%	printf("Fibonacci Series: ");
+%
+%	for (i = 1; i <= n; ++i)
+%	{
+%		printf("%d, ", t1);
+%		nextTerm = t1 + t2;
+%		t1 = t2;
+%		t2 = nextTerm;
+%	}
+%	return 0;
+%}
+%\end{lstlisting}
+%
+%Und zuguterletzt, Formeln mitten im Fliesstext, wie z.B. $a^2+b^2=c^2$, in einem Absatz.
 
-	printf("Fibonacci Series: ");
-
-	for (i = 1; i <= n; ++i)
-	{
-		printf("%d, ", t1);
-		nextTerm = t1 + t2;
-		t1 = t2;
-		t2 = nextTerm;
-	}
-	return 0;
-}
-\end{lstlisting}
-
-Und zuguterletzt, Formeln mitten im Fliesstext, wie z.B. $a^2+b^2=c^2$, in einem Absatz.
+%\newpage
+%\chapter{Related Work}
 
 \newpage
-\chapter{Related Work}
+\chapter{Diskussion der Ergebnise}
 
 \newpage
-\chapter{Zusammenfassung}
+\chapter{Conclusio}
 
 \newpage
 \chapter{Ausblick}

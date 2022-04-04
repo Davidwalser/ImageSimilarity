@@ -2,6 +2,9 @@
 source/train_and_test/*
 source/images/*
 
+# Literatur
+thesis/Literatur/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -132,5 +135,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /Endabgabe-SDE20-Sacic-Amir.pdf
-/thesis/Literatur/2-Aurélien-Géron-Hands-On-Machine-Learning-with-Scikit-Learn-Keras-and-Tensorflow_-Concepts-Tools-and-Techniques-to-Build-Intelligent-Systems-O’Reilly-Media-2019.pdf
 /Vertrag_Patentamt.pdf

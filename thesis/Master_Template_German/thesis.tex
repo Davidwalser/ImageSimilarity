@@ -264,7 +264,6 @@ Aus dem Erlernen und Analysieren der historischen Daten kann ein Ergebnis für n
 	\caption{Machine Learning nimmt Eingabedaten mit Beispielen und lernt daraus, um für die Zukunft Prognosen zu machen \cite{datasolutml}}
 	\label{fig:machine_learning}
 \end{figure}
-
 Ein Alltag ohne dem Interagieren mit Machine Learning ist heutzutage kaum mehr wegzudenken.
 Bei der Benutzung von sozialen Medien, online Shopping oder Bankdiensten kommt Machine Learning zum Einsatz \cite{oracleml} und bereits seit den 1990er Jahren beeinflusst Machine Learning in Form des Spam Filters das Leben vieler \cite{geron2019hands-on}. 
 Netflix bietet mithilfe von Machine Learning personalisierte Film und Serienempfehlungen an, und zusätzlich unterstützt Machine Learning bei der Optimierung der Produktion von Filmen und TV Shows \cite{netflixml}.  
@@ -277,23 +276,81 @@ Die Grundlage für Machine Learning bilden Algorithmen, welche sich in folgende 
 	\item reinforcement learning
 \end{itemize}
 
-\section{Supervised machine learning}
+\section{Supervised Machine Learning}
 \label{sec:supervised}
-tbd.
+Supervised Machine Learning, im Deutschen übersetzt überwachtes Lernen, ist die am häufigsten angewendete Algorithmusart \cite{oracleml}.
+Ähnlich wie in der Schule wenn unter Aufsicht des Lehrers oder der Lehrerin geprüft wird, ob ein Problem richtig oder falsch gelöst wird, so ist die Situation bei supervised Machine Learning Algorithmen vergleichbar.
+Dem Algorithmus wird ein gelabelter Datensatz zum Lernen zur Verfügung gestellt, somit weiß der Algorithmus für jeden Datensatz die richtige Lösung. \cite{intellipaatml}
+Folgende Algorithmen sind Beispiele für supervised Learning \cite{geron2019hands-on}:
+\begin{itemize}
+	\item k-Nearest Neighbors
+	\item Naive Bayes
+	\item Linear Regression
+	\item Logistic Regression
+	\item Support Vector Machines (SVMs)
+	\item Decision Trees und Random Forests
+	\item Neuronale Netzwerke (wobei diese auch unsupervised oder semisupervised sein können) 
+\end{itemize}
+Klassifizierung und Regression sind klassische Anwendungsgebiete für supervised learning \cite{geron2019hands-on}.
+\subsection{Klassifizierung}
+Bei Klassifizierungsproblemen geht es darum herauszufinden, zu welcher Klasse oder Gruppe die Inputdaten gehören \cite{intellipaatml}. 
+Der Spam Filter ist ein gutes Beispiel für Klassifizierung, hierbei handelt es sich um zwei Klassen: Spam und nicht Spam.
+Der Algorithmus bekommt E-Mails zum Lernen, welche als Spam E-Mail oder normale E-Mail gelabelt sind, um somit für neue E-Mails herauszufinden, ob diese Spam E-Mails sind. \cite{geron2019hands-on}
+\subsection{Regression}
+Regression ist ein Fachgebiet der Statistik und ist eine Methode um die Beziehung zwischen unabhängigen Variablen oder Merkmalen und einer abhänigen Variable oder einem Ergebnis zu verstehen.
+Sobald die Beziehung zwischen unabhängigen und abhängigen Variablen geschätzt wurde, können die Ergebnisse vorhergesagt werden. \cite{unsupervisedibm}
+Bei Regressionsproblemen geht es um kontinuierliche Daten, wie z.B. das Vorhersagen von Grundstückspreisen \cite{intellipaatml}.
 
-\section{Unsupervised machine learning}
+\section{Unsupervised Machine Learning}
 \label{sec:unsupervised}
-tbd.
+Bei unsupervised Machine Learning, im Deutschen übersetzt unüberwachtes Lernen, handelt es sich um den Ansatz mit Datensätzen zu lernen, welche kein Label besitzen \cite{geron2019hands-on}.
+Dies wird auch als selbst organisiertes Lernen bezeichnet \cite{intellipaatml}, da der Algorithmus ohne einen Lehrer oder eine Lehrerin lernt \cite{geron2019hands-on}. 
+Es werden Zusammenhänge in den Daten \cite{unsuperviseddatasolut}, versteckte Muster oder Datengruppierungen von unsupervised Algorithmen erkennt, ohne dass menschliches Eingreifen erforderlich ist \cite{unsupervisedibm}.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=4cm]{images/unsupervised.png}
+	\caption{"Model trainiert ohne Zielvariable und findet eigenständig Muster und Zusammenhänge in den Daten" \cite{unsuperviseddatasolut}}
+	\label{fig:unsupervised}
+\end{figure}
+Die Fähigkeit, Ähnlichkeiten und Unterschiede in Informationen zu entdecken, macht sie zur idealen Lösung für die explorative Datenanalyse, Kundensegmentierung und Bilderkennung.
+Folgende Algorithmen sind Beispiele für unsupervised Learning \cite{geron2019hands-on}:
+\begin{itemize}
+	\item K-Means
+	\item DBSCAN
+	\item Hierarchical Cluster Analysis (HCA)
+	\item Principal Component Analysis (PCA)
+	\item Kernel PCA
+	\item Locally-Linear Embedding (LLE)
+	\item Apriori
+	\item Eclat
+\end{itemize}
+Clustering, Assoziationsanalyse und Dimensionalitätsreduktion sind die drei Hauptaufgaben von unsupervised Machine Learning \cite{unsupervisedibm}.
+\subsection{Clustering}
+Beim Clustering geht es darum, die Population oder die Datenpunkte in eine Reihe von Gruppen aufzuteilen, so dass die Datenpunkte in denselben Gruppen anderen Datenpunkten in derselben Gruppe ähnlicher und den Datenpunkten in anderen Gruppen unähnlicher sind \cite{clusteringgeeks}.
+Es werden ungelabelte Daten auf der Grundlage ihrer Ähnlichkeiten oder Differenzen in verschiedene Gruppen aufgeteilt \cite{unsupervisedibm}. 
+Anwendungsgebiete für Clustering sind beispielsweise Bücher die je nach Titel und Inhalt in verschiedene Gruppen eingeteilt werden oder Pflanzen und Tiere welche in Spezies aufgeteilt werden (siehe Abbildung ~\ref{fig:unsupervised}) \cite{clusteringgeeks}.
+\subsection{Assoziationsanalyse}
+Die Assoziationsanalyse ist eine Methode um herauszufinden welche Muster (Beziehungen, Korrelationen, Strukturen, ...) es in den Datensätzen gibt \cite{associationmedium}.
+Diese Methode wird häufig für Warenkorbanalysen verwendet, um ein besseres Verständis über die Beziehung zwischen den Produkten zu bekommen. 
+Beispiele davon sind z.B. auf Amazon die "Kunden, die diesen Artikel gekauft haben, kauften auch:" Anzeige oder die Spotify "Discover Weekly" Playlist. \cite{unsupervisedibm}
+\subsection{Dimensionalitätsreduktion}
+Während mehr Daten grundsätzlich zu genaueren Ergebnissen führen können, so kann dies auch die Leistung von Algorithmen für machine Learning beeinträchtigen (z.B. overfitting) und die Visualisierung von Datensätzen erschweren \cite{unsupervisedibm}.
+Bei der Dimensionalitätsreduktion geht es darum, die Variablen in den Daten auf die wesentlichen und zielführenden zu beschränken (z.B. werden redundante oder noise Features entfernt) \cite{unsuperviseddatasolut}, wobei die Integrität der Daten so weit wir möglich erhalten bleiben soll \cite{unsupervisedibm}.
+Es kann für das bereinigen von Daten oder auch für das Hervorheben von Features verwendet werden, da die Daten dabei von hochdimensionalem Featureraum in niedrigdimensionalem Featureraum transformiert werden \cite{dimensionalityneptune}.
 
-\section{Semi-supervised learning}
+\section{Semi-supervised Learning}
 \label{sec:semisupervised}
 tbd.
 
-\section{Reinforcement learning}
+\section{Reinforcement Learning}
 \label{sec:reinforcement}
 tbd.
 
-\chapter{Bildbezogenes machine learning}
+\section{Neuronale Netzwerke}
+\label{sec:neuronalnetworks}
+tbd.
+
+\chapter{Bildbezogenes Machine Learning}
 \label{sec:imagerelatedml}
 tbd.
 
@@ -301,7 +358,7 @@ tbd.
 \label{sec:howcomputersee}
 tbd.
 
-\section{Bilderkennung und klassifizierung}
+\section{Bilderkennung und Klassifizierung}
 \label{sec:recognitionandclassification}
 tbd.
 

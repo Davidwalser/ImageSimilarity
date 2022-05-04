@@ -244,7 +244,7 @@ Ein Hauptbestandteil dieser Ähnlichkeitsrecherche ist die Überprüfung von Äh
 \section{Motivation und Ziel}
 \label{sec:motivationundziel}
 Machine Learning ist ein aufkommendes und zukunftsweisendes Thema.
-Laut einer Studie aus 2017 wurde ein Wachstum des machine learning Marktes von 1.03 Milliarden \$ in 2016 auf 8.81 Milliarden \$ im Jahre 2022 erwartet, was einer Wachstumsrate von 44.1\% entsrpicht. \cite{researchandmarkets}
+Laut einer Studie aus 2017 wurde ein Wachstum des machine learning Marktes von 1.03 Milliarden \$ in 2016 auf 8.81 Milliarden \$ im Jahre 2022 erwartet, was einer Wachstumsrate von 44.1\% entsrpicht \cite{researchandmarkets}. 
 Technologisch gesehen ist der mit dieser Masterarbeit verbundene Prototyp eine große Herausforderung, da zur Umsetzung allerneuste Technologien und Frameworks benötigt werden.
 Eine weitere Herausforderung wird es sein, wie genau die vom österreichischen Patentamt dankenswerter weise zur Verfügung gestellten Daten zu analysieren und kategorisieren sind.
 Ziel dieser Masterarbeit ist es das Patentamt bei der Ähnlichkeitsrecherche zu unterstützen, in dem ein Prototyp entwickelt wird, welcher Ähnlichkeiten bei Bildern erkennt.
@@ -253,9 +253,9 @@ Daraus ergibt sich die folgende Forschungsfrage \begin{quotation}Welche Untersch
 
 \chapter{Machine learning}
 \label{chap:machinelearning}
-Machine Learning ist die Wissenschaft und Kunst Computern das Lernen anhand von Daten zu ermöglichen \cite{geron2019hands-on} und ist ein Anwendungsgebiet von küntlicher Intelligenz welches bereits seit vielen Jahren die Forschung und Wirtschaft unterstützt \cite{datasolutml}. 
+Machine Learning ist die Wissenschaft und Kunst Computern das Lernen anhand von Daten zu ermöglichen \cite{geron2019hands-on} und ist ein Anwendungsgebiet von künstlicher Intelligenz welches bereits seit vielen Jahren die Forschung und Wirtschaft unterstützt \cite{datasolutml}. 
 "Machinelles Lernen ist ein Oberbegriff für die "künstliche" Generierung von Wissen aus Erfahrung: Ein künstliches System lernt aus Beispielen und kann diese nach Beendigung der Lernphase verallgemeinern." \cite{wikipediaml}
-Muster und Gesetzmäßigkeiten werden aus den Trainignsdaten erkannt, woraus ein staistisches Modell erzeug wird\cite{wikipediaml}.
+Muster und Gesetzmäßigkeiten werden aus den Trainignsdaten erkannt, woraus ein staistisches Modell erzeug wird \cite{wikipediaml}.
 Dieser Prozess wird als Modelltraining bezeichnet und ist ein iterativer Prozess, welcher oft mehrfach durchlaufen wird, bis die Qualität des Ergebnis zufriedenstellend ist \cite{datasolutml}.
 Aus dem Erlernen und Analysieren der historischen Daten kann ein Ergebnis für neue und unbekannte Daten prognostiziert werden, ohne explizit darauf programmiert zu sein \cite{techtargetml}. 
 \begin{figure}[htbp]
@@ -264,6 +264,7 @@ Aus dem Erlernen und Analysieren der historischen Daten kann ein Ergebnis für n
 	\caption{Machine Learning nimmt Eingabedaten mit Beispielen und lernt daraus, um für die Zukunft Prognosen zu machen \cite{datasolutml}}
 	\label{fig:machine_learning}
 \end{figure}
+
 Ein Alltag ohne dem Interagieren mit Machine Learning ist heutzutage kaum mehr wegzudenken.
 Bei der Benutzung von sozialen Medien, online Shopping oder Bankdiensten kommt Machine Learning zum Einsatz \cite{oracleml} und bereits seit den 1990er Jahren beeinflusst Machine Learning in Form des Spam Filters das Leben vieler \cite{geron2019hands-on}. 
 Netflix bietet mithilfe von Machine Learning personalisierte Film und Serienempfehlungen an, und zusätzlich unterstützt Machine Learning bei der Optimierung der Produktion von Filmen und TV Shows \cite{netflixml}.  
@@ -279,8 +280,16 @@ Die Grundlage für Machine Learning bilden Algorithmen, welche sich in folgende 
 \section{Supervised Machine Learning}
 \label{sec:supervised}
 Supervised Machine Learning, im Deutschen übersetzt überwachtes Lernen, ist die am häufigsten angewendete Algorithmusart \cite{oracleml}.
-Ähnlich wie in der Schule wenn unter Aufsicht des Lehrers oder der Lehrerin geprüft wird, ob ein Problem richtig oder falsch gelöst wird, so ist die Situation bei supervised Machine Learning Algorithmen vergleichbar.
-Dem Algorithmus wird ein gelabelter Datensatz zum Lernen zur Verfügung gestellt, somit weiß der Algorithmus für jeden Datensatz die richtige Lösung. \cite{intellipaatml}
+Ähnlich wie in der Schule wenn unter Aufsicht des Lehrers oder der Lehrerin geprüft wird, ob ein Problem richtig oder falsch gelöst wird, ist die Situation bei supervised Machine Learning Algorithmen.
+Dem Algorithmus wird ein gelabelter Datensatz zum Lernen zur Verfügung gestellt, somit weiß der Algorithmus für jeden Datensatz die richtige Lösung \cite{intellipaatml}. 
+Ein gelabelter Datensatz kann z.B. ein Bild von einem Tier sein, wobei hier zusätzlich auch die Information über ein Feature mitgegeben wird, wie z.B. die Art des Tieres oder das Gewicht des Tieres (siehe Abbildung ~\ref{fig:labeled_vs_unlabeled}).
+Das Label ist die Information über ein Feature welche der Algorithmus später vorhersagen will. \cite{grokkingml}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3cm]{images/labeled_vs_unlabeled.png}
+	\caption{Labeled vs unlabeled Data \cite{grokkingml}}
+	\label{fig:labeled_vs_unlabeled}
+\end{figure}
 Folgende Algorithmen sind Beispiele für supervised Learning \cite{geron2019hands-on}:
 \begin{itemize}
 	\item k-Nearest Neighbors
@@ -293,19 +302,19 @@ Folgende Algorithmen sind Beispiele für supervised Learning \cite{geron2019hand
 \end{itemize}
 Klassifizierung und Regression sind klassische Anwendungsgebiete für supervised learning \cite{geron2019hands-on}.
 \subsection{Klassifizierung}
-Bei Klassifizierungsproblemen geht es darum herauszufinden, zu welcher Klasse oder Gruppe die Inputdaten gehören \cite{intellipaatml}. 
+Bei Klassifizierungsproblemen geht es darum einen Status vorherzusagen \cite{grokkingml}, wie z.B. zu welcher Klasse oder Gruppe die Inputdaten gehören \cite{intellipaatml}. 
 Der Spam Filter ist ein gutes Beispiel für Klassifizierung, hierbei handelt es sich um zwei Klassen: Spam und nicht Spam.
-Der Algorithmus bekommt E-Mails zum Lernen, welche als Spam E-Mail oder normale E-Mail gelabelt sind, um somit für neue E-Mails herauszufinden, ob diese Spam E-Mails sind. \cite{geron2019hands-on}
+Der Algorithmus bekommt E-Mails zum Lernen, welche als Spam E-Mail oder normale E-Mail gelabelt sind, um somit für neue E-Mails herauszufinden, ob diese Spam E-Mails sind \cite{geron2019hands-on}. 
 \subsection{Regression}
 Regression ist ein Fachgebiet der Statistik und ist eine Methode um die Beziehung zwischen unabhängigen Variablen oder Merkmalen und einer abhänigen Variable oder einem Ergebnis zu verstehen.
 Sobald die Beziehung zwischen unabhängigen und abhängigen Variablen geschätzt wurde, können die Ergebnisse vorhergesagt werden. \cite{unsupervisedibm}
-Bei Regressionsproblemen geht es um kontinuierliche Daten, wie z.B. das Vorhersagen von Grundstückspreisen \cite{intellipaatml}.
+Bei Regressionsproblemen geht es um kontinuierliche Daten \cite{intellipaatml} und darum eine Zahl vorherzusagen, wie z.B. das Vorhersagen von Aktienkursen \cite{grokkingml} oder von Grundstückspreisen \cite{intellipaatml}.
 
 \section{Unsupervised Machine Learning}
 \label{sec:unsupervised}
 Bei unsupervised Machine Learning, im Deutschen übersetzt unüberwachtes Lernen, handelt es sich um den Ansatz mit Datensätzen zu lernen, welche kein Label besitzen \cite{geron2019hands-on}.
 Dies wird auch als selbst organisiertes Lernen bezeichnet \cite{intellipaatml}, da der Algorithmus ohne einen Lehrer oder eine Lehrerin lernt \cite{geron2019hands-on}. 
-Es werden Zusammenhänge in den Daten \cite{unsuperviseddatasolut}, versteckte Muster oder Datengruppierungen von unsupervised Algorithmen erkennt, ohne dass menschliches Eingreifen erforderlich ist \cite{unsupervisedibm}.
+Da es sich hierbei um ungelabelte Datensätze handelt, besitzen diese nicht die Zielinformation, welche vorhergesagt werden soll \cite{grokkingml} und somit werden Zusammenhänge in den Daten \cite{unsuperviseddatasolut}, versteckte Muster oder Datengruppierungen von unsupervised Algorithmen erkennt, ohne dass menschliches Eingreifen erforderlich ist \cite{unsupervisedibm}.
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=4cm]{images/unsupervised.png}
@@ -340,7 +349,22 @@ Es kann für das bereinigen von Daten oder auch für das Hervorheben von Feature
 
 \section{Semi-supervised Learning}
 \label{sec:semisupervised}
-tbd.
+Um die Schwierigkeiten vom Erstellen von großen gelabelten Datensätzen entgegenzuwirken gibt es eine Methode bei der ein kleiner Anteil gelabelte Daten, der Großteil jedoch ungelabelte Daten sind.
+Dieese Methode wird als semi-supervised Learning bezeichnet, welche die Benefits von unsupervised und supervised kombiniert. \cite{semisuperviseddatarobot}
+Der Algorithmus wird initial mit den wenig gelabelten Daten trainiert und kann somit iterativ mehr und mehr an die ungelabelten Daten angewandt werden.
+Self-training und Co-training sind zwei Ansätze für semi-supervised learning. \cite{semisupervisedalexsoft}
+\subsection{Self-training}
+Self-training ist eines der einfachsten Beispiele für semi-supervised learning und ist ein Prozedere einen supervised learning Ansatz in semi-supervised umzuwandeln \cite{semisupervisedalexsoft}.
+Der straightforward Ansatz wird anhand folgendem Beispiel erklärt:
+\begin{enumerate}
+	\item Die gelabelten Daten werden für das Trainieren des Models herangenommen \cite{selftrainingtowardsdatasience}
+	\item Dieses Model wird dann für die Vorhersage von ungelabelten Daten verwendet \cite{selftrainingtowardsdatasience}
+	\item Es werden Ergebnisse, welche dem zuvor bestimmten Kriterium entsprechen (z.B. >90\% accuracy), mit pseduo-labels verzehrt und mit den bereits gelabelten Daten kombiniert \cite{selftrainingtowardsdatasience}
+	\item Das Model wird nun mit dem neuen Pool an gelabelten Daten trainiert \cite{selftrainingtowardsdatasience}
+	\item Der ganze Prozess wird nun durchiteriert bis entweder alle Daten gelabelt sind oder die spezifizierte Maximalanzahl an Iterationen erreicht wird \cite{selftrainingtowardsdatasience}
+\end{enumerate}
+Die Performance von dem Self-training Ansatz variiert von Datensatz zu Datensatz und es gilt abzuwägen ob sie im Vergeleich zu dem supervised Ansatz eine Verbesserung erzielt \cite{semisupervisedalexsoft}. 
+\subsection{Co-training}
 
 \section{Reinforcement Learning}
 \label{sec:reinforcement}

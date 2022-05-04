@@ -46,6 +46,7 @@
 
 \usepackage{url}
 
+
 %\usepackage{latexsym}
 
 \usepackage{geometry} % define pagesize in more detail
@@ -88,6 +89,7 @@
 
 \usepackage[title]{appendix}
 
+\usepackage{wrapfig}
 %paper format
 \geometry{a4paper,left=30mm,right=25mm, top=30mm, bottom=30mm}
 
@@ -286,7 +288,7 @@ Ein gelabelter Datensatz kann z.B. ein Bild von einem Tier sein, wobei hier zus�
 Das Label ist die Information über ein Feature welche der Algorithmus später vorhersagen will. \cite{grokkingml}
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=3cm]{images/labeled_vs_unlabeled.png}
+		\includegraphics[height=4cm]{images/labeled_vs_unlabeled.png}
 	\caption{Labeled vs unlabeled Data \cite{grokkingml}}
 	\label{fig:labeled_vs_unlabeled}
 \end{figure}
@@ -357,18 +359,47 @@ Self-training und Co-training sind zwei Ansätze für semi-supervised learning. 
 Self-training ist eines der einfachsten Beispiele für semi-supervised learning und ist ein Prozedere einen supervised learning Ansatz in semi-supervised umzuwandeln \cite{semisupervisedalexsoft}.
 Der straightforward Ansatz wird anhand folgendem Beispiel erklärt:
 \begin{enumerate}
-	\item Die gelabelten Daten werden für das Trainieren des Models herangenommen \cite{selftrainingtowardsdatasience}
-	\item Dieses Model wird dann für die Vorhersage von ungelabelten Daten verwendet \cite{selftrainingtowardsdatasience}
-	\item Es werden Ergebnisse, welche dem zuvor bestimmten Kriterium entsprechen (z.B. >90\% accuracy), mit pseduo-labels verzehrt und mit den bereits gelabelten Daten kombiniert \cite{selftrainingtowardsdatasience}
-	\item Das Model wird nun mit dem neuen Pool an gelabelten Daten trainiert \cite{selftrainingtowardsdatasience}
-	\item Der ganze Prozess wird nun durchiteriert bis entweder alle Daten gelabelt sind oder die spezifizierte Maximalanzahl an Iterationen erreicht wird \cite{selftrainingtowardsdatasience}
+	\item Die gelabelten Daten werden für das Trainieren des Models herangenommen \cite{selftrainingtowardsdatasience}.
+	\item Dieses Model wird dann für die Vorhersage von ungelabelten Daten verwendet \cite{selftrainingtowardsdatasience}.
+	\item Es werden Ergebnisse, welche dem zuvor bestimmten Kriterium entsprechen (z.B. >90\% accuracy), mit pseudo-labels verzehrt und mit den bereits gelabelten Daten kombiniert \cite{selftrainingtowardsdatasience}.
+	\item Das Model wird nun mit dem neuen Pool an gelabelten Daten trainiert \cite{selftrainingtowardsdatasience}.
+	\item Der ganze Prozess wird nun durchiteriert bis entweder alle Daten gelabelt sind oder die spezifizierte Maximalanzahl an Iterationen erreicht wird \cite{selftrainingtowardsdatasience}.
 \end{enumerate}
 Die Performance von dem Self-training Ansatz variiert von Datensatz zu Datensatz und es gilt abzuwägen ob sie im Vergeleich zu dem supervised Ansatz eine Verbesserung erzielt \cite{semisupervisedalexsoft}. 
 \subsection{Co-training}
+Co-training ist eine verbesserte Version von Self-Training, die zum Einsatz kommt, wenn nur wenig gelabelte Daten verfügbar sind \cite{semisupervisedalexsoft}.
+Bei dieser Methode benötigt es zwei Sichten auf die Daten \cite{cotrainingwiki} und basierend darauf werden zwei individuelle Klassifizierer trainiert \cite{semisupervisedalexsoft}.
+Die zwei Ansichten sind verschiedene Gruppen von Features, welche jeweils Informationen für jede Instanz beinhalten \cite{semisupervisedalexsoft}.
+Dies bewirkt dass beide Ansichten unabhängig sind und sie alleinstehend die Klasse einer Instanz vorhersagen können\cite{cotrainingwiki}.
+Ein Anwendugsgebiet für Co-Training könnte die Klassifizierung von Webinhalten sein.
+Der Inhalt einer Webseite kann in zwei Ansichten aufgeteilt werden: eine mit Wörtern, und die andere mit Verweistexten der Links, welche zu dieser Seite führen. \cite{semisupervisedalexsoft}
+Der Ablauf eines Co-Trainings sieht wie folgt aus:
+\begin{enumerate}
+	\item Für jede Ansicht werden die seperaten Models mit den gelabelten Daten trainiert \cite{semisupervisedalexsoft}.
+	\item Die ungelabelten Daten werden hinzugefügt und mit pseudo-labels versehen \cite{semisupervisedalexsoft}.
+	\item Die beiden Klasifizierer trainieren sich gegenseitig mit den pseudo-labels und es wird das höchste Konfidenzniveau angestrebt. Wenn z.B. der erste Klassifizierer das Label für einen Datensatz vorhersagt, während der andere einen Fehler macht, so werden die vom ersten Klassifizierer zugewiesenen pseudo-labels die vom zweiten überschreiben und vice-versa. \cite{semisupervisedalexsoft}
+	\item Zuletzt werden die beiden geupdaten Klassifizierer in zu einem kombiniert \cite{semisupervisedalexsoft}.
+\end{enumerate}
 
 \section{Reinforcement Learning}
 \label{sec:reinforcement}
-tbd.
+Reinforcement Learning, im Deutschen übersetzt Bestärkendes oder Verstärkendes Lernen, ist eine immer beliebter werdende Methode und  befasst sich damit intelligente Lösungen für komplexe Steuerungsprobleme zu finden \cite{reinforcementat}.
+Das lernende System, welches in diesem Kontext \textit{Agent} genannt wird, beobachtet das Umfeld und führt dann Aktionen aus, für die es entweder Belohnungen oder Bestrafungen bekommt \cite{geron2019hands-on}.
+\begin{wrapfigure}{r}{0.5\textwidth}
+	\centering
+		\includegraphics[height=5cm]{images/reinforcement.png}
+	\caption{Beispiel von Reinforcement Learning \cite{reinforcementdatasolut}}
+	\label{fig:reinforcement}
+\end{wrapfigure}
+Hierbei erlernt der Agent eigenständig welche Aktion für welche Situation am besten geeignet ist, um die Belohnungsfunktion zu maximieren \cite{reinforcementdatasolut}.
+Im Gegensatz zu supervised oder unsupervised learning werden beim Reingforcement Learning vorab keine Daten benötigt.
+Die Daten werden während den Trial-and-Error Trainingsdurchläufen der Simulationsumgebung generiert und gelabelt.
+Das Ziel von Reinforcement Learning ist es eine bestmöglichste Policy zu erreichen. \cite{reinforcementat}
+Als Policy wird die Strategie bezeichnet, welche der Agent ausführt und gibt an welche Aktion als nächstes ausgeführt werden soll\cite{reinforcementdatasolut} um die Belohnung zu maximieren \cite{reinforcementat}.
+Reinforcement Learning anhand eines Beispieles:
+Die Katze (siehe Abbildung , welche in diesem Beispiel der Agent ist, befindet sich im Haus (Umgebung) und kann die zwei Zustände sitzen oder bewegen haben.
+Wenn die Katze nun eine Aktion ausführt, so kann sie ihren Zustand ändern, wofür sie eine Belohnung oder eine Strafe erhalten kann.
+
 
 \section{Neuronale Netzwerke}
 \label{sec:neuronalnetworks}

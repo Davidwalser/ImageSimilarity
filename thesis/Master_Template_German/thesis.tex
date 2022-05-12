@@ -204,6 +204,8 @@ Datum: \hspace{6cm} Unterschrift:\\
 \begin{table*}[htbp]
 		\begin{tabular}{ll}
 			ÖPA & Österreichisches Patentamt \\
+			KNN & künstliches neuronales Netzwerk \\
+			CNN & convolutional neural network \\
 			ARP & Address Resolution Protocol \\
 			GPRS & General Packet Radio Service \\
 			GSM  &  Global System for Mobile communication \\
@@ -377,7 +379,7 @@ Der Ablauf eines Co-Trainings sieht wie folgt aus:
 \begin{enumerate}
 	\item Für jede Ansicht werden die seperaten Models mit den gelabelten Daten trainiert \cite{semisupervisedalexsoft}.
 	\item Die ungelabelten Daten werden hinzugefügt und mit pseudo-labels versehen \cite{semisupervisedalexsoft}.
-	\item Die beiden Klasifizierer trainieren sich gegenseitig mit den pseudo-labels und es wird das höchste Konfidenzniveau angestrebt. Wenn z.B. der erste Klassifizierer das Label für einen Datensatz vorhersagt, während der andere einen Fehler macht, so werden die vom ersten Klassifizierer zugewiesenen pseudo-labels die vom zweiten überschreiben und vice-versa. \cite{semisupervisedalexsoft}
+	\item Die beiden Klasifizierer trainieren sich gegenseitig mit den pseudo-labels und es wird das höchste Konfidenzniveau angestrebt. Wenn z.B. der erste Klassifizierer das Label für einen Datensatz vorhersagt, während der andere einen Fehler macht, so werden die vom ersten Klassifizierer zugewiesenen pseudo-labels jene vom zweiten überschreiben und vice-versa. \cite{semisupervisedalexsoft}
 	\item Zuletzt werden die beiden geupdaten Klassifizierer in zu einem kombiniert \cite{semisupervisedalexsoft}.
 \end{enumerate}
 
@@ -387,12 +389,12 @@ Reinforcement Learning, im Deutschen übersetzt Bestärkendes oder Verstärkende
 Das lernende System, welches in diesem Kontext \textit{Agent} genannt wird, beobachtet das Umfeld und führt dann Aktionen aus, für die es entweder Belohnungen oder Bestrafungen bekommt \cite{geron2019hands-on}.
 \begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
-		\includegraphics[height=5cm]{images/reinforcement.png}
+		\includegraphics[height=6cm]{images/reinforcement.png}
 	\caption{Beispiel von Reinforcement Learning \cite{reinforcementdatasolut}}
 	\label{fig:reinforcement}
 \end{wrapfigure}
 Hierbei erlernt der Agent eigenständig welche Aktion für welche Situation am besten geeignet ist, um die Belohnungsfunktion zu maximieren \cite{reinforcementdatasolut}.
-Im Gegensatz zu supervised oder unsupervised learning werden beim Reingforcement Learning vorab keine Daten benötigt.
+Im Gegensatz zu supervised oder unsupervised learning werden beim Reinforcement Learning vorab keine Daten benötigt.
 Die Daten werden während den Trial-and-Error Trainingsdurchläufen der Simulationsumgebung generiert und gelabelt.
 Das Ziel von Reinforcement Learning ist es eine bestmöglichste Policy zu erreichen. \cite{reinforcementat}
 Als Policy wird die Strategie bezeichnet, welche der Agent ausführt und gibt an welche Aktion als nächstes ausgeführt werden soll\cite{reinforcementdatasolut} um die Belohnung zu maximieren \cite{reinforcementat}.
@@ -400,10 +402,168 @@ Reinforcement Learning anhand eines Beispieles:
 Die Katze (siehe Abbildung , welche in diesem Beispiel der Agent ist, befindet sich im Haus (Umgebung) und kann die zwei Zustände sitzen oder bewegen haben.
 Wenn die Katze nun eine Aktion ausführt, so kann sie ihren Zustand ändern, wofür sie eine Belohnung oder eine Strafe erhalten kann.
 
-
 \section{Neuronale Netzwerke}
 \label{sec:neuronalnetworks}
-tbd.
+Die Anfänge von künstlichen neuronalen Netzwerken machten 1943 der Neuropsychologe Warren MCCulloch und der Mathematiker Walter Pitts.
+Sie stellten ein vereinfachtes Computermodell vor, welches wie biologische Neuronen in Tiergehirnen zusammenarbeitet \cite{geron2019hands-on}, um komplexe Aufgaben aus den Bereichen Statistik, Wirtschaft und Informatik lösen zu können \cite{nndatasolutbasic}.
+Dies gilt als erste Architektur für künstliche neuronale Netzwerke und seither wurden viele weitere Architekturen entwicklet. \cite{geron2019hands-on}
+"Künstliche neuronale Netze, auch künstliche neuronale Netzwerke, kurz: KNN (englisch artificial neural network, ANN), sind Netze aus künstlichen Neuronen." \cite{nnwiki}
+Der Ursprung von künstlichen Neuronen sind die biologische Neuronen, welche in tierischen Gehirnen zu finden sind.
+Neuronen kommunizieren in dem sie kurze elektrische Impulse über Synapsen versenden, bzw. empfangen.
+Erhält ein Neuron eine ausreichende Anzahl an Signalen innerhalb weniger Millisekunden, so feuert dies eigene Signale weiter.
+Die einzelnen Neuronen sind in einem Netzwerk mit Milliarden von anderen Neuronen verbunden, in dem sie in fortlaufenden Layern eingegliederd sind (siehe Abbildung ~\ref{fig:biological_nn}). \cite{geron2019hands-on}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=4cm]{images/biological_nn.png}
+	\caption{Multiple Layer in einem biologischen neuronalen Netzwerk \cite{geron2019hands-on}}
+	\label{fig:biological_nn}
+\end{figure}
+ 
+Künstliche neuronale Netzwerke spiegeln das Verhalten des menschlichen Gehirns wieder und ermöglichen es Computerprogrammen selbständig Muster zu erkennen und allgemeine Probleme zu lösen \cite{nnibm}. 
+%\begin{wrapfigure}{l}{0.5\textwidth}
+%	\centering
+%		\includegraphics[height=5cm]{images/neural_network.png}
+%	\caption{Einfache Veranschaulichung eines neuronalen Netzwerkes \cite{nnwiki}}
+%	\label{fig:neuronal_network}
+%\end{wrapfigure}
+Künstliche neuronale Netzwerke können verschiedene Datenquellen wie Geräusche, Bilder, Texte, Tabellen oder Zeitreihen interpretieren, woraus sie Informationen extrahieren und Muster erkennen um später auf unbekannte Daten Vorhersagen treffen zu können.
+Grundsätzlich weisen künstliche neuronale Netzwerke die Strukturen gerichteter Graphen auf, können aber je nach komplexität unterschiedlich aufgebaut sein. \cite{nndatasolutbasic}
+Angelehnt an die Struktur eines biologischen neuronalen Netzwerkes besteht ein künstliches neuronales Netzwerk ebenfalls aus Neuronen, welche in Layern (Schichten) angeordnet sind.
+Ein solches Netzwerk besteht aus einem Input-Layer, einem (oder mehreren) Hidden-Layer und einem Output-Layer (veranschaulicht in Abbildung ~\ref{fig:neuronal_network}), wobei jeder dieser Layer eine Vielzahl an Neuronen beinhaltet.
+Desto komplexer das zu lösende Problem ist, umso mehr Layer werden benötigt. \cite{nnionos}
+Der Input-Layer nimmt die eingegebenen Daten entgegen, verarbeitet und gewichtet diese, bevor sie an den Hidden-Layer weiter gegeben wird \cite{nndatasolutbasic}.
+Der Hidden-Layer befindet sich zwischen Input und Output-Layer \cite{nndatasolutbasic} und kann aus einem oder mehreren Layern bestehen und ist der Layer, in dem die meisten Berechnungen stattfinden \cite{nnmedium}.
+Auch in diesem Layer finden wieder Gewichtungen statt.
+Sind mehere Layer im Hidden-Layer vorhanden, so geschieht das Gewichten pro Layer. \cite{nndatasolutbasic}
+Die Ausgabewerte des letzten Hidden-Layers werden dem Output-Layer als Eingabewerte übergeben \cite{nnmedium}.
+Der Output-Layer ist die letzte Schicht und beinhaltet die Entscheidung oder Vorhersagung des neuronalen Netzwerkes \cite{nndatasolutbasic}.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=6cm]{images/neural_network.png}
+	\caption{Einfache Veranschaulichung eines neuronalen Netzwerkes \cite{nnwiki}}
+	\label{fig:neural_network}
+\end{figure}
+Eine angemessene Anzahl an Neuronen und eine passende Ativierungsfunktion sollte je nach Aufgabe gewählt werden. 
+In den Neuronen werden Berechnungen getätigt \cite{nnpathmind} und jedes Neuron hat ein zugeordnetes Gewicht, wodurch sie unterschiedliche Wichtigkeiten erhalten \cite{nnionos}.
+%In biologischen neuronalen Netzwerken agieren Synapsen wie Gewichte über die eingehenden Impulse \cite{GURESEN2011426}.
+Im biologischen Kontext können Gewichte mit Synapsen verglichen werden \cite{GURESEN2011426}.
+Kombiniert mit einer Übertragungsfunktion entscheidet das Gewicht über den Input eines Neurons \cite{nnionos}.
+Bei den künstlichen neuronalen Netzwerken kombiniert ein Neuron die Eingangssignale mit zugeordneten Gewichten, welche die Bedeutung des Signals schwächen oder verstärken. 
+Nach dem Aufsummieren wird das Ergebnis durch eine Aktivierungsfunktion gegeben um zu berechnen ob, und mit welchem Ausmaß das Ausgangssignal weitergesendet wird.
+Das Neuron wird als aktiviert bezeichnet, wenn es ein Ausgangssignal versendet. \cite{nnpathmind}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/neuron2.png}
+	\caption{Aufbau eines Neurons \cite{nndatasolutbasic}}
+	\label{fig:neuron}
+\end{figure}
+
+\subsection{Arten von neuronalen Netzwerken}
+Es gibt viele verschiedene Arten von küntlichen neuronalen Netzwerken und es werden nun ein paar davon etwas näher erläutert.
+
+\subsubsection{Preceptron}
+Preceptron ist ein neuronales NEtzwerk mit nur einem Layer \cite{preceptrontowards}, welches im Bereich von supervised Learning Anwendung findet \cite{preceptronsimplilearn}.
+Es ist ein linearer oder binärer Klassifizierer und wird verwendet um Daten in zwei Gruppen zu klassifizieren \cite{preceptrontowards}.
+Ein Preceptron funktioniert folgendermaßen:
+\begin{enumerate}
+	\item Alle Eingangssignale werden mit ihren Gewichten multipliziert \cite{preceptrontowards}
+	\item Nach dem multiplizieren wird alles Aufsummiert \cite{preceptrontowards}.
+	\item Abschließend wird eine Aktivierungsfunktion angewendet, welche den Wert auf den gewünschten Wert, wie z.B. (0,1) mapt \cite{preceptrontowards}.
+\end{enumerate}
+
+\subsubsection{Feed forward neuronale Netzwerke}
+Ein Preceptron ist eine From von Feed forward neuronalen Netzwerken, welche die einfachste Form von neuronalen Netzwerken sind \cite{ffnndeepai}.
+Informationen werden nur in eine Richtung, von Input-Layer über Hidden-Layer zum Ausgangs-Layer verarbeitet.
+Abbildung ~\ref{fig:neural_network} veranschaulicht ein feed forward neuronales Netzwerk und die funktionsweise ist gleich wie bei Preceptrons.
+Wenn es viele Layer zwischen dem Input und Output-Layer gibt, so wird es auch als deep feed forward neural network bezeichnet. \cite{ffnnat}
+
+\subsubsection{Convolutional neuronale Netzwerke}
+Convolutional neural networks sind eines der beliebtesten deep neural networks.
+Der Name kommt von der mathematischen Linearfunktion convolution, welche auf Matrixen angewandt wird. \cite{cnnieee}
+CNNs sind effizient mit 2D und 3D Eingabedaten und werden unter anderem für Objektdetektion bei Bildern verwendet \cite{nndatasolutbasic}.
+Die Architektur ist unterschiedlich zu klassischen neuronalen Netzwerken, mehr dazu in Kapitel \ref{cnn}.
+
+\subsubsection{Recurrent neuronale Netzwerke}
+Wenn es um sequentielle oder zeitliche Daten geht so können feed forward neuronale Netzwerke nicht verwendet werden.
+Es wird ein Mechanismus benötigt um historische Daten zu speichern und desshalb wurden Recurrent neuronale Netzwerke entwickelt.
+In klassischen feed forward neuronalen Netzwerken sind alle Datenpunkte unabhängig von einander, was mit sequentiellen Daten, welche von vorherigen Daten abhängig sind, nicht funktioniert. \cite{recurrentnnmastery}
+Recurrent neuronale Netzwerke haben ein Konzept mit dem sie Informationen über vorherige Daten speichern können.
+Dieses Konzept wird Memory genannt. \cite{recurrentibm}
+
+\subsection{Training bei Neuronalen Netzwerken}
+Ein Vorteil von künstlichen neuronalen Netzwerken ist, dass beim Erstellen nicht alle Parameter spezifiziert werden müssen, da der Algorithmus anhand von Beispielen von selbst lernt \cite{deeplearningnn}.
+Neuronale Netzwerke können grundsätzlich für jedes komplexe Problem verwendet werden, bei dem es sich um funktionale Beziehungen handelt. 
+Es ist hierbei nicht notwendig die Art der Beziehung zu kennen, da das neuronale Netzwerk durch das Beobachten und iterativem anpassen der Parameter lernt \cite{neuralnettraining}.
+
+Um zu verstehen wie gut ein solches Netzwerk für eine bestimmte Aufgabe performt kann die Verlustfunktion verwendet werden.
+Zu Beginn wird ein neuronales Netzwerk mit zufälligen Gewichten versehen, was in einem schlecht performenden neuronalem Netzwerk resultiert. 
+Das Ziel ist es die hohe Verlustfunktion durch das Trainieren des neuronalen Netzwerkes in eine niedrige zu verwandeln. \cite{nntowards}
+Eine Methode für das fine-tuning von neuronalen Netzwerken ist Backpropagation.
+Dabei handelt es sich um eine Methode zur Anpassung der Gewichte eines neuronalen Netzwerkes, welche als Grundlage die Fehlerquote der vorangegangenen Iterationen (bei neuronalen Netzwerken Epochen genannt) hernimmt. 
+Durch das richtige adaptieren der Gewichte kann die Fehlerquote verringert und die Genauigkeit des Models erhöht werden. \cite{backpropagationguru}
+Gewichte verstärken oder schwächen die Signale der Neuronen und geben die Wichtigkeit eines bestimmten Bereiches der Daten an.
+Ein Neuron kann ein bestimmtes Muster erkennen und die Bedeutung dieses Muster für das Gesamtkonstrukt entscheidet sich je nach Gewicht \cite{nnohv}.
+
+\subsection{Anwendungsbeispiel eines neuronalen Netzwerks}
+Um ein besseres Verständis für neuronale Netzwerke zu bekommen folgt nun ein Anwendungsbeispiel mit kleinen Codesnipets.
+Ziel ist es ein neuronales Netzwerk aufzubauen, welches ein Bild einer handgeschriebenen Zahl richtig klassifizieren kann.
+Hierfür wird der MNIST Datensatz \footnote[1]{MNIST Datensatz erhältlich unter http://yann.lecun.com/exdb/mnist/} verwendet, welcher 60000 28 mal 28 Pixel große Graustufenbilder von handgeschriebenen Zahlen von 0 bis 9 beinhaltet.
+Um den MNIST Datensatz zu laden wird Tensorflow und Keras verwendet (siehe Codesnippet \ref{lst:mnist}).
+\begin{lstlisting}[frame=lines, caption=MNIST Datensatz in Python laden, captionpos=b, label = lst:mnist, language=Python, showstringspaces=false]
+from tensorflow.keras.datasets import mnist
+# load dataset
+(trainX, trainy), (testX, testy) = mnist.load_data()
+\end{lstlisting}
+Die Bilder aus dem MNIST Datensatz sind in Abbildung ~\ref{fig:mnist_data} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3.5cm]{images/mnist_data.png}
+	\caption{Beispielbilder aus dem MNIST Datensatz}
+	\label{fig:mnist_data}
+\end{figure}
+
+Die Architektur des neuronalen Netzwerkes hat 784 (28*28) Neuronen im Input-Layer. 
+Somit kann jeder Pixel eines Bildes an ein Neuron als Eingabedaten übergeben werden.
+Der Hidden-Layer beinhaltet 15 Neuronen, wobei die Anzahl hier variieren kann.
+Abgeleitet von den vorhandenen Klassen (0 bis 9) ergeben sich sich 10 Neuronen im Output-Layer.
+Um diese Architektur mithilfe von Keras und Tensorflow in Pyhton nachzubilden können die Codezeilen aus dem Codesnippet \ref{lst:architecture_nn} verwendet werden.
+\begin{lstlisting}[frame=lines, caption=Architektur des Neuronalen Netzwerkes, captionpos=b, label = lst:architecture_nn, language=Python, showstringspaces=false]
+from keras.layers import Dense
+from keras.models import Sequential
+image_size = 784 # 28*28 Pixel
+num_classes = 10 # Zahlen von 0 bis 9
+model = Sequential()
+model.add(Dense(units=15, activation='sigmoid', input_shape=(image_size,)))
+model.add(Dense(units=num_classes, activation='softmax'))
+model.summary()
+\end{lstlisting}
+Dense bedeuted dass es sich um ein vollständig verbundenes Netzwerk handelt, was bedeutet dass jedes Neuron des Input-Layers mit jedem Neuron aus dem nächsten Layer verbunden ist.
+Dies ist in Abbildung  ~\ref{fig:mnist_neural_network} zu sehen, welche die Beschriebene Architektur des neuronalen Netzwerks veranschaulicht.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=9cm]{images/mnist_neural_network.png}
+	\caption{Architektur des Neuronalen Netzwerks \cite{nnarchitecture}}
+	\label{fig:mnist_neural_network}
+\end{figure}
+Vor dem Compilieren und Trainieren des neuronalen Netzwerkes werden die Testdaten noch modifiziert, was im kompletten Codebeispiel im Anhang zu finden ist.
+\begin{lstlisting}[frame=lines, caption=Model compilen und erlernen, captionpos=b, label = lst:model_compile_train, language=Python, showstringspaces=false]
+model.compile(loss='categorical_crossentropy', optimizer='sgd',metrics=['acc']) 
+history = model.fit(x_train, y_train, batch_size=128, epochs=5, verbose=False, validation_split=.1)
+loss, accuracy  = model.evaluate(x_test, y_test, verbose=False)
+\end{lstlisting}
+Als Verlustfunktion wird hier die categorical crossentropy verwendet, da diese für Mehrklassenklassizierung, bei der ein Datensatz genau einer Klasse angehört, sehr geeignet ist \cite{categoricalcrossentropy}.
+Stochastic Gradient Descent gehören zu den einfachsten Optimierer, weshalb sie in diesem Besipiel für das Model gewählt wurden.
+\begin{figure}
+\center
+\subfigure[5 Epochen]{\label{fig:5_epochs}\includegraphics[width=70mm]{images/mnist_5_epochs.png}}
+\subfigure[50 Epochen]{\label{fig:50_epoochs}\includegraphics[width=70mm]{images/mnist_50_epochs.png}}
+\caption{Vergleich 5 und 50 Epochen}
+\label{fig:5_vs_50_epochs}
+\end{figure}
+Für das Trainieren des Algorithmus wurden zum Vergleich einmal 5 und einmal 50 Epochen ausgewählt.
+Wie in Abbildung ~\ref{fig:5_vs_50_epochs} zu sehen ist erreicht das Model nach 5 Epochen eine Genauigkeit von etwas mehr als  80\%, während es nach 50 Epochen eine Genauigkeit von fast 90\% erreicht.
+Die Architektur und der Aufbau des neuronalen Netzwerkes könnte noch deutlich verändert und optimiert werden, jedoch dient dieses Beispiel zum Verständis.
+
 
 \chapter{Bildbezogenes Machine Learning}
 \label{sec:imagerelatedml}
@@ -419,6 +579,11 @@ tbd.
 
 \section{Algorithmen für Bildähnlichkeitserkennung}
 \label{sec:algorithmsimagesimilarity}
+
+\subsection{SIFT}
+
+\subsection{Convolutional Neuronale Netzwerke}
+\label{cnn}
 
 \chapter{Prototyp zur Bildähnlichkeitserkennung von Markenlogos}
 \label{chap:prototype}
@@ -619,8 +784,60 @@ tbd.
 \backmatter
 \begin{appendices}
 \chapter{Appendix}
+\begin{lstlisting}[frame=lines, caption=Vollständiger Code für ein neuronales Netzwerk das Handschriftliche Zahlen erkennt, captionpos=b, label = lst:mnist_example, language=Python, showstringspaces=false]
+import keras
+from tensorflow.keras.datasets import mnist
+from matplotlib import pyplot as plt
+from keras.layers import Dense
+from keras.models import Sequential
 
-(Hier können Schaltpläne, Programme usw. eingefügt werden.)
+# load dataset
+(pic_train, label_train), (pic_test, label_test) = mnist.load_data()
+# summarize loaded dataset
+print('Train: X=%s, y=%s' % (pic_train.shape, label_train.shape))
+print('Test: X=%s, y=%s' % (pic_test.shape, label_test.shape))
+# plot first few images
+fig, axes = plt.subplots(ncols=5, sharex=False, 
+    sharey=True, figsize=(10, 4))
+for i in range(5):
+    axes[i].set_title(label_train[i])
+    axes[i].imshow(pic_train[i], cmap='gray')
+    axes[i].get_xaxis().set_visible(False)
+    axes[i].get_yaxis().set_visible(False)
+plt.show()
+
+num_classes = 10 # Zahlen von 0 bis 9
+image_size = 28*28 # Pixels
+
+# Gives a new shape to an array without changing its data.
+x_train = pic_train.reshape(pic_train.shape[0], image_size)
+x_test = pic_test.reshape(pic_test.shape[0], image_size)
+
+# Converts a class vector (integers) to binary class matrix.
+y_train = keras.utils.np_utils.to_categorical(label_train, num_classes)
+y_test = keras.utils.np_utils.to_categorical(label_test, num_classes)
+
+model = Sequential()
+
+model.add(Dense(units=15, activation='sigmoid', input_shape=(image_size,)))
+model.add(Dense(units=num_classes, activation='softmax'))
+model.summary()
+
+model.compile(loss='categorical_crossentropy', optimizer='sgd',metrics=['acc']) 
+history = model.fit(x_train, y_train, batch_size=128, epochs=5, verbose=False, validation_split=.1)
+loss, accuracy  = model.evaluate(x_test, y_test, verbose=False)
+
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['training', 'validation'], loc='best')
+plt.show()
+
+print(f'Test loss: {loss:.3}')
+print(f'Test accuracy: {accuracy:.3}')
+\end{lstlisting}
 
 \clearpage
 \end{appendices}

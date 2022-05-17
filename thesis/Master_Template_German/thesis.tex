@@ -412,7 +412,7 @@ Dies gilt als erste Architektur für künstliche neuronale Netzwerke und seither
 Der Ursprung von künstlichen Neuronen sind die biologische Neuronen, welche in tierischen Gehirnen zu finden sind.
 Neuronen kommunizieren in dem sie kurze elektrische Impulse über Synapsen versenden, bzw. empfangen.
 Erhält ein Neuron eine ausreichende Anzahl an Signalen innerhalb weniger Millisekunden, so feuert dies eigene Signale weiter.
-Die einzelnen Neuronen sind in einem Netzwerk mit Milliarden von anderen Neuronen verbunden, in dem sie in fortlaufenden Layern eingegliederd sind (siehe Abbildung ~\ref{fig:biological_nn}). \cite{geron2019hands-on}
+Die einzelnen Neuronen sind in einem Netzwerk mit Milliarden von anderen Neuronen verbunden, in dem sie in fortlaufenden Layern eingegliederd sind (siehe Abbildung \ref{fig:biological_nn}). \cite{geron2019hands-on}
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=4cm]{images/biological_nn.png}
@@ -430,7 +430,7 @@ Künstliche neuronale Netzwerke spiegeln das Verhalten des menschlichen Gehirns 
 Künstliche neuronale Netzwerke können verschiedene Datenquellen wie Geräusche, Bilder, Texte, Tabellen oder Zeitreihen interpretieren, woraus sie Informationen extrahieren und Muster erkennen um später auf unbekannte Daten Vorhersagen treffen zu können.
 Grundsätzlich weisen künstliche neuronale Netzwerke die Strukturen gerichteter Graphen auf, können aber je nach komplexität unterschiedlich aufgebaut sein. \cite{nndatasolutbasic}
 Angelehnt an die Struktur eines biologischen neuronalen Netzwerkes besteht ein künstliches neuronales Netzwerk ebenfalls aus Neuronen, welche in Layern (Schichten) angeordnet sind.
-Ein solches Netzwerk besteht aus einem Input-Layer, einem (oder mehreren) Hidden-Layer und einem Output-Layer (veranschaulicht in Abbildung ~\ref{fig:neuronal_network}), wobei jeder dieser Layer eine Vielzahl an Neuronen beinhaltet.
+Ein solches Netzwerk besteht aus einem Input-Layer, einem (oder mehreren) Hidden-Layer und einem Output-Layer (veranschaulicht in Abbildung ~\ref{fig:neural_network}), wobei jeder dieser Layer eine Vielzahl an Neuronen beinhaltet.
 Desto komplexer das zu lösende Problem ist, umso mehr Layer werden benötigt. \cite{nnionos}
 Der Input-Layer nimmt die eingegebenen Daten entgegen, verarbeitet und gewichtet diese, bevor sie an den Hidden-Layer weiter gegeben wird \cite{nndatasolutbasic}.
 Der Hidden-Layer befindet sich zwischen Input und Output-Layer \cite{nndatasolutbasic} und kann aus einem oder mehreren Layern bestehen und ist der Layer, in dem die meisten Berechnungen stattfinden \cite{nnmedium}.
@@ -440,8 +440,8 @@ Die Ausgabewerte des letzten Hidden-Layers werden dem Output-Layer als Eingabewe
 Der Output-Layer ist die letzte Schicht und beinhaltet die Entscheidung oder Vorhersagung des neuronalen Netzwerkes \cite{nndatasolutbasic}.
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=6cm]{images/neural_network.png}
-	\caption{Einfache Veranschaulichung eines neuronalen Netzwerkes \cite{nnwiki}}
+		\includegraphics[height=6cm]{images/neural_network2.png}
+	\caption{Einfache Veranschaulichung eines neuronalen Netzwerkes \cite{practicalml}}
 	\label{fig:neural_network}
 \end{figure}
 Eine angemessene Anzahl an Neuronen und eine passende Ativierungsfunktion sollte je nach Aufgabe gewählt werden. 
@@ -583,6 +583,7 @@ Durch das Analysieren von Röntgenbildern der Brust können mithilfe von machine
 \section{Wie computer sehen}
 \label{sec:howcomputersee}
 Seit über 60 Jahren versuchen Wissenschaftler auf der ganzen Welt Maschinen beizubrignen, wie sie bedeutungsvolle Informationen aus visuellen Daten extrahieren können \cite{computervisioncnnhackernoon}.
+Allgemein gilt Computer Vision als eines der komplexesten Gebiete im Bereich von künstlicher Intelligenz \cite{computerseestemera}.
 Bereits im Jahre 1959 beschäftigten sich die Neurophysiologen David Hubel und Torsten Wiesel mit dem Thema Computer Vision, welches ein Teilbereich von künstlicher Intelligenz ist, und den Zweck verfolgt Systemen das erkennen von bedeutsamen Informationen aus Bildern oder Videos zu extrahieren \cite{computervisionibm,computervisioncnnhackernoon}.
 Ihre Puplikation "Receptive fields of single neurons in the cat's striate cortex"\cite{computervisioncat} gilt als eines der Papers, welches am meisten Einfluss auf die Thematik genommen hat \cite{computervisionibm,computervisioncnnhackernoon}.
 Dabei beschreiben sie ihre Experimente, bei denen sie Elektroden and den primären Bereich des visuellen Kortex von anesthisierten Katzen angeschlossen haben, und diese dabei beobachtet haben, während den Versuchtieren verschiedene Bilder gezeigt wurden.
@@ -590,21 +591,102 @@ Durch einen glücklichen Zufall sind sie zur Erkenntniss gekommen, dass es sowoh
 Dieser Ansatz findet Anwendung bei convolutional neural networks und ist im Wesentlichen das Grundprinzip von deep Learning. \cite{computervisioncnnhackernoon}
 Bevor es tiefer in diese Materie geht, wird im folgenden Unterkapitel kurz definiert und veranschaulicht was ein Bild ist und wie ein Computer solch eines wahrnimmt.
 
-\subsection{Was ist ein Bild?}
-tbd.
+\subsection{Was ist ein (digitales) Bild?}
+Ein digitales Bild repräsentiert Bildinhalte mittles ganzen Zahlen \cite{digitalimagewiki}.
+Es handelt sich dabei um eine digitale Repräsentation von etwas, das erstellt und kopiert werden kann und in elektronischer Form gespeichert wird \cite{digitalimagetechtarget}. 
+Grundsätzlich wird bei digitalen Bildern zwischen zwei verschiedenen Arten unterschieden:
+\begin{itemize}
+	\item \textbf{Rastergrafiken}: die Informationen werden in gleichmäßiger Rasterung gespeichert \cite{digitalimagewiki}. Das Bild bestehr aus einer endlichen Anzahl an digitalen Bildelementen, welche auch als Pixel bekannt sind \cite{digitalimageenwiki} und welche in Reihen und Spalten angeordnet sind \cite{computerseesrealpython}. Die Anzahl der Pixel auf Reihe und Spalte ergeben die Auflösung eines Bildes. Ist ein Bild 200 Pixel breit und 400 Hoch, so hat es z.B. eine Auflösung von 200x400 Pixeln \cite{computerseesrealpython}.
+	\item \textbf{Vektorgrafik}: die Informationen werden durch geometrische Objekte wie Punkte, Flächen oder Linien, definiert \cite{digitalimagewiki}.
+\end{itemize}
+Es ist auch möglich Raster und Vektorgrafiken zu kombinieren und daraus ein digitales Bild zu generieren \cite{digitalimageenwiki}.
+Um digitale Bilder für Menschen sichtbar zu machen benötigt es geeignete Anzeigegeräte wie Projektoren oder Computerbildschirme \cite{digitalimagewiki}.
+Farbige Bilder werden oft nach dem RGB-Modell repräsentiert.
+RGB steht für \textbf{R}ed \textbf{G}reen und \textbf{B}lue und jeder Pixel beinhaltet einen Mix aus diesen Farben, welche in drei Zahlen repräsentiert werden.
+In einem Graustufenbild beinhaltet ein Pixel nur eine Zahl, welche die Intensität oder den Anteil an Licht repräsentiert. \cite{computerseesrealpython}
+Ein Computer kann ein Bild nicht "sehen", für sie sind digitale Bilder nur Zahlen \cite{computerseesmedium}.
+Durch das Analysieren der Anordnung der Zahlen ist es einem Computer möglich ein Bild zu interpretieren. 
+Ein ausreichend große Menge an Daten gilt als große Schwierigkeit wenn es darum geht Computern das erkennen und klassifizieren zu erlernen. \cite{computerseestemera}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=6cm]{images/image_in_numbers.png}
+	\caption{Repräsentation eines Bildes in Zahlen \cite{computerseesmedium}}
+	\label{fig:image_in_numbers}
+\end{figure}
+
+In Abbildung \ref{fig:image_in_numbers} ist ein Graustufenbild von der Zahl 8 aus dem MNIST Datensatz abgebildet.
+Hierbei ist ersichtlicht wie ein Computer dieses Bild anhand von Zahlen interpretiert.
+
+\subsubsection{Dateiformate}
+Digitale Bilder können in verschiedenen Dateiformaten gespeichert werden. 
+In Tabelle \ref{tab:fileendings} sind einige davon beschrieben.
+Bei Bildern spielt Komprimierung eine Rolle, da so die Dateigröße verringert werden kann.
+Es gibt zwei verschiedene Arten von Komprimierung, Lossless und Lossy.
+Bei der Lossless wird das Bild Komprimiert ohne dabei einen Qualitätsverlust zu erleiden \cite{imagefileformats}. 
+Das Bild wird komprimiert abgespeichert, sobald darauf zugegriffen wird, werden jedoch alle benötigten Informationen wiederhergestellt und das ursprüngliche Bild ausgegeben \cite{practicalml}. 
+Eine Lossy Komprimierung bedeuted hingegen dass Teilinformationen verloren gehen \cite{imagefileformats}.
+Die Prorität bei dieser Komprimierung liegt dabei Speicherplatz zu sparen \cite{practicalml}. 
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{|c|c|c|m{20em}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Dateiformat & Dateiendung & Komprimierung & Beschreibung \\
+		\hline
+		BITMAP & .bmp & keine & Bitmap wurde von Microsoft für Windows entwickelt. Es gibt bei diesem Dateiformat keine komprimierungm was jedoch in hohen Dateigrößen resultiert. \cite{imagefileformats} \\
+		JPEG & .jpg .jpeg & Lossy & JPEG steht für Joint Potographic Experts Group und sind im Internet sehr verbreitet und ein beliebtes Dateiformat für Digitalkameras \cite{imagefileformats}. \\
+		GIF & .gif & Lossless & GIF bedeuted Graphic Interface Format und bestizen tyischerweise sehr kleine Dateigrößen. Sie sind limitiert auf 256 Farben, können animiert werden und sind weit verbreitet im Web.  \cite{imagefileformats} \\
+		PNG & .png & Lossless & PNG oder Portable Network Graphics wurde ursprünglich entwickelt um eine verbesserte Version des GIF Formates zu werden und dieses abzulösen. PNG Dateien können bis zu 16 Millionen Farben beinhalten.  \cite{imagefileformats} \\
+		\hline	
+		\end{tabular}
+	\caption{verschiedene Dateiformate}
+	\label{tab:fileendings}
+\end{table*}
 
 \section{Bilderkennung und Klassifizierung}
 \label{sec:recognitionandclassification}
-tbd.
+Um große Mengen an unstrukturierten Bilddaten effizient analysieren zu können, benötigt es fortschrittliche Techniken wie machine Learning \cite{imgclassificationviso}.
+Bildklassifizierung, welche oft auch als Bilderkennung bezeichnet wird \cite{imgclassificationblog}, ist eines der Hauptprobleme im Bereich Computer Vision \cite{GAVALI201999}.
+Die Aufgabe für Computer Vision hierbei ist es herauszufinden, was ein Bild beinhaltet und repräsentiert.
+Es wird als die Aufgabe bezeichnet, welche Gruppen von Pixeln oder Vektoren innerhalb eines Bilder nach bestimmten Regeln kennzeichnet und kategorisiert.
+Dabei wird die Bildklassifizierung in zwei Bereiche unterteilt, unsupervised und superviced Kalssifizierung.
+Bei der unsupervised Klassifizierung handelt es sich um eine vollautomatische Methode, bei der keine Trainingsdaten benötigt werden.
+Machine Learning Algorithmen werden verwendet um die Datensätze zu analysieren und zu clustern, indem sie ohne menschliches Eingreifen Muster erkennen.
+Beim supervised Ansatz lwird mittels bereits klassifizierten Datensätzen trainiert, um so dann neue und unbekannte Datensätze zu klassifizieren.
+Applikationen zur Bildklassifizierung werden in Bereichen wie Medizinische Bildanalyse, Objekterkennung in Satelitenbildern, Ampelkontrollsystemen und vielen anderen Bereichen eingesetzt \cite{imgclassificationviso}.
+
+\subsection{Herausforderungen bei machineller Bilderkennung}
+In der folgenden Liste sind die Herausforderungen von maschineller Bilderkennung aufgezählt:
+\begin{itemize}
+	\item \textbf{Viewpoint variation}: Ein Objekt kann aus verschiednen Sichtpunkten und betrachtet werden \cite{deeplearningcomputervision}.
+	\item \textbf{Scale variation}: Ein Objekt der selben Klasse kann in unterschiedlichen Größen auftreten \cite{deeplearningcomputervision}.
+	\item \textbf{Deformation}: Ein Objekt kann verformt sein \cite{deeplearningcomputervision}.
+	\item \textbf{Occlusion}: Objekte können von anderen Objekten verdeckt sein, so dass nur wenige Pixel des Objektes sichtbar sind \cite{deeplearningcomputervision}.
+	\item \textbf{Illumination condiftions}: Der Einfluss von Beleuchtung kann auf Pixelebende einen großen Einfluss haben \cite{deeplearningcomputervision}.
+	\item \textbf{Background clutter}: Ein Objekt kann sehr ähnlich zum Umfeld erscheinen und somit darin schwer erkennbar werden \cite{deeplearningcomputervision}.
+	\item \textbf{Intra-class variation}: Die Klasse eines Objektes kann sehr breit gefächert sein. Es gibt verschiedene Arten davon, welche ein eigenes Aussehen besitzen \cite{deeplearningcomputervision}.
+\end{itemize}
+Beim Modellieren einer Bildklassifizierung gilt es darauf zu schauen dass es gegenüber dem Kreuzprodukt all dieser Herausforderungen invariant ist, während es gleichzeitig die Empfindlichkeit gegenüber jeder einzelnen Variation beibehält \cite{deeplearningcomputervision}.
+In Abbildung \ref{fig:challenges_computer_vision} sind die oben genannten Herausforderungen bildlich veranschaulicht.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/challenges_computer_vision.png}
+	\caption{Beispiele für die Herausforderungen von maschineller Bilderkennung \cite{deeplearningcomputervision}}
+	\label{fig:challenges_computer_vision}
+\end{figure}
 
 \section{Algorithmen für Bildähnlichkeitserkennung}
 \label{sec:algorithmsimagesimilarity}
 
 \subsection{SIFT}
+\label{sift}
 
 \subsection{Convolutional Neuronale Netzwerke}
 \label{cnn}
 Seit den 1980er Jahren werden convolutional neuronale Netzwerke für visuelle Aufgaben verwendet \cite{10.1162/neco_a_00990}.
+
+\subsection{Siamese Networks}
+\label{siamesenetworks}
 
 \chapter{Prototyp zur Bildähnlichkeitserkennung von Markenlogos}
 \label{chap:prototype}

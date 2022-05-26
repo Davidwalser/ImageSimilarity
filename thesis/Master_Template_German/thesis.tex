@@ -615,7 +615,7 @@ Ein ausreichend große Menge an Daten gilt als große Schwierigkeit wenn es daru
 \end{figure}
 
 In Abbildung \ref{fig:image_in_numbers} ist ein Graustufenbild von der Zahl 8 aus dem MNIST Datensatz abgebildet.
-Hierbei ist ersichtlicht wie ein Computer dieses Bild anhand von Zahlen interpretiert.
+Hierbei ist ersichtlicht wie ein Computer dieses Graustufenbild anhand von Zahlen zwischen 0 und 255, welche die Intensität respräsentieren, interpretiert.
 
 \subsubsection{Dateiformate}
 Digitale Bilder können in verschiedenen Dateiformaten gespeichert werden. 
@@ -680,10 +680,124 @@ In Abbildung \ref{fig:challenges_computer_vision} sind die oben genannten Heraus
 
 \subsection{SIFT}
 \label{sift}
+Scale Invariant Feature Transform, kurz SIFT, wurde erstmals 2004 von David Lowe in seinem Paper "Distinctive Image Features from Scale-Invariant Keypoints" \cite{siftlowe} veröffentlicht und ist eine Methode zur Überprüfung der Übereinstimmung von Bildern, welche auch zur Objekterkennung verwendet werden kann.
+Es handelt sich dabei um eine Methode die Merkmale aus Bildern extrahiert, welche für einen zuverlässigen Abgleich zwischen verschiedenen Ansichten eines Objekts oder einer Szene sorgen. \cite{siftlowe}
+Die Extrahierung der Merkmale von Bildern erfolgt vor dem Abgleich unabhängig voneinander \cite{siftieee}.
+Mit effizienten Algorithmen kann eine große Anzahl von Merkmalen aus typischen Bildern extrahiert werden.
+Diese Merkmale sind gegenüber Skalierung, Rotation, und Beleuchtungsänderung invariant und weisen eine Robustheit gegenüber Verzerrung und dem Hinzufügen von Rauschen auf.  
+Mittels SIFT Deskriptoren werden starke Interessenspunkte abgeglichen. \cite{siftlowe}
+
+\subsubsection{Funktionsweise SIFT}
+Folgende Schritte werden benötigt um Merkmale aus Bildern zu extrahieren:
+\begin{enumerate}
+	\item \textbf{Scale-space extrema detection}: in dieser Stufe, welche die erste Stufe von SIFT ist, werden alle Skalen und Koordinaten durchsucht \cite{siftieee}. Durch eine effiziente Implementierung der difference-of-Gaussian Funktion können potentiell interessante Punkte, welche invariant zu Skalierung und Orientierung sind, identifirziert werden \cite{siftlowe}.
+	\item \textbf{Keypoint localization}: Einige gefundene Punkte sind nicht gut genug und können mittels Keypoint localization eliminiert werden. Sobald ein Schlüsselpunkt mittels Vergleich eines Pixels mit dessen Nachbarn gefunden wurde, folgt eine detaillierte Anpassung an die nahe gelegenen Daten in Bezug auf Lage, Skalierung und dem Verhältnis der Hauptkrümmungen. \cite{siftieee} Auf Grundlage von Stabilität werden die Schlüsselpunkte ausgewählt \cite{siftlowe}.
+	\item \textbf{Orientation assignment}: Basierend auf lokalen Bildeigenschaften werden zu jedem Schlüsselpunkt konsistente Orientierungen zugewiesen, wodurch der Deskriptor des Schlüsselpunkts relativ zu dieser Aurichtung dargestellt werden kann \cite{siftieee}. 
+	\item  \textbf{Keypoint descriptor}: Im ausgewählten Maßstab werden lokale Bildgradienten in der Region um jeden Schlüsselpunkt gemessen. Diese werden in eine Darstellung transformiert, welche ein hohes Maß an Formverzerrung und Beleuchtungsänderung zulässt. \cite{siftlowe} Es wird ein gewichtetes Richtungshistogram im Umkreis des Schlüsselpunktes erstellt und die Orientierung wird dann Anhand des höchsten Schlüsselpunktes ermittelt \cite{siftieee}.
+\end{enumerate}
+%https://ieeexplore-1ieee-1org-1tn53mdbb08d0.han.fh-campuswien.ac.at/stamp/stamp.jsp?tp=&arnumber=6754850
+%https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf
 
 \subsection{Convolutional Neuronale Netzwerke}
 \label{cnn}
+Convolutional neuronale Netzwerke, die im Deutschen übersetzt als "Gefaltete Neuronale Netzwerke" bezeichnet werden, sind eine besondere From von künstlichen neuronalen Netzwerken, welche mehrere sogenannte Faltungsschichten beinhalten \cite{cnnbigdata}.
 Seit den 1980er Jahren werden convolutional neuronale Netzwerke für visuelle Aufgaben verwendet \cite{10.1162/neco_a_00990}.
+In den letzten zehn Jahren gab es durch convolutional neuronale Netzwerke bahnbrechende Ergebnisse in einer Vielzahl von Bereichen der Mustererkennung, von Bildverarbeitung bis zur Spracherkennung.
+Einer der größten Vorteile von CNNs gegenüber regulären künstlichen neuronalen Netzwerken ist die reduzierte Anzahl der Parameter, wodurch es möglich ist größere Models, und somit komplexere Probleme zu lösen. \cite{cnnieee}
+Während bei primitiveren Methoden Filter von Hand entwickelt werden, so sind convolutional neuronalen Netzwerken durch ausreichendem Training in der Lage Filter selbst zu erlernen \cite{cnntowards}.
+Ein weiterer wichtiger Aspekt von CNNs ist es abstrakte Merkmale zu erkennen. 
+Die Merkmale werden pro Schicht erkannt, so ist es z.B. möglich dass in der ersten Schicht einfache Kanten und Ränder erkannt werden, während in der zweiten Schicht schon einfache Formen identifiziert werden. \cite{cnnieee}
+Während sich sich die erste Schicht auf einfache Merkmale wie Farben und Kanten konzentriert, so sind tiefere Schichten in der Lage größere Elemente und Formen zu erkennen \cite{cnnibm}.
+Das Netzwerk ist robust und gegenüber Verzerrungen oder optischen Veränderungen unempfindlich.
+Es kann Bilder verarbeiten, welche in unterschiedlichen Perspektiven und Lichtverhältnissen aufgenommen wurden, und kann trotzdem typische Merkmale eines Bildes erkennen. \cite{cnnbigdata}
+Vom Grundprinzip ist ein convolutional neuronales Netzwer ein vollvernetztes neuronales Feed-Forward-Netzwerk was sich aus folgenden Schichten zusammensetzt:
+\begin{itemize}
+	\item Eingangs-Schicht
+	\item Convolutional-Schicht
+	\item Pooling-Schicht
+	\item vollständig verbundenen neuronalen Netzwerk
+	\item Ausgangs-Schicht
+\end{itemize}
+Während auf Convolutional-Schicht weitere Convolutional-Schichten oder Pooling-Schichten folgen können, ist das vollständig verbundene neuronale Netzwerk die letzte Schicht vor der Ausgabe-Schicht \cite{cnnibm}.
+In Abbildung \ref{fig:cnn_architecture} ist ein beispielhafter Aufbau eines CNNs dargestellt, bei dem es darum geht Bilder zu klassifizieren.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/cnn.jpeg}
+	\caption{Aufbau von CNN \cite{cnntowards}}
+	\label{fig:cnn_architecture}
+\end{figure}
+
+\subsubsection{Convolutional-Schicht}
+Die Convolutional-Schicht ist der zentrale Baustein eines CNN, in dem der Großteil der Berechnungen stattfindet \cite{cnnibm}.
+Es  ist die eigentliche Faltungsebene und ist fähig aus den Daten Mermale wie Kanten, Linien oder bestimmte Formen zu erkennen und extrahieren \cite{cnnbigdata}.
+Hauptanwendungen von CNNs sind Anwendungen mit Bildern, Sprache oder Audio Signalen \cite{cnnibm}.
+\begin{wrapfigure}{l}{0.4\textwidth}
+	\centering
+		\includegraphics[height=4.5cm]{images/cnn_convolutional_example.png}
+	\caption{Beispiel einer Convolution \cite{cnnieee}}
+	\label{fig:convolution_example}
+\end{wrapfigure}
+\begin{wrapfigure}{r}{0.55\textwidth}
+	\centering
+		\includegraphics[height=5cm]{images/cnn_filter.png}
+	\caption{CNN Filter \cite{cnnibm}}
+	\label{fig:cnn_filter}
+\end{wrapfigure}
+Um den Vergleich zu einem vollständig vernetztes neuronales Netzwerk, welches Pixel als Eingabe nimmt, folgt ein Beispiel.
+Angenommen es handelt sich z.B. um ein 32 Pixel Breit und 32 Hoches Bild, so werden hierfür bereits 32x32x3 (=3072) gewichtete Verbindungen benötigt.
+32 für jeweils Breite und Höhe und dann noch jeweils 3 Kanäle für RGB.
+Wird ein einzelnes Neuron im Hidden-Layer hinzugefügt so werden weitere 32x32x3 gewichtete Verbindungen benötigt.
+Für eine aussagekräfitge Bilderkennung werden zwei Neuronen im Hidden-Layer nicht ausreichen, und somit steigt die Anazhl der gewichteten Verbindungen pro Neuron weiter an.
+Um effizienter als normale vollständig vernetzte neuronale Netzwerke zu sein, betrachten convolutional neuronale Netzwerke anstelle des gesamten Bildes nur lokale Regionen davon. 
+Wie in Abbildung \ref{fig:convolution_example} zusehen ist, bekommt der nächste Layer nur den dazugehörigen Teil von dem davorigen Layer, was in diesem Beispiel eine Verbindung zu einem 5x5 Neuron sein könnte.
+Dadurch wird die Anzahl der benötigten gewichteten Verbindugen reduziert, da sich das CNN nur auf einen Teilbereich der Eingabedaten konzentriert.
+Um die Anazhl der gewichteten Verbindungen weiter zu verringern können lokale gewichtete Verbindungen für die gesamten Neuronen des nächsten Layers beibehalten werden. \cite{cnnieee}
+
+Ein weiterer ähnlicher Ansatz ist ein Einfügen eines Fensters (z.B.5x5x3) \cite{cnnieee}, welches auch Kernel oder Filter genannt wird \cite{cnntowards} und welches über die Eingangsneuronen geschoben wird, und somit die dazugehörige Ausgabe an den dazugehörigen Platz verbindet \cite{cnnieee}.
+Dieser Filter oder auch Feature-Detektor ist ein zweidimensionales Array bestehend aus Gewichten, welche Teile des Bildes repräsentieren.
+Eine typische Größe dafür ist eine 3x3 Matrix, diese kann jedoch variieren.
+Der Feature-Detektor wird dann auf einen Bereich der Eingabedaten angewandt, in dem das Kreuzprodukt zwischen den Eingabepixeln und dem Filter berechnet werden (siehe Abbildung \ref{fig:cnn_filter}).
+Dieser Bereich wird auch als Receptive Field bezeichnet.
+Das Ergebnis des Kreuzproduktes wird in ein Ausgabearray gespeichert und anschließend wechselt der Filter in Schritten (englisch: stride) und wiederholt den Vorgang bis der Filter über das ganze Bild angewandt wurde. 
+Das endgültige Ergebnis aus der Reihe der Kreuzprodukte wird als Feature Map, Activation Map oder Convolved Feature bezeichnet. \cite{cnnibm}
+Strides geben an um wieviele Pixel sich der Filter weiter bewegt.
+Standardmäßig wird ein Stride von 1 verwendet, wie auch in Abbildung \ref{fig:cnn_stride} dargestellt. \cite{cnntowards}
+Ein Stride von mehr als 1 verringert das Ausgabearray, wird in der praxis jedoch eher selten angewandt \cite{cnncs231}.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3cm]{images/cnn_filter_moving2.png}
+	\caption{Stride \cite{cnnieee}}
+	\label{fig:cnn_stride}
+\end{figure}
+Während sich der Filter über das Bild bewegt, sind seine Gewichte fixiert, diese können sich jedoch während dem Training anpassen \cite{cnnibm}.
+Einer der Nachteile des convolution Schrittes ist der Verlust von Informationen am Rande eines Bildes.
+Da Informationen nur aufgenommen werden, wenn der Filter sich darüber bewegt haben sie nie die Chance gesehen zu werden.
+Eine einfache Lösung dafür ist das sogenannte zero-padding. \cite{cnnieee}
+Padding ist der Prozess, bei dem der Eingangsmatrix symetrisch Nullen hinzugefügt werden \cite{cnntowards}.
+Zero-padding wird in der Regel verwendet, wenn die Filter nicht zur Größe des Bildes passen, da mit Padding die Größe der Ausgangsmatrix verändert werden kann \cite{cnnibm}. 
+Es gibt verschiedene Arten von Padding:
+\begin{itemize}
+	\item Valid padding: wird auch als no padding bezeichnet. Hierbei findet kein padding statt und Informationen können verloren gehen, wenn die Größe von Filter und Eingangsdaten nicht übereinstimmt. \cite{cnnibm}
+	\item Same padding: durch Anwenden von same padding wird sichergestellt, dass die Größe der Ausgangsschicht gleich der Eingangsschicht ist \cite{cnnibm}.
+\end{itemize}
+Die Anzahl der Filter haben Einfluss auf die Tiefe der Ausgabe.
+Drei Filter würden Beispielsweise drei verschiedene Feature Maps generieren und somit eine tiefe von drei ergeben. \cite{cnnibm}
+Nach jeder Faltungsoperation wendet ein CNN eine Nichtlinearitätsfunktion an \cite{cnnglassbox} um Nichtliniearität in das Model einzuführen \cite{cnnibm}.
+Dies ist eine nichtlineare Gleichung, die es dem CNN ermöglicht, insgesamt kompliziertere Muster zu lernen.
+Eine beliete Nichtlinearität ist Rectified Linear Unit Transformation (ReLu). \cite{cnnglassbox}
+Letztendlich wandelt die Faltungsschicht das Bild in numerische Werte um, so dass das neuronale Netz relevante Muster interpretieren und extrahieren kann. 
+Diese Methode bietet den Vorteil, dass aufgrund der Filter das Erkennen von Merkmalen unabhängig von der Position im Bild stattfinden kann \cite{cnnieee}. 
+
+\subsubsection{Pooling-Schicht}
+
+\subsubsection{Vollständig verbundenes neuronales Netzwerk}
+
+
+%https://ieeexplore-1ieee-1org-1tn53mdbb0c2d.han.fh-campuswien.ac.at/stamp/stamp.jsp?tp=&arnumber=8308186
+%https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
+%https://cs231n.github.io/convolutional-networks/
+%https://www.bigdata-insider.de/was-ist-ein-convolutional-neural-network-a-801246/
+%https://towardsdatascience.com/covolutional-neural-network-cb0883dd6529#:~:text=Examples%20of%20CNN%20in%20computer,i.e%2C%20weights%2C%20biases%20etc.
 
 \subsection{Siamese Networks}
 \label{siamesenetworks}

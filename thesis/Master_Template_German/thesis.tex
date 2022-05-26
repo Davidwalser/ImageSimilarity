@@ -789,6 +789,23 @@ Letztendlich wandelt die Faltungsschicht das Bild in numerische Werte um, so das
 Diese Methode bietet den Vorteil, dass aufgrund der Filter das Erkennen von Merkmalen unabhängig von der Position im Bild stattfinden kann \cite{cnnieee}. 
 
 \subsubsection{Pooling-Schicht}
+Die Pooling-Schicht wird auch Subsampling \cite{cnnbigdata} oder Downsampling Schicht genannt und der Hauptgedanke von pooling ist down-sampling um Komplexität für nachfolgende Schichten zu reduzieren \cite{cnnieee}.
+Es werden dabei überflüssige Informationen verworfen und die Datenmenge wird verringert, wodurch sich die Berechnungsgeschwindigkeit erhöht \cite{cnnbigdata}.
+Im Bereich der Bildverarbeitung kann Pooling auch als Verringern der Auflösung angesehen werden \cite{cnnieee}.
+Die Berechnungen wären deutlich aufwendiger, würde man die Pooling-Schicht weglassen, und somit die Convolution Schicht direkt mit dem vollständig verbundenen neuronalen Netzwerk verbinden \cite{cnntowards}.
+Ähnlich wie bei der Convolution-Schicht wird bei der Pooling-Schicht ein Filter über die Eingabedaten geschoben, jedoch hat dieser Filter keine Gewichte.
+Stattdessen wird eine Aggregationsfunktion auf die Werte innerhalb des rezeptiven Feldes angewandt und somit die Ausgangfmatrix ausgefüllt. \cite{cnnibm}
+Es gibt verschiedene Arten von Pooling:
+\begin{itemize}
+	\item Max pooling: ist eines der weitverbreitesten Pooling Methoden \cite{cnnieee}. Während sich der Filter über den Eingabedatensatz bewegt, wird der Pixel mit dem größten Wert genommen und an das Ausgabearray gegeben. \cite{cnnibm} Max Pooling wirkt auch als Rauschunterdrückung \cite{cnntowards}
+	\item Average pooling: Während sich der Filter über den Eingabedatensatz beweget, wird ein Mittelwert innerhalb des receptiven Feldes ermittelt und an das Ausgabearray übergeben \cite{cnnibm}.
+\end{itemize}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=4cm]{images/pooling.png}
+	\caption{Max und Average Pooling \cite{cnntowards}}
+	\label{fig:pooling}
+\end{figure}
 
 \subsubsection{Vollständig verbundenes neuronales Netzwerk}
 

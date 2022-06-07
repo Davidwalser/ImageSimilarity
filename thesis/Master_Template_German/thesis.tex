@@ -248,12 +248,16 @@ Ein Hauptbestandteil dieser Ähnlichkeitsrecherche ist die Überprüfung von Äh
 \section{Motivation und Ziel}
 \label{sec:motivationundziel}
 Machine Learning ist ein aufkommendes und zukunftsweisendes Thema.
-Laut einer Studie aus 2017 wurde ein Wachstum des machine learning Marktes von 1.03 Milliarden \$ in 2016 auf 8.81 Milliarden \$ im Jahre 2022 erwartet, was einer Wachstumsrate von 44.1\% entsrpicht \cite{researchandmarkets}. 
+Laut einer Studie aus 2017 wurde ein Wachstum des machine learning Marktes von 1.03 Milliarden \$ in 2016 auf 8.81 Milliarden \$ im Jahre 2022 erwartet, was einer Wachstumsrate von 44.1\% entsrpicht \cite{researchandmarkets}.
+Eines der Hauptprobleme im Bereich Computer Vision ist es ähnliche Bilder in großen und unstrukturierten Kollektionen zu finden.
+Es kann ein sehr zeitaufwändiges Verfahren sein, da hier viele Bilder getestet werden müssen um eine Übereinstimmung zwischen Parren zu finden \cite{siameseieee}. 
 Technologisch gesehen ist der mit dieser Masterarbeit verbundene Prototyp eine große Herausforderung, da zur Umsetzung allerneuste Technologien und Frameworks benötigt werden.
 Eine weitere Herausforderung wird es sein, wie genau die vom österreichischen Patentamt dankenswerter weise zur Verfügung gestellten Daten zu analysieren und kategorisieren sind.
 Ziel dieser Masterarbeit ist es das Patentamt bei der Ähnlichkeitsrecherche zu unterstützen, in dem ein Prototyp entwickelt wird, welcher Ähnlichkeiten bei Bildern erkennt.
 Außerdem soll diese Masterarbeit einen Überblick über Machine Learning, mit Fokus auf Bildverarbeitung, enthalten.
 Daraus ergibt sich die folgende Forschungsfrage \begin{quotation}Welche Unterschiede weisen verschiedene ML Algorithmen auf, im Bezug auf Erkennungsrate einer Ähnlichkeitsüberprüfung von Bildern?\end{quotation} zu beantworten.
+
+tbd. more!
 
 \chapter{Machine learning}
 \label{chap:machinelearning}
@@ -276,10 +280,10 @@ Netflix bietet mithilfe von Machine Learning personalisierte Film und Serienempf
 Facebooks Algorithmus kann bereits mit 100 bis 150 Likes die Persöhnlichlkeit einer Person genauer beschreiben als deren Familienmitglieder oder Freunde \cite{facebookml}. 
 Die Grundlage für Machine Learning bilden Algorithmen, welche sich in folgende Arten aufteilen lassen \cite{oracleml}: 
 \begin{itemize}
-	\item supervised learning
-	\item unsupervised learning
-	\item semi-supervised learning
-	\item reinforcement learning
+	\item supervised learning,
+	\item unsupervised learning,
+	\item semi-supervised learning und
+	\item reinforcement learning.
 \end{itemize}
 
 \section{Supervised Machine Learning}
@@ -288,7 +292,7 @@ Supervised Machine Learning, im Deutschen übersetzt überwachtes Lernen, ist di
 Ähnlich wie in der Schule wenn unter Aufsicht des Lehrers oder der Lehrerin geprüft wird, ob ein Problem richtig oder falsch gelöst wird, ist die Situation bei supervised Machine Learning Algorithmen.
 Dem Algorithmus wird ein gelabelter Datensatz zum Lernen zur Verfügung gestellt, somit weiß der Algorithmus für jeden Datensatz die richtige Lösung \cite{intellipaatml}. 
 Ein gelabelter Datensatz kann z.B. ein Bild von einem Tier sein, wobei hier zusätzlich auch die Information über ein Feature mitgegeben wird, wie z.B. die Art des Tieres oder das Gewicht des Tieres (siehe Abbildung ~\ref{fig:labeled_vs_unlabeled}).
-Das Label ist die Information über ein Feature welche der Algorithmus später vorhersagen will. \cite{grokkingml}
+Das Label ist die Information über ein Feature welche der Algorithmus später vorhersagen will \cite{grokkingml}.
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=4cm]{images/labeled_vs_unlabeled.png}
@@ -305,14 +309,14 @@ Folgende Algorithmen sind Beispiele für supervised Learning \cite{geron2019hand
 	\item Decision Trees und Random Forests
 	\item Neuronale Netzwerke (wobei diese auch unsupervised oder semisupervised sein können) 
 \end{itemize}
-Klassifizierung und Regression sind klassische Anwendungsgebiete für supervised learning \cite{geron2019hands-on}.
+Klassifizierung und Regression sind klassische Anwendungsgebiete für supervised Learning \cite{geron2019hands-on}.
 \subsection{Klassifizierung}
 Bei Klassifizierungsproblemen geht es darum einen Status vorherzusagen \cite{grokkingml}, wie z.B. zu welcher Klasse oder Gruppe die Inputdaten gehören \cite{intellipaatml}. 
 Der Spam Filter ist ein gutes Beispiel für Klassifizierung, hierbei handelt es sich um zwei Klassen: Spam und nicht Spam.
 Der Algorithmus bekommt E-Mails zum Lernen, welche als Spam E-Mail oder normale E-Mail gelabelt sind, um somit für neue E-Mails herauszufinden, ob diese Spam E-Mails sind \cite{geron2019hands-on}. 
 \subsection{Regression}
 Regression ist ein Fachgebiet der Statistik und ist eine Methode um die Beziehung zwischen unabhängigen Variablen oder Merkmalen und einer abhänigen Variable oder einem Ergebnis zu verstehen.
-Sobald die Beziehung zwischen unabhängigen und abhängigen Variablen geschätzt wurde, können die Ergebnisse vorhergesagt werden. \cite{unsupervisedibm}
+Sobald die Beziehung zwischen unabhängigen und abhängigen Variablen geschätzt wurde, können die Ergebnisse vorhergesagt werden \cite{unsupervisedibm}. 
 Bei Regressionsproblemen geht es um kontinuierliche Daten \cite{intellipaatml} und darum eine Zahl vorherzusagen, wie z.B. das Vorhersagen von Aktienkursen \cite{grokkingml} oder von Grundstückspreisen \cite{intellipaatml}.
 
 \section{Unsupervised Machine Learning}
@@ -346,16 +350,18 @@ Anwendungsgebiete für Clustering sind beispielsweise Bücher die je nach Titel 
 \subsection{Assoziationsanalyse}
 Die Assoziationsanalyse ist eine Methode um herauszufinden welche Muster (Beziehungen, Korrelationen, Strukturen, ...) es in den Datensätzen gibt \cite{associationmedium}.
 Diese Methode wird häufig für Warenkorbanalysen verwendet, um ein besseres Verständis über die Beziehung zwischen den Produkten zu bekommen. 
-Beispiele davon sind z.B. auf Amazon die "Kunden, die diesen Artikel gekauft haben, kauften auch:" Anzeige oder die Spotify "Discover Weekly" Playlist. \cite{unsupervisedibm}
+Beispiele davon sind z.B. auf Amazon die \"{}Kunden, die diesen Artikel gekauft haben, kauften auch:\"{} Anzeige oder die Spotify "Discover Weekly" Playlist. \cite{unsupervisedibm}
 \subsection{Dimensionalitätsreduktion}
 Während mehr Daten grundsätzlich zu genaueren Ergebnissen führen können, so kann dies auch die Leistung von Algorithmen für machine Learning beeinträchtigen (z.B. overfitting) und die Visualisierung von Datensätzen erschweren \cite{unsupervisedibm}.
 Bei der Dimensionalitätsreduktion geht es darum, die Variablen in den Daten auf die wesentlichen und zielführenden zu beschränken (z.B. werden redundante oder noise Features entfernt) \cite{unsuperviseddatasolut}, wobei die Integrität der Daten so weit wir möglich erhalten bleiben soll \cite{unsupervisedibm}.
 Es kann für das bereinigen von Daten oder auch für das Hervorheben von Features verwendet werden, da die Daten dabei von hochdimensionalem Featureraum in niedrigdimensionalem Featureraum transformiert werden \cite{dimensionalityneptune}.
+Ein Beispiel für Dimensionalitätsreduktion könnte die Redkution von zweidimensionale Eingabedaten in eindimansionale umzuwandeln.
+%https://towardsdatascience.com/11-dimensionality-reduction-techniques-you-should-know-in-2021-dcb9500d388b
 
 \section{Semi-supervised Learning}
 \label{sec:semisupervised}
 Um die Schwierigkeiten vom Erstellen von großen gelabelten Datensätzen entgegenzuwirken gibt es eine Methode bei der ein kleiner Anteil gelabelte Daten, der Großteil jedoch ungelabelte Daten sind.
-Dieese Methode wird als semi-supervised Learning bezeichnet, welche die Benefits von unsupervised und supervised kombiniert. \cite{semisuperviseddatarobot}
+Dieese Methode wird als semi-supervised Learning bezeichnet, welche die Benefits von unsupervised und supervised kombiniert \cite{semisuperviseddatarobot}. 
 Der Algorithmus wird initial mit den wenig gelabelten Daten trainiert und kann somit iterativ mehr und mehr an die ungelabelten Daten angewandt werden.
 Self-training und Co-training sind zwei Ansätze für semi-supervised learning. \cite{semisupervisedalexsoft}
 \subsection{Self-training}
@@ -369,13 +375,17 @@ Der straightforward Ansatz wird anhand folgendem Beispiel erklärt:
 	\item Der ganze Prozess wird nun durchiteriert bis entweder alle Daten gelabelt sind oder die spezifizierte Maximalanzahl an Iterationen erreicht wird \cite{selftrainingtowardsdatasience}.
 \end{enumerate}
 Die Performance von dem Self-training Ansatz variiert von Datensatz zu Datensatz und es gilt abzuwägen ob sie im Vergeleich zu dem supervised Ansatz eine Verbesserung erzielt \cite{semisupervisedalexsoft}. 
+Ein Anwendugsfall für Self-training könnte z.B. das Erkennen von Bildrotationen sein.
+Es werden dabei z.B. Bilder in 90 Grad schritten rotiert, und durch Self-training wird herausgefunden um wieviel Grad es sich handelt.
+% https://dasha.ai/en-us/blog/self-supervised-machine-learning
+
 \subsection{Co-training}
 Co-training ist eine verbesserte Version von Self-Training, die zum Einsatz kommt, wenn nur wenig gelabelte Daten verfügbar sind \cite{semisupervisedalexsoft}.
 Bei dieser Methode benötigt es zwei Sichten auf die Daten \cite{cotrainingwiki} und basierend darauf werden zwei individuelle Klassifizierer trainiert \cite{semisupervisedalexsoft}.
 Die zwei Ansichten sind verschiedene Gruppen von Features, welche jeweils Informationen für jede Instanz beinhalten \cite{semisupervisedalexsoft}.
-Dies bewirkt dass beide Ansichten unabhängig sind und sie alleinstehend die Klasse einer Instanz vorhersagen können\cite{cotrainingwiki}.
+Dies bewirkt dass beide Ansichten unabhängig sind und sie alleinstehend die Klasse einer Instanz vorhersagen können \cite{cotrainingwiki}.
 Ein Anwendugsgebiet für Co-Training könnte die Klassifizierung von Webinhalten sein.
-Der Inhalt einer Webseite kann in zwei Ansichten aufgeteilt werden: eine mit Wörtern, und die andere mit Verweistexten der Links, welche zu dieser Seite führen. \cite{semisupervisedalexsoft}
+Der Inhalt einer Webseite kann in zwei Ansichten aufgeteilt werden: eine mit Wörtern, und die andere mit Verweistexten der Links, welche zu dieser Seite führen \cite{semisupervisedalexsoft}. 
 Der Ablauf eines Co-Trainings sieht wie folgt aus:
 \begin{enumerate}
 	\item Für jede Ansicht werden die seperaten Models mit den gelabelten Daten trainiert \cite{semisupervisedalexsoft}.
@@ -388,26 +398,28 @@ Der Ablauf eines Co-Trainings sieht wie folgt aus:
 \label{sec:reinforcement}
 Reinforcement Learning, im Deutschen übersetzt Bestärkendes oder Verstärkendes Lernen, ist eine immer beliebter werdende Methode und  befasst sich damit intelligente Lösungen für komplexe Steuerungsprobleme zu finden \cite{reinforcementat}.
 Das lernende System, welches in diesem Kontext \textit{Agent} genannt wird, beobachtet das Umfeld und führt dann Aktionen aus, für die es entweder Belohnungen oder Bestrafungen bekommt \cite{geron2019hands-on}.
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}[htbp]
+%\begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
 		\includegraphics[height=6cm]{images/reinforcement.png}
 	\caption{Beispiel von Reinforcement Learning \cite{reinforcementdatasolut}}
 	\label{fig:reinforcement}
-\end{wrapfigure}
+%\end{wrapfigure}
+\end{figure}
 Hierbei erlernt der Agent eigenständig welche Aktion für welche Situation am besten geeignet ist, um die Belohnungsfunktion zu maximieren \cite{reinforcementdatasolut}.
 Im Gegensatz zu supervised oder unsupervised learning werden beim Reinforcement Learning vorab keine Daten benötigt.
 Die Daten werden während den Trial-and-Error Trainingsdurchläufen der Simulationsumgebung generiert und gelabelt.
-Das Ziel von Reinforcement Learning ist es eine bestmöglichste Policy zu erreichen. \cite{reinforcementat}
-Als Policy wird die Strategie bezeichnet, welche der Agent ausführt und gibt an welche Aktion als nächstes ausgeführt werden soll\cite{reinforcementdatasolut} um die Belohnung zu maximieren \cite{reinforcementat}.
+Das Ziel von Reinforcement Learning ist es eine bestmöglichste Policy zu erreichen \cite{reinforcementat}. 
+Als Policy wird die Strategie bezeichnet, welche der Agent ausführt und gibt an welche Aktion als nächstes ausgeführt werden soll \cite{reinforcementdatasolut} um die Belohnung zu maximieren \cite{reinforcementat}.
 Reinforcement Learning anhand eines Beispieles:
-Die Katze (siehe Abbildung , welche in diesem Beispiel der Agent ist, befindet sich im Haus (Umgebung) und kann die zwei Zustände sitzen oder bewegen haben.
+Die Katze (siehe Abbildung \ref{reinforcement}), welche in diesem Beispiel der Agent ist, befindet sich im Haus (Umgebung) und kann die zwei Zustände sitzen oder bewegen haben.
 Wenn die Katze nun eine Aktion ausführt, so kann sie ihren Zustand ändern, wofür sie eine Belohnung oder eine Strafe erhalten kann.
 
 \section{Neuronale Netzwerke}
 \label{sec:neuronalnetworks}
 Die Anfänge von künstlichen neuronalen Netzwerken machten 1943 der Neuropsychologe Warren MCCulloch und der Mathematiker Walter Pitts.
 Sie stellten ein vereinfachtes Computermodell vor, welches wie biologische Neuronen in Tiergehirnen zusammenarbeitet \cite{geron2019hands-on}, um komplexe Aufgaben aus den Bereichen Statistik, Wirtschaft und Informatik lösen zu können \cite{nndatasolutbasic}.
-Dies gilt als erste Architektur für künstliche neuronale Netzwerke und seither wurden viele weitere Architekturen entwicklet. \cite{geron2019hands-on}
+Dies gilt als erste Architektur für künstliche neuronale Netzwerke und seither wurden viele weitere Architekturen entwicklet \cite{geron2019hands-on}. 
 "Künstliche neuronale Netze, auch künstliche neuronale Netzwerke, kurz: KNN (englisch artificial neural network, ANN), sind Netze aus künstlichen Neuronen." \cite{nnwiki}
 Der Ursprung von künstlichen Neuronen sind die biologische Neuronen, welche in tierischen Gehirnen zu finden sind.
 Neuronen kommunizieren in dem sie kurze elektrische Impulse über Synapsen versenden, bzw. empfangen.
@@ -431,7 +443,7 @@ Künstliche neuronale Netzwerke können verschiedene Datenquellen wie Geräusche
 Grundsätzlich weisen künstliche neuronale Netzwerke die Strukturen gerichteter Graphen auf, können aber je nach komplexität unterschiedlich aufgebaut sein. \cite{nndatasolutbasic}
 Angelehnt an die Struktur eines biologischen neuronalen Netzwerkes besteht ein künstliches neuronales Netzwerk ebenfalls aus Neuronen, welche in Layern (Schichten) angeordnet sind.
 Ein solches Netzwerk besteht aus einem Input-Layer, einem (oder mehreren) Hidden-Layer und einem Output-Layer (veranschaulicht in Abbildung ~\ref{fig:neural_network}), wobei jeder dieser Layer eine Vielzahl an Neuronen beinhaltet.
-Desto komplexer das zu lösende Problem ist, umso mehr Layer werden benötigt. \cite{nnionos}
+Desto komplexer das zu lösende Problem ist, umso mehr Layer werden benötigt \cite{nnionos}. 
 Der Input-Layer nimmt die eingegebenen Daten entgegen, verarbeitet und gewichtet diese, bevor sie an den Hidden-Layer weiter gegeben wird \cite{nndatasolutbasic}.
 Der Hidden-Layer befindet sich zwischen Input und Output-Layer \cite{nndatasolutbasic} und kann aus einem oder mehreren Layern bestehen und ist der Layer, in dem die meisten Berechnungen stattfinden \cite{nnmedium}.
 Auch in diesem Layer finden wieder Gewichtungen statt.
@@ -451,7 +463,7 @@ Im biologischen Kontext können Gewichte mit Synapsen verglichen werden \cite{GU
 Kombiniert mit einer Übertragungsfunktion entscheidet das Gewicht über den Input eines Neurons \cite{nnionos}.
 Bei den künstlichen neuronalen Netzwerken kombiniert ein Neuron die Eingangssignale mit zugeordneten Gewichten, welche die Bedeutung des Signals schwächen oder verstärken. 
 Nach dem Aufsummieren wird das Ergebnis durch eine Aktivierungsfunktion gegeben um zu berechnen ob, und mit welchem Ausmaß das Ausgangssignal weitergesendet wird.
-Das Neuron wird als aktiviert bezeichnet, wenn es ein Ausgangssignal versendet. \cite{nnpathmind}
+Das Neuron wird als aktiviert bezeichnet, wenn es ein Ausgangssignal versendet \cite{nnpathmind}. 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=5cm]{images/neuron2.png}
@@ -731,18 +743,25 @@ In Abbildung \ref{fig:cnn_architecture} ist ein beispielhafter Aufbau eines CNNs
 Die Convolutional-Schicht ist der zentrale Baustein eines CNN, in dem der Großteil der Berechnungen stattfindet \cite{cnnibm}.
 Es  ist die eigentliche Faltungsebene und ist fähig aus den Daten Mermale wie Kanten, Linien oder bestimmte Formen zu erkennen und extrahieren \cite{cnnbigdata}.
 Hauptanwendungen von CNNs sind Anwendungen mit Bildern, Sprache oder Audio Signalen \cite{cnnibm}.
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{figure}[htbp]
 	\centering
 		\includegraphics[height=4.5cm]{images/cnn_convolutional_example.png}
 	\caption{Beispiel einer Convolution \cite{cnnieee}}
 	\label{fig:convolution_example}
-\end{wrapfigure}
-\begin{wrapfigure}{r}{0.55\textwidth}
-	\centering
-		\includegraphics[height=5cm]{images/cnn_filter.png}
-	\caption{CNN Filter \cite{cnnibm}}
-	\label{fig:cnn_filter}
-\end{wrapfigure}
+\end{figure}
+%\begin{wrapfigure}{l}{0.4\textwidth}
+%	\centering
+%		\includegraphics[height=4.5cm]{images/cnn_convolutional_example.png}
+%	\caption{Beispiel einer Convolution \cite{cnnieee}}
+%	\label{fig:convolution_example}
+%\end{wrapfigure}
+%\begin{wrapfigure}{r}{0.55\textwidth}
+%	\centering
+%		\includegraphics[height=5cm]{images/cnn_filter.png}
+%	\caption{CNN Filter \cite{cnnibm}}
+%	\label{fig:cnn_filter}
+%\end{wrapfigure}
+
 Um den Vergleich zu einem vollständig vernetztes neuronales Netzwerk, welches Pixel als Eingabe nimmt, folgt ein Beispiel.
 Angenommen es handelt sich z.B. um ein 32 Pixel Breit und 32 Hoches Bild, so werden hierfür bereits 32x32x3 (=3072) gewichtete Verbindungen benötigt.
 32 für jeweils Breite und Höhe und dann noch jeweils 3 Kanäle für RGB.
@@ -752,7 +771,12 @@ Um effizienter als normale vollständig vernetzte neuronale Netzwerke zu sein, b
 Wie in Abbildung \ref{fig:convolution_example} zusehen ist, bekommt der nächste Layer nur den dazugehörigen Teil von dem davorigen Layer, was in diesem Beispiel eine Verbindung zu einem 5x5 Neuron sein könnte.
 Dadurch wird die Anzahl der benötigten gewichteten Verbindugen reduziert, da sich das CNN nur auf einen Teilbereich der Eingabedaten konzentriert.
 Um die Anazhl der gewichteten Verbindungen weiter zu verringern können lokale gewichtete Verbindungen für die gesamten Neuronen des nächsten Layers beibehalten werden. \cite{cnnieee}
-
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/cnn_filter.png}
+	\caption{CNN Filter \cite{cnnibm}}
+	\label{fig:cnn_filter}
+\end{figure}
 Ein weiterer ähnlicher Ansatz ist ein Einfügen eines Fensters (z.B.5x5x3) \cite{cnnieee}, welches auch Kernel oder Filter genannt wird \cite{cnntowards} und welches über die Eingangsneuronen geschoben wird, und somit die dazugehörige Ausgabe an den dazugehörigen Platz verbindet \cite{cnnieee}.
 Dieser Filter oder auch Feature-Detektor ist ein zweidimensionales Array bestehend aus Gewichten, welche Teile des Bildes repräsentieren.
 Eine typische Größe dafür ist eine 3x3 Matrix, diese kann jedoch variieren.
@@ -808,7 +832,13 @@ Es gibt verschiedene Arten von Pooling:
 \end{figure}
 
 \subsubsection{Vollständig verbundenes neuronales Netzwerk}
-
+Das vollständig verbundene neuronale Netzwerk folgt auf die Abfolgen von Convolutional- und Polling Schicht und bildet den Abschluss des convolutional neuronalen Netzwerk \cite{cnnbigdata}.
+Der Aufbau des vollständig verbundenen neuronalen Netzwerk ähnelt der Art und Weise, wie die Neuronen in einem herkömmlichen neuronalen Netz angeordnet sind.
+Jedes Neuron ist vollständig mit den Neuronen aus der vorherigen, und auch der nächsten Schicht verbunden \cite{cnnieee}.
+Abhängig von den Klassen und Objekten, welche das neuronale Netzwerk bestimmen soll, werden die Anzahl der Neuronen bestimmt \cite{cnnbigdata}.
+Der größte Nachteil der voll vernetzten Schicht ist es, dass es viele Parameter enthält, welche komplexe Berechnungen benötigen.
+Um die Anzahl der Neuronen und Verbindungen zu verringern kann die Droput-Technik verwendet werden \cite{cnnieee}.
+Über mehrere Epochen hinweg ist das Model in der Lage, zwischen dominierenden und bestimmten niederschwelligen Merkmalen in Bildern zu unterscheiden und diese mit Hilfe von Softmax zu klassifizieren \cite{cnntowards}.
 
 %https://ieeexplore-1ieee-1org-1tn53mdbb0c2d.han.fh-campuswien.ac.at/stamp/stamp.jsp?tp=&arnumber=8308186
 %https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
@@ -818,9 +848,35 @@ Es gibt verschiedene Arten von Pooling:
 
 \subsection{Siamese Networks}
 \label{siamesenetworks}
+Im Bereich von Deep learning sind neuronale Netzwerke für fast jede Aufgabe geeignet, um jedoch gute Ergebnisse liefern zu können, sind diese auf ausreichend Daten angewiesen.
+Traditionell werden sie verwendet um verschiedene Klassen vorherzusagen, wenn jedoch eine neue Klasse hinzukommt, so muss das neuronale Netzwerk aktualisert und erneut trainiert werden.
+Zusätzlich sind meist nur wenige Daten für   bestimmte Probleme wie z.B. Gesichtserkennung oder Unterschriftenprüfung verfügbar.
+Um diese Art von Problemen zu lösen wurden Siamesische Netzwerke entwickelt, welche eine neue Architekturart von neuronalen Netzwerken sind. \cite{siamesetowards}
+Erstmals wurden diese Netzwerke 1990 von Bromley und LeCun zum Zweck der Unterschriftenverifikation entwickelt \cite{siameseieee}.
+Da Siamesische Netzwerke nur wenige Daten benötigen, wurden diese über die letzten Jahre immer beliebter.
+Meist werden sie verwendet um Ähnlichkeiten in den Eingabedaten zu vergleichen \cite{siamesetowards}.
+
+\subsubsection{Architektur Siamese Network}
+Ein simaesischen Netzwerk (auch twin network genannt) hat seinen Namen von siamesischen Zwilligen, welche Zwillige sind, die phyiskalisch miteinander verbunden sind \cite{siamesepyimage}.
+Es besteht aus zwei oder mehreren sogenannten Teil- oder Zwilligsnetzwerken, welche unterschiedliche Eingaben akzeptieren und identisch sind \cite{siameseieee, siamesetowards}.
+Identisch bedeuted in diesem Fall dass die Teilnetzwerke die gleiche Konfiguration mit denselben Parametern und Gewichten besitzen.
+Wenn Parameter aktualisiert werden, so werden diese gespiegelt in allen Teilnetzwerken ebenfalls aktualisiert \cite{siamesetowards}.
+Eine Beispielarchitektur für ein siamesischen Netzwerk ist Abbildung \ref{fig:siamese_network} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=7cm]{images/siamese_network.png}
+	\caption{Beispielarchitektur Siamesisches Netzwerk \cite{siamesepyimage}}
+	\label{fig:siamese_network}
+\end{figure}
+In diesem Fall werden zwei Bilder von handgeschriebenen Zahlen in zwei identische CNNs gegeben und anschließend wird die Euklidische Distanz berechnet.
+Am Ende wird in die Sigmoid Aktivierungsfunktion angewandt, um anhand eines Ergebnises zwischen 0 und 1 die Ähnlichkeit auszudrücken.
+
+% https://www.cs.cmu.edu/~rsalakhu/papers/oneshot1.pdf                    https://www.semanticscholar.org/paper/Siamese-Neural-Networks-for-One-Shot-Image-Koch/f216444d4f2959b4520c61d20003fa30a199670a
+% https://towardsdatascience.com/a-friendly-introduction-to-siamese-networks-85ab17522942
 
 \chapter{Prototyp zur Bildähnlichkeitserkennung von Markenlogos}
 \label{chap:prototype}
+In diesem Kapitel wird der Versuch beschrieben, einen Prototypen zu entwickeln, welcher zwei EIngabedaten entgegen nimmt und deren Ähnlichkeit ermitteln kann.
 
 \section{Daten}
 \label{sec:data}
@@ -974,6 +1030,10 @@ Es gibt verschiedene Arten von Pooling:
 
 \newpage
 \chapter{Diskussion der Ergebnise}
+Vergleich SIFT vs. CNN. vs. Simaese Network
+SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung
+traditionelles CNN: benötigt Trainingsdaten, benötigt Bildvorverarbeitung
+Siamese Network (mit CNN): benötigt nur wenige Daten um zu lernen, benötigt Bildvorverarbeitung
 
 \newpage
 \chapter{Conclusio}

@@ -13,6 +13,7 @@ import siamese_network
 import tensorflow.keras.backend as K
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 def pairwise(t):
     it = iter(t)
@@ -24,23 +25,25 @@ def load_and_resize_images_from_folder(folder):
         img = load_img(os.path.join(folder,filename),  target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
         img = img_to_array(img)
         img = img.reshape(img.shape)
-        img = img / 255.0
+        # img = img / 255.0
         img = np.expand_dims(img, axis=-1)
         # print(img.shape)
         if img is not None:
             images.append(img)
     return images
 
-def plot_pairs(pairs):
+def plot_pairs(pairs, titles):
 	columns = 2
 	rows = 8
 	fig, axs = plt.subplots(rows, columns)
 	for row in range(rows):
 		pair = pairs[row]
+		title = titles[row]
 		for column in range(columns):
 			img = pair[column]
 			axs[row, column].imshow(img.astype('uint8'))
 			axs[row, column].axis('off')
+			axs[row, column].set_title(title)
 	plt.show()
 
 
@@ -63,7 +66,12 @@ def make_pairs(positive_path, negative_path):
 	for pair in negative_pairs:
 		pairImages.append(pair)
 		pairLabels.append([0])
-	return (np.array(pairImages), np.array(pairLabels))
+	
+	combined_lists = list(zip(pairImages, pairLabels))
+	random.shuffle(combined_lists)
+	pairImages_shuffled, pairLabels_shuffled = zip(*combined_lists)
+	# plot_pairs(pairImages_shuffled,pairLabels_shuffled)
+	return (np.array(pairImages_shuffled), np.array(pairLabels_shuffled))
 
 def contrastive_loss(y, preds, margin=1):
 	# explicitly cast the true class label data type to the predicted
@@ -91,7 +99,9 @@ def build_model():
 	model = Model(inputs=[imgA, imgB], outputs=outputs)
 	# compile the model
 	print("[INFO] compiling model...")
-	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+	# opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+	# model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+	model.compile(loss=contrastive_loss, optimizer="adam", metrics=["accuracy"])
 	return model
 
 def euclidean_distance(vectors):

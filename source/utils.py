@@ -14,6 +14,7 @@ import tensorflow.keras.backend as K
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+from sklearn.model_selection import train_test_split
 
 def pairwise(t):
     it = iter(t)
@@ -26,7 +27,7 @@ def load_and_resize_images_from_folder(folder):
         img = img_to_array(img)
         img = img.reshape(img.shape)
         # img = img / 255.0
-        img = np.expand_dims(img, axis=-1)
+        # img = np.expand_dims(img, axis=-1)
         # print(img.shape)
         if img is not None:
             images.append(img)
@@ -47,7 +48,7 @@ def plot_pairs(pairs, titles):
 	plt.show()
 
 
-def make_pairs(positive_path, negative_path):
+def make_test_and_train_pairs(positive_path, negative_path, test_size):
 	images = load_and_resize_images_from_folder(positive_path)
 	positive_pairs = pairwise(images)
 	# plot_pairs(positive_pairs)
@@ -58,20 +59,21 @@ def make_pairs(positive_path, negative_path):
 	# initialize two empty lists to hold the (image, image) pairs and
 	# labels to indicate if a pair is positive or negative
 	pairImages = []
-	pairLabels = []
+	labels = []
 
 	for pair in positive_pairs:
 		pairImages.append(pair)
-		pairLabels.append([1])
+		labels.append([1])
 	for pair in negative_pairs:
 		pairImages.append(pair)
-		pairLabels.append([0])
+		labels.append([0])
 	
-	combined_lists = list(zip(pairImages, pairLabels))
-	random.shuffle(combined_lists)
-	pairImages_shuffled, pairLabels_shuffled = zip(*combined_lists)
+	# combined_lists = list(zip(pairImages, labels))
+	# random.shuffle(combined_lists)
+	# pairImages_shuffled, labels_shuffled = zip(*combined_lists)
+	images_train, images_test, labels_train, labels_test = train_test_split(pairImages, labels, test_size=test_size)
 	# plot_pairs(pairImages_shuffled,pairLabels_shuffled)
-	return (np.array(pairImages_shuffled), np.array(pairLabels_shuffled))
+	return (np.array(images_train), np.array(labels_train), np.array(images_test), np.array(labels_test))
 
 def contrastive_loss(y, preds, margin=1):
 	# explicitly cast the true class label data type to the predicted
@@ -101,7 +103,8 @@ def build_model():
 	print("[INFO] compiling model...")
 	# opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
 	# model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
-	model.compile(loss=contrastive_loss, optimizer="adam", metrics=["accuracy"])
+	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+	# model.compile(loss=contrastive_loss, optimizer="adam", metrics=["accuracy"])
 	return model
 
 def euclidean_distance(vectors):

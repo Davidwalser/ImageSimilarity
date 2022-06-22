@@ -14,9 +14,11 @@ from pathlib import Path
 
 # prepare the positive and negative pairs
 print("[INFO] preparing positive and negative pairs...")
-(pairTrain, labelTrain) = utils.make_pairs(Path("./SurveyPictures/PositivePairs_train"),Path("./SurveyPictures/NegativePairs_train"))
-(pairTest, labelTest) = utils.make_pairs(Path("./SurveyPictures/PositivePairs_test"),Path("./SurveyPictures/NegativePairs_test"))
+(pairTrain, labelTrain, pairTest, labelTest) = utils.make_test_and_train_pairs(Path("./SurveyPictures/PositivePairs_train"),Path("./SurveyPictures/NegativePairs_train"), config.TEST_SPLIT)
+# (pairTest, labelTest) = utils.make_pairs(Path("./SurveyPictures/PositivePairs_test"),Path("./SurveyPictures/NegativePairs_test"))
 # configure the siamese network
+print('pairs train size: '+ str(len(pairTrain)))
+print('pairs test size: '+ str(len(pairTest)))
 print("[INFO] building siamese network...")
 model = utils.build_model()
 # compile the model

@@ -5,8 +5,9 @@ IMG_WIDTH = 160
 IMG_HEIGHT = 160
 IMG_SHAPE = (IMG_WIDTH, IMG_HEIGHT, 3)
 # specify the batch size and number of epochs
-BATCH_SIZE = 10
-EPOCHS = 50
+TEST_SPLIT=0.25
+BATCH_SIZE = 64
+EPOCHS = 200
 
 # define the path to the base output directory
 BASE_OUTPUT = "output"

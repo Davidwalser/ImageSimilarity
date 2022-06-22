@@ -21,15 +21,10 @@ print('pairs train size: '+ str(len(pairTrain)))
 print('pairs test size: '+ str(len(pairTest)))
 print("[INFO] building siamese network...")
 model = utils.build_model()
-# compile the model
-# print("[INFO] compiling model...")
-# # optimizer = keras.optimizers.Adam(lr=0.001)
-# # model.compile(loss=utils.contrastive_loss, optimizer="adam", metrics=["accuracy"])
-# model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 # train the model
-print(pairTrain[0].shape)
-print(pairTrain[:, 0].shape)
-print(pairTrain[:, 1].shape)
+# print(pairTrain[0].shape)
+# print(pairTrain[:, 0].shape)
+# print(pairTrain[:, 1].shape)
 print("[INFO] training model...")
 history = model.fit(
 	[pairTrain[:, 0], pairTrain[:, 1]], labelTrain[:],

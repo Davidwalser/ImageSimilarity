@@ -40,3 +40,4 @@ model.save_weights(config.WEIGHTS_PATH)
 # plot the training history
 print("[INFO] plotting training history...")
 utils.plot_training(history, config.PLOT_PATH)
+utils.plot_training(history, config.PLOT_PATH_ZOOM, True)

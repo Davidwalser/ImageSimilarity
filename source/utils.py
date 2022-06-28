@@ -130,7 +130,7 @@ def euclidean_distance(vectors):
 	# return the euclidean distance between the vectors
 	return K.sqrt(K.maximum(sumSquared, K.epsilon()))
 
-def plot_training(H, plotPath):
+def plot_training(H, plotPath, zoom=False):
 	# construct a plot that plots and saves the training history
 	plt.style.use("ggplot")
 	plt.figure()
@@ -142,8 +142,8 @@ def plot_training(H, plotPath):
 	plt.xlabel("Epoch #")
 	plt.ylabel("Loss/Accuracy")
 	plt.legend(loc="lower left")
-	# plt.ylim(bottom=-1)
-	plt.ylim(top=1)
+	if(zoom):
+		plt.ylim(top=1)
 	plt.savefig(plotPath)
 
 def plot_featuremaps(image):
@@ -183,41 +183,6 @@ def plot_featuremaps(image):
 	# 	# plt.imshow(features[0,:,:,i-1] , cmap='gray')
 	# 	plt.imshow(features[0,i-1] , cmap='gray')
 	# plt.show()
-
-def make_pairs_old(images, labels):
-	# initialize two empty lists to hold the (image, image) pairs and
-	# labels to indicate if a pair is positive or negative
-	pairImages = []
-	pairLabels = []
-	# calculate the total number of classes present in the dataset
-	# and then build a list of indexes for each class label that
-	# provides the indexes for all examples with a given label
-	numClasses = len(np.unique(labels))
-	idx = [np.where(labels == i)[0] for i in range(0, numClasses)]
-	# loop over all images
-	for idxA in range(len(images)):
-		# grab the current image and label belonging to the current
-		# iteration
-		currentImage = images[idxA]
-		label = labels[idxA]
-		# randomly pick an image that belongs to the *same* class
-		# label
-		idxB = np.random.choice(idx[label])
-		posImage = images[idxB]
-		# prepare a positive pair and update the images and labels
-		# lists, respectively
-		pairImages.append([currentImage, posImage])
-		pairLabels.append([1])
-		# grab the indices for each of the class labels *not* equal to
-		# the current label and randomly pick an image corresponding
-		# to a label *not* equal to the current label
-		negIdx = np.where(labels != label)[0]
-		negImage = images[np.random.choice(negIdx)]
-		# prepare a negative pair of images and update our lists
-		pairImages.append([currentImage, negImage])
-		pairLabels.append([0])
-	# return a 2-tuple of our image pairs and labels
-	return (np.array(pairImages), np.array(pairLabels))
 
 class Image:
 	def __init__(self, image_array, filename):

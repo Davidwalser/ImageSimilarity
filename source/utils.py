@@ -142,6 +142,7 @@ def plot_training(H, plotPath, zoom=False):
 	plt.xlabel("Epoch #")
 	plt.ylabel("Loss/Accuracy")
 	plt.legend(loc="lower left")
+	plt.ylim(bottom=-0.5)
 	if(zoom):
 		plt.ylim(top=1)
 	plt.savefig(plotPath)

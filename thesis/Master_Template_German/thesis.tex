@@ -876,7 +876,8 @@ Am Ende wird in die Sigmoid Aktivierungsfunktion angewandt, um anhand eines Erge
 
 \chapter{Prototyp zur Bildähnlichkeitserkennung von Markenlogos}
 \label{chap:prototype}
-In diesem Kapitel wird der Versuch beschrieben, einen Prototypen zu entwickeln, welcher zwei EIngabedaten entgegen nimmt und deren Ähnlichkeit ermitteln kann.
+In diesem Kapitel wird der Versuch beschrieben, einen Prototypen zu entwickeln, welcher zwei Eingabedaten entgegen nimmt und deren Ähnlichkeit ermitteln kann.
+Es wird einerseits ein Versuch mittels \textbf{SIFT} und andererseits en Versuch mit einem \textbf{Siamesischem Netzwerk} beschrieben.
 
 \section{Daten}
 \label{sec:data}
@@ -888,7 +889,33 @@ In diesem Kapitel wird der Versuch beschrieben, einen Prototypen zu entwickeln, 
 \label{sec:algorithm}
 
 
+\newpage
+\chapter{Diskussion der Ergebnise}
+Vergleich SIFT vs. Simaese Network
+skizze: SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung, ist schnell, schlechte generalisierung, simple implementierung
+Siamese Network (mit CNN): benötigt Trainingsdaten um zu lernen, benötigt Bildvorverarbeitung, viele Parameter zu setzen
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{|c|c|m{20em}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Algorithmus & Vorteile & Nachteile \\
+		\hline
+		SIFT & tbd. VORTEILE & tbd. NACHTEILE  \\
+		Siamese Network & tbd. VORTEILE & tbd. NACHTEILE  \\
+		\hline	
+		\end{tabular}
+	\caption{Vergleich SIFT vs. Simaese Network}
+	\label{tab:siftvssiamese}
+\end{table*}
 
+\newpage
+\chapter{Conclusio}
+
+\newpage
+\chapter{Ausblick}
+
+\newpage
 
 
 %\chapter{Examples}
@@ -1028,20 +1055,6 @@ In diesem Kapitel wird der Versuch beschrieben, einen Prototypen zu entwickeln, 
 %\newpage
 %\chapter{Related Work}
 
-\newpage
-\chapter{Diskussion der Ergebnise}
-Vergleich SIFT vs. CNN. vs. Simaese Network
-SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung
-traditionelles CNN: benötigt Trainingsdaten, benötigt Bildvorverarbeitung
-Siamese Network (mit CNN): benötigt nur wenige Daten um zu lernen, benötigt Bildvorverarbeitung
-
-\newpage
-\chapter{Conclusio}
-
-\newpage
-\chapter{Ausblick}
-
-\newpage
 
 % --- Bibliography ------------------------------------------------------
 

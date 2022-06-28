@@ -17,21 +17,20 @@ import random
 from sklearn.model_selection import train_test_split
 
 def pairwise(t):
-    it = iter(t)
-    return list(zip(it,it))
+	it = iter(t)
+	return list(zip(it,it))
 
 def load_and_resize_images_from_folder(folder):
-    images = []
-    for filename in os.listdir(folder):
-        img = load_img(os.path.join(folder,filename),  target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
-        img = img_to_array(img)
-        img = img.reshape(img.shape)
-        # img = img / 255.0
-        # img = np.expand_dims(img, axis=-1)
-        # print(img.shape)
-        if img is not None:
-            images.append(img)
-    return images
+	images = []
+	for filename in os.listdir(folder):
+		img = load_img(os.path.join(folder,filename),  target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
+		img = img_to_array(img)
+		img = img.reshape(img.shape)
+		# img = np.expand_dims(img, axis=-1)
+		# np.expand_dims(img1.image_array, axis=0)
+		if img is not None:
+			images.append(Image(img,filename))
+	return images
 
 def plot_pairs(pairs, titles):
 	columns = 2
@@ -47,14 +46,29 @@ def plot_pairs(pairs, titles):
 			axs[row, column].set_title(title)
 	plt.show()
 
+def plot_imagepairs(pairs, titles, rows = 8):
+	columns = 2
+	fig, axs = plt.subplots(rows, columns)
+	for row in range(rows):
+		pair = pairs[row]
+		title = titles[row]
+		for column in range(columns):
+			img = pair[column]
+			axs[row, column].imshow(img.image_array.astype('uint8'))
+			axs[row, column].axis('off')
+			axs[row, column].set_title(title)
+	plt.show()
+
 
 def make_test_and_train_pairs(positive_path, negative_path, test_size):
 	images = load_and_resize_images_from_folder(positive_path)
-	positive_pairs = pairwise(images)
+	image_arrays = (image.image_array for image in images)
+	positive_pairs = pairwise(image_arrays)
 	# plot_pairs(positive_pairs)
 
 	images = load_and_resize_images_from_folder(negative_path)
-	negative_pairs = pairwise(images)
+	image_arrays = (image.image_array for image in images)
+	negative_pairs = pairwise(image_arrays)
 	# plot_pairs(negative_pairs)
 	# initialize two empty lists to hold the (image, image) pairs and
 	# labels to indicate if a pair is positive or negative
@@ -128,8 +142,47 @@ def plot_training(H, plotPath):
 	plt.xlabel("Epoch #")
 	plt.ylabel("Loss/Accuracy")
 	plt.legend(loc="lower left")
+	# plt.ylim(bottom=-1)
+	plt.ylim(top=1)
 	plt.savefig(plotPath)
 
+def plot_featuremaps(image):
+	model = build_model()
+	model.load_weights(config.WEIGHTS_PATH)
+	for i in range(len(model.layers)):
+		layer = model.layers[i]
+		# check for convolutional layer
+		# if 'conv' not in layer.name:
+		# 	continue
+		# summarize output shape
+		print(i, layer.name, layer.output.shape)
+	# redefine model to output right after the first hidden layer
+	# layers = model.layers
+	# inputs = model.inputs
+	# cloned_model = clone_model(model)
+	model_input_1 = Model(inputs=model.inputs, outputs=model.layers[0].output)
+	# model_input_2 = Model(inputs=inputs, outputs=model.layers[1].output)
+	feature_maps = model_input_1.predict(image)
+	# plot all 64 maps in an 8x8 squares
+	square = 1
+	ix = 1
+	for _ in range(square):
+		for _ in range(square):
+			# specify subplot and turn of axis
+			ax = plt.subplot(square, square, ix)
+			ax.set_xticks([])
+			ax.set_yticks([])
+			# plot filter channel in grayscale
+			plt.imshow(feature_maps[0, :, :, ix-1], cmap='gray')
+			ix += 1
+	# show the figure
+	plt.show()
+	# fig = plt.figure(figsize=(20,15))
+	# for i in range(1,features.shape[0]+1):
+	# 	plt.subplot(8,8,i)
+	# 	# plt.imshow(features[0,:,:,i-1] , cmap='gray')
+	# 	plt.imshow(features[0,i-1] , cmap='gray')
+	# plt.show()
 
 def make_pairs_old(images, labels):
 	# initialize two empty lists to hold the (image, image) pairs and
@@ -165,3 +218,8 @@ def make_pairs_old(images, labels):
 		pairLabels.append([0])
 	# return a 2-tuple of our image pairs and labels
 	return (np.array(pairImages), np.array(pairLabels))
+
+class Image:
+	def __init__(self, image_array, filename):
+		self.image_array = image_array
+		self.filename = filename

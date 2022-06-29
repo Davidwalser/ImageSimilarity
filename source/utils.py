@@ -1,8 +1,8 @@
 import os
 import config
 from pathlib import Path
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
+from tensorflow.keras.utils import load_img
+from tensorflow.keras.utils import img_to_array
 from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense

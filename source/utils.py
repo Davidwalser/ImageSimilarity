@@ -23,18 +23,18 @@ def pairwise(t):
 def load_and_resize_images_from_folder(folder):
 	images = []
 	for filename in os.listdir(folder):
-		img = load_img(os.path.join(folder,filename),  target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
+		img = load_img(os.path.join(folder,filename), grayscale=False, color_mode='rgb', target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
 		img = img_to_array(img)
 		img = img.reshape(img.shape)
+		img=img/255.
 		# img = np.expand_dims(img, axis=-1)
 		# np.expand_dims(img1.image_array, axis=0)
 		if img is not None:
 			images.append(Image(img,filename))
 	return images
 
-def plot_pairs(pairs, titles):
+def plot_pairs(pairs, titles, rows = 8):
 	columns = 2
-	rows = 8
 	fig, axs = plt.subplots(rows, columns)
 	for row in range(rows):
 		pair = pairs[row]

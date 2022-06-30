@@ -28,7 +28,8 @@ model = utils.build_model()
 print("[INFO] training model...")
 history = model.fit(
 	[pairTrain[:, 0], pairTrain[:, 1]], labelTrain[:],
-	validation_data=([pairTest[:, 0], pairTest[:, 1]], labelTest[:]),
+	validation_data=([pairTest[:, 0], pairTest[:
+	, 1]], labelTest[:]),
 	batch_size=config.BATCH_SIZE,
 	# shuffle=True,
 	epochs=config.EPOCHS)

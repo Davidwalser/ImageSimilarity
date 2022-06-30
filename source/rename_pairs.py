@@ -32,5 +32,5 @@ def make_random_negative_pairs(sourceFolder, destinationFolder, count):
             shutil.copyfile(file1, destinationFolder + '\\neg_' + str(x) + '_1.gif')
             shutil.copyfile(file2, destinationFolder + '\\neg_' + str(x) + '_2.gif')
 
-# make_random_negative_pairs("D:\Study\FH-Campus\MasterThesis\source\images\Images", "D:\Study\FH-Campus\MasterThesis\source\SurveyPictures\\NegativePairs", 300)
+# make_random_negative_pairs("C:\Study\FH_Campus\MasterThesis\source\Images", "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\\NegativePairs", 300)
 rename_pairs('test', './SurveyPictures/Random_Test')

@@ -14,8 +14,8 @@ similarities = []
 for img1, img2 in images:
 	imageA = np.expand_dims(img1.image_array, axis=0)
 	imageB = np.expand_dims(img2.image_array, axis=0)
-	pred = model.predict([imageA, imageB])
+	prediction = model.predict([imageA, imageB])
 	# utils.plot_featuremaps([imageA, imageB])
-	similarities.append(pred[0][0])
-	print("Similarity for {} and {} :  {:.2f}".format(img1.filename, img2.filename, pred[0][0]))
+	similarities.append(prediction[0][0])
+	print("Similarity for {} and {} :  {:.2f}".format(img1.filename, img2.filename, prediction[0][0]))
 utils.plot_imagepairs(image_pairs, similarities)

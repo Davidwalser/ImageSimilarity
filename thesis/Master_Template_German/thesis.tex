@@ -421,10 +421,17 @@ Die Anfänge von künstlichen neuronalen Netzwerken machten 1943 der Neuropsycho
 Sie stellten ein vereinfachtes Computermodell vor, welches wie biologische Neuronen in Tiergehirnen zusammenarbeitet \cite{geron2019hands-on}, um komplexe Aufgaben aus den Bereichen Statistik, Wirtschaft und Informatik lösen zu können \cite{nndatasolutbasic}.
 Dies gilt als erste Architektur für künstliche neuronale Netzwerke und seither wurden viele weitere Architekturen entwicklet \cite{geron2019hands-on}. 
 "Künstliche neuronale Netze, auch künstliche neuronale Netzwerke, kurz: KNN (englisch artificial neural network, ANN), sind Netze aus künstlichen Neuronen." \cite{nnwiki}
-Der Ursprung von künstlichen Neuronen sind die biologische Neuronen, welche in tierischen Gehirnen zu finden sind.
+Der Ursprung von künstlichen Neuronen (veranschaulicht in Abbildung \ref{fig:neuron}) sind die biologische Neuronen, welche in tierischen Gehirnen zu finden sind.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/neuron2.png}
+	\caption{Aufbau eines Neurons \cite{nndatasolutbasic}}
+	\label{fig:neuron}
+\end{figure}
+
 Neuronen kommunizieren in dem sie kurze elektrische Impulse über Synapsen versenden, bzw. empfangen.
 Erhält ein Neuron eine ausreichende Anzahl an Signalen innerhalb weniger Millisekunden, so feuert dies eigene Signale weiter.
-Die einzelnen Neuronen sind in einem Netzwerk mit Milliarden von anderen Neuronen verbunden, in dem sie in fortlaufenden Layern eingegliederd sind (siehe Abbildung \ref{fig:biological_nn}). \cite{geron2019hands-on}
+Die einzelnen Neuronen sind in einem Netzwerk mit Milliarden von anderen Neuronen verbunden, in dem sie in fortlaufenden Layern eingegliederd sind (siehe Abbildung \ref{fig:biological_nn}) \cite{geron2019hands-on}. 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=4cm]{images/biological_nn.png}
@@ -440,14 +447,15 @@ Künstliche neuronale Netzwerke spiegeln das Verhalten des menschlichen Gehirns 
 %	\label{fig:neuronal_network}
 %\end{wrapfigure}
 Künstliche neuronale Netzwerke können verschiedene Datenquellen wie Geräusche, Bilder, Texte, Tabellen oder Zeitreihen interpretieren, woraus sie Informationen extrahieren und Muster erkennen um später auf unbekannte Daten Vorhersagen treffen zu können.
-Grundsätzlich weisen künstliche neuronale Netzwerke die Strukturen gerichteter Graphen auf, können aber je nach komplexität unterschiedlich aufgebaut sein. \cite{nndatasolutbasic}
+Grundsätzlich weisen künstliche neuronale Netzwerke die Strukturen gerichteter Graphen auf, können aber je nach komplexität unterschiedlich aufgebaut sein \cite{nndatasolutbasic}. 
+
 Angelehnt an die Struktur eines biologischen neuronalen Netzwerkes besteht ein künstliches neuronales Netzwerk ebenfalls aus Neuronen, welche in Layern (Schichten) angeordnet sind.
 Ein solches Netzwerk besteht aus einem Input-Layer, einem (oder mehreren) Hidden-Layer und einem Output-Layer (veranschaulicht in Abbildung ~\ref{fig:neural_network}), wobei jeder dieser Layer eine Vielzahl an Neuronen beinhaltet.
 Desto komplexer das zu lösende Problem ist, umso mehr Layer werden benötigt \cite{nnionos}. 
 Der Input-Layer nimmt die eingegebenen Daten entgegen, verarbeitet und gewichtet diese, bevor sie an den Hidden-Layer weiter gegeben wird \cite{nndatasolutbasic}.
 Der Hidden-Layer befindet sich zwischen Input und Output-Layer \cite{nndatasolutbasic} und kann aus einem oder mehreren Layern bestehen und ist der Layer, in dem die meisten Berechnungen stattfinden \cite{nnmedium}.
 Auch in diesem Layer finden wieder Gewichtungen statt.
-Sind mehere Layer im Hidden-Layer vorhanden, so geschieht das Gewichten pro Layer. \cite{nndatasolutbasic}
+Sind mehere Layer im Hidden-Layer vorhanden, so geschieht das Gewichten pro Layer \cite{nndatasolutbasic}. 
 Die Ausgabewerte des letzten Hidden-Layers werden dem Output-Layer als Eingabewerte übergeben \cite{nnmedium}.
 Der Output-Layer ist die letzte Schicht und beinhaltet die Entscheidung oder Vorhersagung des neuronalen Netzwerkes \cite{nndatasolutbasic}.
 \begin{figure}[htbp]
@@ -464,24 +472,18 @@ Kombiniert mit einer Übertragungsfunktion entscheidet das Gewicht über den Inp
 Bei den künstlichen neuronalen Netzwerken kombiniert ein Neuron die Eingangssignale mit zugeordneten Gewichten, welche die Bedeutung des Signals schwächen oder verstärken. 
 Nach dem Aufsummieren wird das Ergebnis durch eine Aktivierungsfunktion gegeben um zu berechnen ob, und mit welchem Ausmaß das Ausgangssignal weitergesendet wird.
 Das Neuron wird als aktiviert bezeichnet, wenn es ein Ausgangssignal versendet \cite{nnpathmind}. 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[height=5cm]{images/neuron2.png}
-	\caption{Aufbau eines Neurons \cite{nndatasolutbasic}}
-	\label{fig:neuron}
-\end{figure}
 
 \subsection{Arten von neuronalen Netzwerken}
 Es gibt viele verschiedene Arten von küntlichen neuronalen Netzwerken und es werden nun ein paar davon etwas näher erläutert.
 
 \subsubsection{Preceptron}
-Preceptron ist ein neuronales NEtzwerk mit nur einem Layer \cite{preceptrontowards}, welches im Bereich von supervised Learning Anwendung findet \cite{preceptronsimplilearn}.
+Preceptron ist ein neuronales Netzwerk mit nur einem Layer \cite{preceptrontowards}, welches im Bereich von supervised Learning Anwendung findet \cite{preceptronsimplilearn}.
 Es ist ein linearer oder binärer Klassifizierer und wird verwendet um Daten in zwei Gruppen zu klassifizieren \cite{preceptrontowards}.
 Ein Preceptron funktioniert folgendermaßen:
 \begin{enumerate}
-	\item Alle Eingangssignale werden mit ihren Gewichten multipliziert \cite{preceptrontowards}
-	\item Nach dem multiplizieren wird alles Aufsummiert \cite{preceptrontowards}.
-	\item Abschließend wird eine Aktivierungsfunktion angewendet, welche den Wert auf den gewünschten Wert, wie z.B. (0,1) mapt \cite{preceptrontowards}.
+	\item Alle Eingangssignale werden mit ihren Gewichten multipliziert
+	\item Nach dem multiplizieren wird alles Aufsummiert
+	\item Abschließend wird eine Aktivierungsfunktion angewendet, welche den Wert auf den gewünschten Wert, wie z.B. (0,1) mapt. \cite{preceptrontowards}
 \end{enumerate}
 
 \subsubsection{Feed forward neuronale Netzwerke}
@@ -491,15 +493,15 @@ Abbildung ~\ref{fig:neural_network} veranschaulicht ein feed forward neuronales 
 Wenn es viele Layer zwischen dem Input und Output-Layer gibt, so wird es auch als deep feed forward neural network bezeichnet. \cite{ffnnat}
 
 \subsubsection{Convolutional neuronale Netzwerke}
-Convolutional neural networks sind eines der beliebtesten deep neural networks.
-Der Name kommt von der mathematischen Linearfunktion convolution, welche auf Matrixen angewandt wird. \cite{cnnieee}
+Convolutional neural networks sind eines der beliebtesten deep neural networks \cite{cnnieee}.
+Der Name kommt von der mathematischen Linearfunktion convolution, welche auf Matrixen angewandt wird \cite{cnnieee}.
 CNNs sind effizient mit 2D und 3D Eingabedaten und werden unter anderem für Objektdetektion bei Bildern verwendet \cite{nndatasolutbasic}.
 Die Architektur ist unterschiedlich zu klassischen neuronalen Netzwerken, mehr dazu in Kapitel \ref{cnn}.
 
 \subsubsection{Recurrent neuronale Netzwerke}
 Wenn es um sequentielle oder zeitliche Daten geht so können feed forward neuronale Netzwerke nicht verwendet werden.
 Es wird ein Mechanismus benötigt um historische Daten zu speichern und desshalb wurden Recurrent neuronale Netzwerke entwickelt.
-In klassischen feed forward neuronalen Netzwerken sind alle Datenpunkte unabhängig von einander, was mit sequentiellen Daten, welche von vorherigen Daten abhängig sind, nicht funktioniert. \cite{recurrentnnmastery}
+In klassischen feed forward neuronalen Netzwerken sind alle Datenpunkte unabhängig von einander, was mit sequentiellen Daten, welche von vorherigen Daten abhängig sind, nicht funktioniert \cite{recurrentnnmastery}. 
 Recurrent neuronale Netzwerke haben ein Konzept mit dem sie Informationen über vorherige Daten speichern können.
 Dieses Konzept wird Memory genannt. \cite{recurrentibm}
 
@@ -510,10 +512,10 @@ Es ist hierbei nicht notwendig die Art der Beziehung zu kennen, da das neuronale
 
 Um zu verstehen wie gut ein solches Netzwerk für eine bestimmte Aufgabe performt kann die Verlustfunktion verwendet werden.
 Zu Beginn wird ein neuronales Netzwerk mit zufälligen Gewichten versehen, was in einem schlecht performenden neuronalem Netzwerk resultiert. 
-Das Ziel ist es die hohe Verlustfunktion durch das Trainieren des neuronalen Netzwerkes in eine niedrige zu verwandeln. \cite{nntowards}
+Das Ziel ist es die hohe Verlustfunktion durch das Trainieren des neuronalen Netzwerkes in eine niedrige zu verwandeln  \cite{nntowards}.
 Eine Methode für das fine-tuning von neuronalen Netzwerken ist Backpropagation.
 Dabei handelt es sich um eine Methode zur Anpassung der Gewichte eines neuronalen Netzwerkes, welche als Grundlage die Fehlerquote der vorangegangenen Iterationen (bei neuronalen Netzwerken Epochen genannt) hernimmt. 
-Durch das richtige adaptieren der Gewichte kann die Fehlerquote verringert und die Genauigkeit des Models erhöht werden. \cite{backpropagationguru}
+Durch das richtige adaptieren der Gewichte kann die Fehlerquote verringert und die Genauigkeit des Models erhöht werden \cite{backpropagationguru}. 
 Gewichte verstärken oder schwächen die Signale der Neuronen und geben die Wichtigkeit eines bestimmten Bereiches der Daten an.
 Ein Neuron kann ein bestimmtes Muster erkennen und die Bedeutung dieses Muster für das Gesamtkonstrukt entscheidet sich je nach Gewicht \cite{nnohv}.
 
@@ -521,7 +523,7 @@ Ein Neuron kann ein bestimmtes Muster erkennen und die Bedeutung dieses Muster f
 Um ein besseres Verständis für neuronale Netzwerke zu bekommen folgt nun ein Anwendungsbeispiel mit kleinen Codesnipets.
 Ziel ist es ein neuronales Netzwerk aufzubauen, welches ein Bild einer handgeschriebenen Zahl richtig klassifizieren kann.
 Hierfür wird der MNIST Datensatz \footnote[1]{MNIST Datensatz erhältlich unter http://yann.lecun.com/exdb/mnist/} verwendet, welcher 60000 28 mal 28 Pixel große Graustufenbilder von handgeschriebenen Zahlen von 0 bis 9 beinhaltet.
-Um den MNIST Datensatz zu laden wird Tensorflow und Keras verwendet (siehe Codesnippet \ref{lst:mnist}).
+Um den MNIST Datensatz zu laden wird Tensorflow und Keras verwendet (siehe Listing \ref{lst:mnist}).
 \begin{lstlisting}[frame=lines, caption=MNIST Datensatz in Python laden, captionpos=b, label = lst:mnist, language=Python, showstringspaces=false]
 from tensorflow.keras.datasets import mnist
 # load dataset
@@ -534,12 +536,11 @@ Die Bilder aus dem MNIST Datensatz sind in Abbildung ~\ref{fig:mnist_data} zu se
 	\caption{Beispielbilder aus dem MNIST Datensatz}
 	\label{fig:mnist_data}
 \end{figure}
-
-Die Architektur des neuronalen Netzwerkes hat 784 (28*28) Neuronen im Input-Layer. 
+Die Architektur des neuronalen Netzwerkes hat 784 (28 mal 28) Neuronen im Input-Layer. 
 Somit kann jeder Pixel eines Bildes an ein Neuron als Eingabedaten übergeben werden.
 Der Hidden-Layer beinhaltet 15 Neuronen, wobei die Anzahl hier variieren kann.
 Abgeleitet von den vorhandenen Klassen (0 bis 9) ergeben sich sich 10 Neuronen im Output-Layer.
-Um diese Architektur mithilfe von Keras und Tensorflow in Pyhton nachzubilden können die Codezeilen aus dem Codesnippet \ref{lst:architecture_nn} verwendet werden.
+Um diese Architektur mithilfe von Keras und Tensorflow in Pyhton nachzubilden können die Codezeilen aus dem Listing \ref{lst:architecture_nn} verwendet werden.
 \begin{lstlisting}[frame=lines, caption=Architektur des Neuronalen Netzwerkes, captionpos=b, label = lst:architecture_nn, language=Python, showstringspaces=false]
 from keras.layers import Dense
 from keras.models import Sequential
@@ -558,13 +559,13 @@ Dies ist in Abbildung  ~\ref{fig:mnist_neural_network} zu sehen, welche die Besc
 	\caption{Architektur des Neuronalen Netzwerks \cite{nnarchitecture}}
 	\label{fig:mnist_neural_network}
 \end{figure}
-Vor dem Compilieren und Trainieren des neuronalen Netzwerkes werden die Testdaten noch modifiziert, was im kompletten Codebeispiel im Anhang zu finden ist.
+Vor dem Compilieren und Trainieren des neuronalen Netzwerkes werden die Testdaten noch modifiziert, was im kompletten Codebeispiel im Anhang \ref{lst:mnist_example} zu finden ist.
 \begin{lstlisting}[frame=lines, caption=Model compilen und erlernen, captionpos=b, label = lst:model_compile_train, language=Python, showstringspaces=false]
 model.compile(loss='categorical_crossentropy', optimizer='sgd',metrics=['acc']) 
 history = model.fit(x_train, y_train, batch_size=128, epochs=5, verbose=False, validation_split=.1)
 loss, accuracy  = model.evaluate(x_test, y_test, verbose=False)
 \end{lstlisting}
-Als Verlustfunktion wird hier die categorical crossentropy verwendet, da diese für Mehrklassenklassizierung, bei der ein Datensatz genau einer Klasse angehört, sehr geeignet ist \cite{categoricalcrossentropy}.
+Als Verlustfunktion wird hier die categorical crossentropy verwendet, da diese für Mehrklassenklassizierung, bei der ein Datensatz genau einer Klasse angehört, gut geeignet ist \cite{categoricalcrossentropy}.
 Stochastic Gradient Descent gehören zu den einfachsten Optimierer, weshalb sie in diesem Besipiel für das Model gewählt wurden.
 \begin{figure}
 \center
@@ -584,7 +585,7 @@ Die Digitalisierung und Automatisierung von Abläufen nimmt auf der ganzen Welt 
 Bilverarbeitung im Kontext von Computern und machine Learning bezieht sich darauf wichtige und bedeutende Informationen aus Bildern zu extrahieren.
 Da Bilder mittels unstrukturierten Daten repräsentiert werden, ist es weitaus schwieriger diese im Gegensatz zu strukturierten Daten wie Tabellen zu interpretieren.
 Je nach Anwendung gibt es unterschiedliche Methoden und Algorithmen, welche verwendet werden können.
-Die große Branche, welche zudem stetig wächst, wird bereits in verschiednen Bereichen wie Video Verarbeitung, Gesichtserkennung, Medizinisches Umfeld, Robotic Vision, Selbstfahrende Autos und vieles mehr.\cite{autonomouscarsimageprocessing}
+Der große Bereich von Computer Vison, welcher zudem stetig wächst, wird bereits in verschiednen Bereichen wie Video Verarbeitung, Gesichtserkennung, Medizinisches Umfeld, Robotic Vision, Selbstfahrende Autos und vieles mehr eingesetzt \cite{autonomouscarsimageprocessing}.
 Während Tesla bereits autonome und selbständig fahrende Autos verkauft, hat Apple Ende 2021 einen Techniker von Tesla angeheuert und plant 2024 selbstfahrende Autos auf den Markt zu bringen \cite{reutersapple}.
 Bildverarbeitung und Bilderkennung spielen hierbei eine große Rolle, da Objekte wie Fahrspur, Ampel und andere Verkehrsteilnehmer richtig und zeitgerecht erkannt werden müssen \cite{autonomouscarsimageprocessing}.
 
@@ -597,10 +598,10 @@ Durch das Analysieren von Röntgenbildern der Brust können mithilfe von machine
 Seit über 60 Jahren versuchen Wissenschaftler auf der ganzen Welt Maschinen beizubrignen, wie sie bedeutungsvolle Informationen aus visuellen Daten extrahieren können \cite{computervisioncnnhackernoon}.
 Allgemein gilt Computer Vision als eines der komplexesten Gebiete im Bereich von künstlicher Intelligenz \cite{computerseestemera}.
 Bereits im Jahre 1959 beschäftigten sich die Neurophysiologen David Hubel und Torsten Wiesel mit dem Thema Computer Vision, welches ein Teilbereich von künstlicher Intelligenz ist, und den Zweck verfolgt Systemen das erkennen von bedeutsamen Informationen aus Bildern oder Videos zu extrahieren \cite{computervisionibm,computervisioncnnhackernoon}.
-Ihre Puplikation "Receptive fields of single neurons in the cat's striate cortex"\cite{computervisioncat} gilt als eines der Papers, welches am meisten Einfluss auf die Thematik genommen hat \cite{computervisionibm,computervisioncnnhackernoon}.
+Ihre Publikation "Receptive fields of single neurons in the cat's striate cortex"\cite{computervisioncat} gilt als eines der Papers, welches am meisten Einfluss auf die Thematik genommen hat \cite{computervisionibm,computervisioncnnhackernoon}.
 Dabei beschreiben sie ihre Experimente, bei denen sie Elektroden and den primären Bereich des visuellen Kortex von anesthisierten Katzen angeschlossen haben, und diese dabei beobachtet haben, während den Versuchtieren verschiedene Bilder gezeigt wurden.
 Durch einen glücklichen Zufall sind sie zur Erkenntniss gekommen, dass es sowohl einfache, als auch komplexe Neuronen im primären visuellen Kortex gibt, und dass visuelle Verarbeitung immer mit simplen Strukturen wie Kanten und Rändern beginnt.
-Dieser Ansatz findet Anwendung bei convolutional neural networks und ist im Wesentlichen das Grundprinzip von deep Learning. \cite{computervisioncnnhackernoon}
+Dieser Ansatz findet Anwendung bei convolutional neural networks und ist im Wesentlichen das Grundprinzip von deep Learning \cite{computervisioncnnhackernoon}. 
 Bevor es tiefer in diese Materie geht, wird im folgenden Unterkapitel kurz definiert und veranschaulicht was ein Bild ist und wie ein Computer solch eines wahrnimmt.
 
 \subsection{Was ist ein (digitales) Bild?}
@@ -615,8 +616,8 @@ Es ist auch möglich Raster und Vektorgrafiken zu kombinieren und daraus ein dig
 Um digitale Bilder für Menschen sichtbar zu machen benötigt es geeignete Anzeigegeräte wie Projektoren oder Computerbildschirme \cite{digitalimagewiki}.
 Farbige Bilder werden oft nach dem RGB-Modell repräsentiert.
 RGB steht für \textbf{R}ed \textbf{G}reen und \textbf{B}lue und jeder Pixel beinhaltet einen Mix aus diesen Farben, welche in drei Zahlen repräsentiert werden.
-In einem Graustufenbild beinhaltet ein Pixel nur eine Zahl, welche die Intensität oder den Anteil an Licht repräsentiert. \cite{computerseesrealpython}
-Ein Computer kann ein Bild nicht "sehen", für sie sind digitale Bilder nur Zahlen \cite{computerseesmedium}.
+In einem Graustufenbild beinhaltet ein Pixel nur eine Zahl, welche die Intensität oder den Anteil an Licht repräsentiert \cite{computerseesrealpython}. 
+Ein Computer kann ein Bild nicht wie wir Menschen sehen, für Maschinen sind digitale Bilder nur Zahlen \cite{computerseesmedium}.
 Durch das Analysieren der Anordnung der Zahlen ist es einem Computer möglich ein Bild zu interpretieren. 
 Ein ausreichend große Menge an Daten gilt als große Schwierigkeit wenn es darum geht Computern das erkennen und klassifizieren zu erlernen. \cite{computerseestemera}
 \begin{figure}[htbp]
@@ -627,7 +628,7 @@ Ein ausreichend große Menge an Daten gilt als große Schwierigkeit wenn es daru
 \end{figure}
 
 In Abbildung \ref{fig:image_in_numbers} ist ein Graustufenbild von der Zahl 8 aus dem MNIST Datensatz abgebildet.
-Hierbei ist ersichtlicht wie ein Computer dieses Graustufenbild anhand von Zahlen zwischen 0 und 255, welche die Intensität respräsentieren, interpretiert.
+Hierbei ist ersichtlicht wie ein Computer dieses Graustufenbild anhand von Zahlen zwischen 0 und 255, welche die Intensität respräsentieren, auffasst.
 
 \subsubsection{Dateiformate}
 Digitale Bilder können in verschiedenen Dateiformaten gespeichert werden. 
@@ -661,24 +662,24 @@ Um große Mengen an unstrukturierten Bilddaten effizient analysieren zu können,
 Bildklassifizierung, welche oft auch als Bilderkennung bezeichnet wird \cite{imgclassificationblog}, ist eines der Hauptprobleme im Bereich Computer Vision \cite{GAVALI201999}.
 Die Aufgabe für Computer Vision hierbei ist es herauszufinden, was ein Bild beinhaltet und repräsentiert.
 Es wird als die Aufgabe bezeichnet, welche Gruppen von Pixeln oder Vektoren innerhalb eines Bilder nach bestimmten Regeln kennzeichnet und kategorisiert.
-Dabei wird die Bildklassifizierung in zwei Bereiche unterteilt, unsupervised und superviced Kalssifizierung.
+Dabei wird die Bildklassifizierung in zwei Bereiche unterteilt, unsupervised und superviced.
 Bei der unsupervised Klassifizierung handelt es sich um eine vollautomatische Methode, bei der keine Trainingsdaten benötigt werden.
 Machine Learning Algorithmen werden verwendet um die Datensätze zu analysieren und zu clustern, indem sie ohne menschliches Eingreifen Muster erkennen.
-Beim supervised Ansatz lwird mittels bereits klassifizierten Datensätzen trainiert, um so dann neue und unbekannte Datensätze zu klassifizieren.
+Beim supervised Ansatz wird mittels bereits klassifizierten Datensätzen trainiert, um so dann neue und unbekannte Datensätze zu klassifizieren.
 Applikationen zur Bildklassifizierung werden in Bereichen wie Medizinische Bildanalyse, Objekterkennung in Satelitenbildern, Ampelkontrollsystemen und vielen anderen Bereichen eingesetzt \cite{imgclassificationviso}.
 
 \subsection{Herausforderungen bei machineller Bilderkennung}
 In der folgenden Liste sind die Herausforderungen von maschineller Bilderkennung aufgezählt:
 \begin{itemize}
-	\item \textbf{Viewpoint variation}: Ein Objekt kann aus verschiednen Sichtpunkten und betrachtet werden \cite{deeplearningcomputervision}.
-	\item \textbf{Scale variation}: Ein Objekt der selben Klasse kann in unterschiedlichen Größen auftreten \cite{deeplearningcomputervision}.
-	\item \textbf{Deformation}: Ein Objekt kann verformt sein \cite{deeplearningcomputervision}.
-	\item \textbf{Occlusion}: Objekte können von anderen Objekten verdeckt sein, so dass nur wenige Pixel des Objektes sichtbar sind \cite{deeplearningcomputervision}.
-	\item \textbf{Illumination condiftions}: Der Einfluss von Beleuchtung kann auf Pixelebende einen großen Einfluss haben \cite{deeplearningcomputervision}.
-	\item \textbf{Background clutter}: Ein Objekt kann sehr ähnlich zum Umfeld erscheinen und somit darin schwer erkennbar werden \cite{deeplearningcomputervision}.
+	\item \textbf{Viewpoint variation}: Ein Objekt kann aus verschiednen Sichtpunkten und betrachtet werden.
+	\item \textbf{Scale variation}: Ein Objekt der selben Klasse kann in unterschiedlichen Größen auftreten.
+	\item \textbf{Deformation}: Ein Objekt kann verformt sein.
+	\item \textbf{Occlusion}: Objekte können von anderen Objekten verdeckt sein, so dass nur wenige Pixel des Objektes sichtbar sind.
+	\item \textbf{Illumination condiftions}: Der Einfluss von Beleuchtung kann auf Pixelebende einen großen Einfluss haben.
+	\item \textbf{Background clutter}: Ein Objekt kann sehr ähnlich zum Umfeld erscheinen und somit darin schwer erkennbar werden.
 	\item \textbf{Intra-class variation}: Die Klasse eines Objektes kann sehr breit gefächert sein. Es gibt verschiedene Arten davon, welche ein eigenes Aussehen besitzen \cite{deeplearningcomputervision}.
 \end{itemize}
-Beim Modellieren einer Bildklassifizierung gilt es darauf zu schauen dass es gegenüber dem Kreuzprodukt all dieser Herausforderungen invariant ist, während es gleichzeitig die Empfindlichkeit gegenüber jeder einzelnen Variation beibehält \cite{deeplearningcomputervision}.
+Beim Modellieren einer Bildklassifizierung gilt es darauf zu schauen, dass es gegenüber dem Kreuzprodukt all dieser Herausforderungen invariant ist, während es gleichzeitig die Empfindlichkeit gegenüber jeder einzelnen Variation beibehält \cite{deeplearningcomputervision}.
 In Abbildung \ref{fig:challenges_computer_vision} sind die oben genannten Herausforderungen bildlich veranschaulicht.
 \begin{figure}[htbp]
 	\centering
@@ -693,11 +694,11 @@ In Abbildung \ref{fig:challenges_computer_vision} sind die oben genannten Heraus
 \subsection{SIFT}
 \label{sift}
 Scale Invariant Feature Transform, kurz SIFT, wurde erstmals 2004 von David Lowe in seinem Paper "Distinctive Image Features from Scale-Invariant Keypoints" \cite{siftlowe} veröffentlicht und ist eine Methode zur Überprüfung der Übereinstimmung von Bildern, welche auch zur Objekterkennung verwendet werden kann.
-Es handelt sich dabei um eine Methode die Merkmale aus Bildern extrahiert, welche für einen zuverlässigen Abgleich zwischen verschiedenen Ansichten eines Objekts oder einer Szene sorgen. \cite{siftlowe}
+Es handelt sich dabei um eine Methode die Merkmale aus Bildern extrahiert, welche für einen zuverlässigen Abgleich zwischen verschiedenen Ansichten eines Objekts oder einer Szene sorgen \cite{siftlowe}. 
 Die Extrahierung der Merkmale von Bildern erfolgt vor dem Abgleich unabhängig voneinander \cite{siftieee}.
 Mit effizienten Algorithmen kann eine große Anzahl von Merkmalen aus typischen Bildern extrahiert werden.
 Diese Merkmale sind gegenüber Skalierung, Rotation, und Beleuchtungsänderung invariant und weisen eine Robustheit gegenüber Verzerrung und dem Hinzufügen von Rauschen auf.  
-Mittels SIFT Deskriptoren werden starke Interessenspunkte abgeglichen. \cite{siftlowe}
+Mittels SIFT Deskriptoren werden starke Interessenspunkte abgeglichen, um so ähnlichkeiten aufzuweisen \cite{siftlowe}. 
 
 \subsubsection{Funktionsweise SIFT}
 Folgende Schritte werden benötigt um Merkmale aus Bildern zu extrahieren:
@@ -710,25 +711,25 @@ Folgende Schritte werden benötigt um Merkmale aus Bildern zu extrahieren:
 %https://ieeexplore-1ieee-1org-1tn53mdbb08d0.han.fh-campuswien.ac.at/stamp/stamp.jsp?tp=&arnumber=6754850
 %https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf
 
-\subsection{Convolutional Neuronale Netzwerke}
+\subsection{Convolutional Neuronal Networks}
 \label{cnn}
-Convolutional neuronale Netzwerke, die im Deutschen übersetzt als "Gefaltete Neuronale Netzwerke" bezeichnet werden, sind eine besondere From von künstlichen neuronalen Netzwerken, welche mehrere sogenannte Faltungsschichten beinhalten \cite{cnnbigdata}.
-Seit den 1980er Jahren werden convolutional neuronale Netzwerke für visuelle Aufgaben verwendet \cite{10.1162/neco_a_00990}.
+Convolutional neuronal newtorks, die im Deutschen übersetzt als "Gefaltete Neuronale Netzwerke" bezeichnet werden, sind eine besondere From von künstlichen neuronalen Netzwerken, welche mehrere sogenannte Faltungsschichten beinhalten \cite{cnnbigdata}.
+Seit den 1980er Jahren werden CNNs für visuelle Aufgaben verwendet \cite{10.1162/neco_a_00990}.
 In den letzten zehn Jahren gab es durch convolutional neuronale Netzwerke bahnbrechende Ergebnisse in einer Vielzahl von Bereichen der Mustererkennung, von Bildverarbeitung bis zur Spracherkennung.
-Einer der größten Vorteile von CNNs gegenüber regulären künstlichen neuronalen Netzwerken ist die reduzierte Anzahl der Parameter, wodurch es möglich ist größere Models, und somit komplexere Probleme zu lösen. \cite{cnnieee}
-Während bei primitiveren Methoden Filter von Hand entwickelt werden, so sind convolutional neuronalen Netzwerken durch ausreichendem Training in der Lage Filter selbst zu erlernen \cite{cnntowards}.
+Einer der größten Vorteile von CNNs gegenüber regulären künstlichen neuronalen Netzwerken ist die reduzierte Anzahl der Parameter, wodurch es möglich ist größere Models, und somit komplexere Probleme zu lösen \cite{cnnieee}. 
+Während bei primitiveren Methoden Filter von Hand entwickelt werden, so sind CNNs durch ausreichendem Training in der Lage Filter selbst zu erlernen \cite{cnntowards}.
 Ein weiterer wichtiger Aspekt von CNNs ist es abstrakte Merkmale zu erkennen. 
-Die Merkmale werden pro Schicht erkannt, so ist es z.B. möglich dass in der ersten Schicht einfache Kanten und Ränder erkannt werden, während in der zweiten Schicht schon einfache Formen identifiziert werden. \cite{cnnieee}
+Die Merkmale werden pro Schicht erkannt, so ist es z.B. möglich dass in der ersten Schicht einfache Kanten und Ränder erkannt werden, während in der zweiten Schicht schon einfache Formen identifiziert werden \cite{cnnieee}. 
 Während sich sich die erste Schicht auf einfache Merkmale wie Farben und Kanten konzentriert, so sind tiefere Schichten in der Lage größere Elemente und Formen zu erkennen \cite{cnnibm}.
 Das Netzwerk ist robust und gegenüber Verzerrungen oder optischen Veränderungen unempfindlich.
-Es kann Bilder verarbeiten, welche in unterschiedlichen Perspektiven und Lichtverhältnissen aufgenommen wurden, und kann trotzdem typische Merkmale eines Bildes erkennen. \cite{cnnbigdata}
-Vom Grundprinzip ist ein convolutional neuronales Netzwer ein vollvernetztes neuronales Feed-Forward-Netzwerk was sich aus folgenden Schichten zusammensetzt:
+Es kann Bilder verarbeiten, welche in unterschiedlichen Perspektiven und Lichtverhältnissen aufgenommen wurden, und kann trotzdem typische Merkmale eines Bildes erkennen \cite{cnnbigdata}. 
+Vom Grundprinzip ist ein CNN ein vollvernetztes neuronales Feed-Forward-Netzwerk was sich aus folgenden Schichten zusammensetzt:
 \begin{itemize}
-	\item Eingangs-Schicht
-	\item Convolutional-Schicht
-	\item Pooling-Schicht
-	\item vollständig verbundenen neuronalen Netzwerk
-	\item Ausgangs-Schicht
+	\item Eingangs-Schicht,
+	\item Convolutional-Schicht,
+	\item Pooling-Schicht,
+	\item vollständig verbundenen neuronalen Netzwerk und
+	\item Ausgangs-Schicht .
 \end{itemize}
 Während auf Convolutional-Schicht weitere Convolutional-Schichten oder Pooling-Schichten folgen können, ist das vollständig verbundene neuronale Netzwerk die letzte Schicht vor der Ausgabe-Schicht \cite{cnnibm}.
 In Abbildung \ref{fig:cnn_architecture} ist ein beispielhafter Aufbau eines CNNs dargestellt, bei dem es darum geht Bilder zu klassifizieren.
@@ -763,14 +764,14 @@ Hauptanwendungen von CNNs sind Anwendungen mit Bildern, Sprache oder Audio Signa
 %\end{wrapfigure}
 
 Um den Vergleich zu einem vollständig vernetztes neuronales Netzwerk, welches Pixel als Eingabe nimmt, folgt ein Beispiel.
-Angenommen es handelt sich z.B. um ein 32 Pixel Breit und 32 Hoches Bild, so werden hierfür bereits 32x32x3 (=3072) gewichtete Verbindungen benötigt.
+Angenommen es handelt sich z.B. um ein 32 Pixel breites und hoches Bild, so werden hierfür bereits 32x32x3 (=3072) gewichtete Verbindungen benötigt.
 32 für jeweils Breite und Höhe und dann noch jeweils 3 Kanäle für RGB.
 Wird ein einzelnes Neuron im Hidden-Layer hinzugefügt so werden weitere 32x32x3 gewichtete Verbindungen benötigt.
-Für eine aussagekräfitge Bilderkennung werden zwei Neuronen im Hidden-Layer nicht ausreichen, und somit steigt die Anazhl der gewichteten Verbindungen pro Neuron weiter an.
-Um effizienter als normale vollständig vernetzte neuronale Netzwerke zu sein, betrachten convolutional neuronale Netzwerke anstelle des gesamten Bildes nur lokale Regionen davon. 
+Für eine aussagekräfitge Bilderkennung werden zwei Neuronen im Hidden-Layer nicht ausreichen, und somit steigt die Anzahl der gewichteten Verbindungen pro Neuron weiter an.
+Um effizienter als normale vollständig vernetzte neuronale Netzwerke zu sein, betrachten CNNs anstelle des gesamten Bildes nur lokale Regionen davon. 
 Wie in Abbildung \ref{fig:convolution_example} zusehen ist, bekommt der nächste Layer nur den dazugehörigen Teil von dem davorigen Layer, was in diesem Beispiel eine Verbindung zu einem 5x5 Neuron sein könnte.
 Dadurch wird die Anzahl der benötigten gewichteten Verbindugen reduziert, da sich das CNN nur auf einen Teilbereich der Eingabedaten konzentriert.
-Um die Anazhl der gewichteten Verbindungen weiter zu verringern können lokale gewichtete Verbindungen für die gesamten Neuronen des nächsten Layers beibehalten werden. \cite{cnnieee}
+Um die Anazhl der gewichteten Verbindungen weiter zu verringern können lokale gewichtete Verbindungen für die gesamten Neuronen des nächsten Layers beibehalten werden \cite{cnnieee}. 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=5cm]{images/cnn_filter.png}
@@ -783,10 +784,11 @@ Eine typische Größe dafür ist eine 3x3 Matrix, diese kann jedoch variieren.
 Der Feature-Detektor wird dann auf einen Bereich der Eingabedaten angewandt, in dem das Kreuzprodukt zwischen den Eingabepixeln und dem Filter berechnet werden (siehe Abbildung \ref{fig:cnn_filter}).
 Dieser Bereich wird auch als Receptive Field bezeichnet.
 Das Ergebnis des Kreuzproduktes wird in ein Ausgabearray gespeichert und anschließend wechselt der Filter in Schritten (englisch: stride) und wiederholt den Vorgang bis der Filter über das ganze Bild angewandt wurde. 
-Das endgültige Ergebnis aus der Reihe der Kreuzprodukte wird als Feature Map, Activation Map oder Convolved Feature bezeichnet. \cite{cnnibm}
+Das endgültige Ergebnis aus der Reihe der Kreuzprodukte wird als Feature Map, Activation Map oder Convolved Feature bezeichnet \cite{cnnibm}. 
+
 Strides geben an um wieviele Pixel sich der Filter weiter bewegt.
-Standardmäßig wird ein Stride von 1 verwendet, wie auch in Abbildung \ref{fig:cnn_stride} dargestellt. \cite{cnntowards}
-Ein Stride von mehr als 1 verringert das Ausgabearray, wird in der praxis jedoch eher selten angewandt \cite{cnncs231}.
+Standardmäßig wird ein Stride von 1 verwendet, wie auch in Abbildung \ref{fig:cnn_stride} dargestellt \cite{cnntowards}. 
+Ein Stride von mehr als 1 verringert das Ausgabearray, wird in der Praxis jedoch eher selten angewandt \cite{cnncs231}.
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=3cm]{images/cnn_filter_moving2.png}
@@ -796,19 +798,19 @@ Ein Stride von mehr als 1 verringert das Ausgabearray, wird in der praxis jedoch
 Während sich der Filter über das Bild bewegt, sind seine Gewichte fixiert, diese können sich jedoch während dem Training anpassen \cite{cnnibm}.
 Einer der Nachteile des convolution Schrittes ist der Verlust von Informationen am Rande eines Bildes.
 Da Informationen nur aufgenommen werden, wenn der Filter sich darüber bewegt haben sie nie die Chance gesehen zu werden.
-Eine einfache Lösung dafür ist das sogenannte zero-padding. \cite{cnnieee}
+Eine einfache Lösung dafür ist das sogenannte Zero-Padding \cite{cnnieee}. 
 Padding ist der Prozess, bei dem der Eingangsmatrix symetrisch Nullen hinzugefügt werden \cite{cnntowards}.
 Zero-padding wird in der Regel verwendet, wenn die Filter nicht zur Größe des Bildes passen, da mit Padding die Größe der Ausgangsmatrix verändert werden kann \cite{cnnibm}. 
 Es gibt verschiedene Arten von Padding:
 \begin{itemize}
-	\item Valid padding: wird auch als no padding bezeichnet. Hierbei findet kein padding statt und Informationen können verloren gehen, wenn die Größe von Filter und Eingangsdaten nicht übereinstimmt. \cite{cnnibm}
+	\item Valid padding: wird auch als no padding bezeichnet. Hierbei findet kein Padding statt und Informationen können verloren gehen, wenn die Größe von Filter und Eingangsdaten nicht übereinstimmt \cite{cnnibm}. 
 	\item Same padding: durch Anwenden von same padding wird sichergestellt, dass die Größe der Ausgangsschicht gleich der Eingangsschicht ist \cite{cnnibm}.
 \end{itemize}
 Die Anzahl der Filter haben Einfluss auf die Tiefe der Ausgabe.
-Drei Filter würden Beispielsweise drei verschiedene Feature Maps generieren und somit eine tiefe von drei ergeben. \cite{cnnibm}
+Drei Filter würden Beispielsweise drei verschiedene Feature Maps generieren und somit eine tiefe von drei ergeben \cite{cnnibm}. 
 Nach jeder Faltungsoperation wendet ein CNN eine Nichtlinearitätsfunktion an \cite{cnnglassbox} um Nichtliniearität in das Model einzuführen \cite{cnnibm}.
 Dies ist eine nichtlineare Gleichung, die es dem CNN ermöglicht, insgesamt kompliziertere Muster zu lernen.
-Eine beliete Nichtlinearität ist Rectified Linear Unit Transformation (ReLu). \cite{cnnglassbox}
+Eine beliete Nichtlinearität ist Rectified Linear Unit Transformation (ReLu) \cite{cnnglassbox}. 
 Letztendlich wandelt die Faltungsschicht das Bild in numerische Werte um, so dass das neuronale Netz relevante Muster interpretieren und extrahieren kann. 
 Diese Methode bietet den Vorteil, dass aufgrund der Filter das Erkennen von Merkmalen unabhängig von der Position im Bild stattfinden kann \cite{cnnieee}. 
 
@@ -818,10 +820,10 @@ Es werden dabei überflüssige Informationen verworfen und die Datenmenge wird v
 Im Bereich der Bildverarbeitung kann Pooling auch als Verringern der Auflösung angesehen werden \cite{cnnieee}.
 Die Berechnungen wären deutlich aufwendiger, würde man die Pooling-Schicht weglassen, und somit die Convolution Schicht direkt mit dem vollständig verbundenen neuronalen Netzwerk verbinden \cite{cnntowards}.
 Ähnlich wie bei der Convolution-Schicht wird bei der Pooling-Schicht ein Filter über die Eingabedaten geschoben, jedoch hat dieser Filter keine Gewichte.
-Stattdessen wird eine Aggregationsfunktion auf die Werte innerhalb des rezeptiven Feldes angewandt und somit die Ausgangfmatrix ausgefüllt. \cite{cnnibm}
+Stattdessen wird eine Aggregationsfunktion auf die Werte innerhalb des rezeptiven Feldes angewandt und somit die Ausgangfmatrix ausgefüllt \cite{cnnibm}. 
 Es gibt verschiedene Arten von Pooling:
 \begin{itemize}
-	\item Max pooling: ist eines der weitverbreitesten Pooling Methoden \cite{cnnieee}. Während sich der Filter über den Eingabedatensatz bewegt, wird der Pixel mit dem größten Wert genommen und an das Ausgabearray gegeben. \cite{cnnibm} Max Pooling wirkt auch als Rauschunterdrückung \cite{cnntowards}
+	\item Max pooling: ist eines der weitverbreitesten Pooling Methoden \cite{cnnieee}. Während sich der Filter über den Eingabedatensatz bewegt, wird der Pixel mit dem größten Wert genommen und an das Ausgabearray gegeben \cite{cnnibm}.  Max Pooling wirkt auch als Rauschunterdrückung \cite{cnntowards}.
 	\item Average pooling: Während sich der Filter über den Eingabedatensatz beweget, wird ein Mittelwert innerhalb des receptiven Feldes ermittelt und an das Ausgabearray übergeben \cite{cnnibm}.
 \end{itemize}
 \begin{figure}[htbp]
@@ -851,12 +853,12 @@ Um die Anzahl der Neuronen und Verbindungen zu verringern kann die Droput-Techni
 Im Bereich von Deep learning sind neuronale Netzwerke für fast jede Aufgabe geeignet, um jedoch gute Ergebnisse liefern zu können, sind diese auf ausreichend Daten angewiesen.
 Traditionell werden sie verwendet um verschiedene Klassen vorherzusagen, wenn jedoch eine neue Klasse hinzukommt, so muss das neuronale Netzwerk aktualisert und erneut trainiert werden.
 Zusätzlich sind meist nur wenige Daten für   bestimmte Probleme wie z.B. Gesichtserkennung oder Unterschriftenprüfung verfügbar.
-Um diese Art von Problemen zu lösen wurden Siamesische Netzwerke entwickelt, welche eine neue Architekturart von neuronalen Netzwerken sind. \cite{siamesetowards}
+Um diese Art von Problemen zu lösen wurden Siamesische Netzwerke entwickelt, welche eine neue Architekturart von neuronalen Netzwerken sind \cite{siamesetowards}. 
 Erstmals wurden diese Netzwerke 1990 von Bromley und LeCun zum Zweck der Unterschriftenverifikation entwickelt \cite{siameseieee}.
 Da Siamesische Netzwerke nur wenige Daten benötigen, wurden diese über die letzten Jahre immer beliebter.
 Meist werden sie verwendet um Ähnlichkeiten in den Eingabedaten zu vergleichen \cite{siamesetowards}.
 
-\subsubsection{Architektur Siamese Network}
+\subsubsection{Architektur}
 Ein simaesischen Netzwerk (auch twin network genannt) hat seinen Namen von siamesischen Zwilligen, welche Zwillige sind, die phyiskalisch miteinander verbunden sind \cite{siamesepyimage}.
 Es besteht aus zwei oder mehreren sogenannten Teil- oder Zwilligsnetzwerken, welche unterschiedliche Eingaben akzeptieren und identisch sind \cite{siameseieee, siamesetowards}.
 Identisch bedeuted in diesem Fall dass die Teilnetzwerke die gleiche Konfiguration mit denselben Parametern und Gewichten besitzen.
@@ -882,8 +884,13 @@ Es wird einerseits ein Versuch mittels \textbf{SIFT} und andererseits en Versuch
 \section{Daten}
 \label{sec:data}
 
+
 \section{Bildvorverarbeitung}
 \label{sec:imagepreprocessing}
+\subsection{Sift}
+Für SIFT wird keine Bildvorerarbeitung benötigt (siehe Kapitel \ref{sift}).
+\subsection{Siamese Network}
+
 
 \section{Algorithmus}
 \label{sec:algorithm}

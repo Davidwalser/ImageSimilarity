@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 from sklearn.model_selection import train_test_split
+from PIL import Image as PILImage
 
 def pairwise(t):
 	it = iter(t)
@@ -45,6 +46,7 @@ def plot_pairs(pairs, titles, rows = 8):
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()
+	plt.savefig(config.SIFT_PLOT_PATH)
 
 def plot_imagepairs(pairs, titles, rows = 8):
 	columns = 2
@@ -184,6 +186,28 @@ def plot_featuremaps(image):
 	# 	# plt.imshow(features[0,:,:,i-1] , cmap='gray')
 	# 	plt.imshow(features[0,i-1] , cmap='gray')
 	# plt.show()
+
+def get_largest_and_smallest_image(filenames):
+	all_images = []
+	for filename in filenames:
+		img = PILImage.open(filename, 'r')
+		all_images.append([img.filename, img.size])
+	sort = sorted(all_images, key=lambda x:x[1])
+	return [sort[0],sort[-1]]
+    # largest = max()
+    # smallest = min(PILImage.open(f, 'r').size for f in filenames)
+    # return [smallest, largest]
+
+def get_average_imagesize(filenames):
+	widths = []
+	heights = []
+	for filename in filenames:
+		size = PILImage.open(filename, 'r').size
+		widths.append(size[0])
+		heights.append(size[1])
+	average_width = sum(widths)/len(widths)
+	average_height = sum(heights)/len(heights)
+	return [average_width, average_height]
 
 class Image:
 	def __init__(self, image_array, filename):

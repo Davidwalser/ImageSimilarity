@@ -187,7 +187,7 @@ def plot_featuremaps(image):
 	# 	plt.imshow(features[0,i-1] , cmap='gray')
 	# plt.show()
 
-def get_largest_and_smallest_image(filenames):
+def get_smallest_and_largest_image(filenames):
 	all_images = []
 	for filename in filenames:
 		img = PILImage.open(filename, 'r')

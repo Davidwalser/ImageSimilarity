@@ -883,17 +883,94 @@ Es wird einerseits ein Versuch mittels \textbf{SIFT} und andererseits en Versuch
 
 \section{Daten}
 \label{sec:data}
-
+Wie in der Einleitung bereits erwähnt beschäftigt sich das österreichische Patentamt viel mit Markenlogos und deren Ähnlickeit.
+Da diese Masterarbeit in Zusammenarbeit mit dem östereichischen Patentamt entwickelt wird, haben sie mir dankenswerterweise ihre Logodaten zur Verfügung gestellt.
+Diese Daten enthalten 210630 Bilder, welche in 213 Ordner unterteilt sind und was insgesamt 13.4 GB an Daten ausmacht.
+Die Ordnerstruktur ist nach Anmeldungsjahr der Markenlogos gegliedert (siehe Abbildung \ref{fig:data_folderstructure}).
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=7cm]{images/data_folderstructure.png}
+	\caption{Ordnerstruktur der Markenlogos}
+	\label{fig:data_folderstructure}
+\end{figure}
+Die Bilder in den jeweiligen Ordnern sind mittels Anmeldungsjahr und einer fortlaufenden Nummer beschrieben (siehe Abbildung \ref{fig:data_inside_folder}).
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=7cm]{images/data_inside_folder.png}
+	\caption{Datenstruktur in den Ordnern}
+	\label{fig:data_inside_folder}
+\end{figure}
+\newpage
+Um die Daten etwas besser verstehen zu können habe ich mir zwei Hilfsfunktionen geschrieben.
+Mittels folgender Funktion (Listing \ref{lst:smallest_biggest}) wird das kleinste und größte Bild ermittelt.
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Ermittlung des kleinsten und größten Bildes, captionpos=b, label = lst:smallest_biggest, language=Python, showstringspaces=false]
+def get_smallest_and_largest_image(filenames):
+	all_images = []
+	for filename in filenames:
+		img = PILImage.open(filename, 'r')
+		all_images.append([img.filename, img.size])
+	sort = sorted(all_images, key=lambda x:x[1])
+	return [sort[0],sort[-1]]
+\end{lstlisting}
+Die Funktion nimmt eine Liste von Dateinamen entgegen und ermittlet zuerst von jedem Bild die Größe und anschließend wird die Liste dann nach der Größe sortiert.
+Somit befindet sich das kleinste Bild an erster und das größte an letzter Stelle, welche am Ende der Funktion zurückgegeben werden.
+Das Ergebnis is in Abbildung \ref{fig:data_smallest_largest} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3.5cm]{images/data_smallest_largest.png}
+	\caption{Ergebnis Ermittlung kleinstes und größtes Bild}
+	\label{fig:data_smallest_largest}
+\end{figure}
+Das kleinste Bild hat 42 mal 13 Pixel und wie in Abbilung \ref{fig:data_smallest} zu sehen ist, kann man hier die Pixel einzeln abzählen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=1cm]{images/data_smallest.png}
+	\caption{Kleinstes Bild im Datensatz}
+	\label{fig:data_smallest}
+\end{figure}
+Das größte Bild ist 23080 mal 4724 Pixel groß, was für Latex leider zu groß war und ich es runterkomprimieren musste.
+Das komprimierte Bild ist in Abbildung \ref{fig:data_largest} veranschaulicht.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3.5cm]{images/data_largest_screenshot_full.png}
+	\caption{Größtes Bild im Datensatz}
+	\label{fig:data_largest}
+\end{figure}
+Der Datensatz weist eine hohe diversität bei den Merkmalen Größe, Auflösung, Ausrichtung und Farben auf wie auch in Abbildung \ref{fig:data_inside_folder} zu sehen ist.
+Es sind kleine und große, horizontale und vertikale, farbig und schwarz weis Bilder vorhanden.
+Ebenfalls gibt es Markenlogos die ausschließlich aus Text bestehen, ein Logo in Bildform und Text beinhalten oder nur ein Logo in Bildform enthalten.
 
 \section{Bildvorverarbeitung}
 \label{sec:imagepreprocessing}
 \subsection{Sift}
-Für SIFT wird keine Bildvorerarbeitung benötigt (siehe Kapitel \ref{sift}).
+Da SIFT gegenüber Skalierung und Rotation invariant ist wird hierbei keine Bildvorerarbeitung benötigt (siehe Kapitel \ref{sift}).
 \subsection{Siamese Network}
+Aufgrund der diversität zwischen den Bildern im Datensatz benötigt es für das Siamesische Netzwerk eine Bildvorverarbeitung.
+Hierfür wurde eine Hilfsfunktion (siehe Listing \ref{lst:get_average_imagesize}) erstellt, welche den Mittelwert der Breite und Höhe über den kompletten Datensatz berechnet.
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Ermittlung der durchschnittlichen Größe im Datensatz, captionpos=b, label = lst:get_average_imagesize, language=Python, showstringspaces=false]
+def get_average_imagesize(filenames):
+	widths = []
+	heights = []
+	for filename in filenames:
+		size = PILImage.open(filename, 'r').size
+		widths.append(size[0])
+		heights.append(size[1])
+	average_width = sum(widths)/len(widths)
+	average_height = sum(heights)/len(heights)
+	return [average_width, average_height]
+\end{lstlisting}
+Das Ergebnis beträgt gerundet 831 Pixel breit und 505 Pixel hoch ist in Abbildung \ref{fig:data_average_size} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=1.5cm]{images/data_average_size.png}
+	\caption{Durchschnittliche Größe eines Bildes im Datensatz}
+	\label{fig:data_average_size}
+\end{figure}
+Daraus 
 
+\section{Sift}
+\label{sec:sift_implementation}
 
-\section{Algorithmus}
-\label{sec:algorithm}
 
 
 \newpage

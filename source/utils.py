@@ -29,6 +29,8 @@ def load_and_resize_images_from_folder(folder, resize=True):
 		if(resize):
 			img = img.reshape(img.shape)
 		img=img/255.
+
+
 		# img = np.expand_dims(img, axis=-1)
 		# np.expand_dims(img1.image_array, axis=0)
 		if img is not None:
@@ -45,7 +47,8 @@ def plot_pairs(pairs, titles, rows = 8):
 		title = titles[row]
 		for column in range(columns):
 			img = pair[column]
-			axs[row, column].imshow(img.astype('uint8'))
+			# axs[row, column].imshow(img.astype('uint8'))
+			axs[row, column].imshow(img)
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()
@@ -59,7 +62,8 @@ def plot_imagepairs(pairs, titles, rows = 8):
 		title = titles[row]
 		for column in range(columns):
 			img = pair[column]
-			axs[row, column].imshow(img.image_array.astype('uint8'))
+			# axs[row, column].imshow(img.image_array.astype('uint8'))
+			axs[row, column].imshow(img.image_array)
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()

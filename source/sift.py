@@ -1,11 +1,8 @@
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
-from tkinter.filedialog import askopenfilename
 
 def get_sift_similarity_score(filename1, filename2):
-    # filename1 = askopenfilename(filetypes=[("image","*.gif")]) # queryImage
-    # filename2 = askopenfilename(filetypes=[("image","*.gif")]) # trainImage
     try:
         img1=cv2.imread(str(filename1),4)
         img2=cv2.imread(str(filename2),4)

@@ -21,18 +21,21 @@ def pairwise(t):
 	it = iter(t)
 	return list(zip(it,it))
 
-def load_and_resize_images_from_folder(folder):
+def load_and_resize_images_from_folder(folder, resize=True):
 	images = []
 	for filename in os.listdir(folder):
 		img = load_img(os.path.join(folder,filename), grayscale=False, color_mode='rgb', target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
 		img = img_to_array(img)
-		img = img.reshape(img.shape)
+		if(resize):
+			img = img.reshape(img.shape)
 		img=img/255.
 		# img = np.expand_dims(img, axis=-1)
 		# np.expand_dims(img1.image_array, axis=0)
 		if img is not None:
 			images.append(Image(img,filename))
 	return images
+
+
 
 def plot_pairs(pairs, titles, rows = 8):
 	columns = 2
@@ -194,9 +197,6 @@ def get_smallest_and_largest_image(filenames):
 		all_images.append([img.filename, img.size])
 	sort = sorted(all_images, key=lambda x:x[1])
 	return [sort[0],sort[-1]]
-    # largest = max()
-    # smallest = min(PILImage.open(f, 'r').size for f in filenames)
-    # return [smallest, largest]
 
 def get_average_imagesize(filenames):
 	widths = []

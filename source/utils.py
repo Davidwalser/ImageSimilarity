@@ -16,12 +16,23 @@ import numpy as np
 import random
 from sklearn.model_selection import train_test_split
 from PIL import Image as PILImage
+import cv2
 
 def pairwise(t):
 	it = iter(t)
 	return list(zip(it,it))
 
-def load_and_resize_images_from_folder(folder, resize=True):
+def load_images(folder):
+	images = []
+	for filename in os.listdir(folder):
+		img = load_img(os.path.join(folder,filename), grayscale=False, color_mode='rgb', target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
+		img = img_to_array(img)
+		img=img/255.
+		if img is not None:
+			images.append(Image(img,filename))
+	return images
+
+def load_and_resize_images_from_folder(folder, resize=True, dim=True):
 	images = []
 	for filename in os.listdir(folder):
 		img = load_img(os.path.join(folder,filename), grayscale=False, color_mode='rgb', target_size=(config.IMG_WIDTH, config.IMG_HEIGHT))
@@ -29,9 +40,8 @@ def load_and_resize_images_from_folder(folder, resize=True):
 		if(resize):
 			img = img.reshape(img.shape)
 		img=img/255.
-
-
-		# img = np.expand_dims(img, axis=-1)
+		
+		img = np.expand_dims(img, axis=-1)
 		# np.expand_dims(img1.image_array, axis=0)
 		if img is not None:
 			images.append(Image(img,filename))
@@ -48,7 +58,7 @@ def plot_pairs(pairs, titles, rows = 8):
 		for column in range(columns):
 			img = pair[column]
 			# axs[row, column].imshow(img.astype('uint8'))
-			axs[row, column].imshow(img)
+			axs[row, column].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()
@@ -124,9 +134,12 @@ def build_model():
 	model = Model(inputs=[imgA, imgB], outputs=outputs)
 	# compile the model
 	print("[INFO] compiling model...")
-	# opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+	# opt = tf.keras.optimizers.Adam(learning_rate=0.000001)
 	# model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+
+	# model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+
 	# model.compile(loss=contrastive_loss, optimizer="adam", metrics=["accuracy"])
 	return model
 

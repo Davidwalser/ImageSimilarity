@@ -6,8 +6,8 @@ IMG_HEIGHT = 252 # average: 504.985
 IMG_SHAPE = (IMG_WIDTH, IMG_HEIGHT, 3)
 # specify the batch size and number of epochs
 TEST_SPLIT=0.2
-BATCH_SIZE = 16
-EPOCHS = 100
+BATCH_SIZE = 64
+EPOCHS = 50
 SIFT_SIMILARITY_SCORE = 9
 # define the path to the base output directory
 BASE_OUTPUT = "output"

@@ -966,12 +966,176 @@ Das Ergebnis beträgt gerundet 831 Pixel breit und 505 Pixel hoch ist in Abbildu
 	\caption{Durchschnittliche Größe eines Bildes im Datensatz}
 	\label{fig:data_average_size}
 \end{figure}
-Daraus 
 
 \section{Sift}
 \label{sec:sift_implementation}
+Die SIFT Implementierung stellte sich als schnelle und einfache (ca. 50 Zeilen Code) Lösung dar.
+\begin{lstlisting}[frame=lines, caption=SIFT Implementierung, captionpos=b, label = lst:sift_implementation, language=Python, showstringspaces=false]
+def get_sift_similarity_score(filename1, filename2, plot_result = False):
+    try:
+        img1=cv2.imread(str(filename1),cv2.IMREAD_ANYCOLOR)
+        img2=cv2.imread(str(filename2),cv2.IMREAD_ANYCOLOR)
+
+        sift=cv2.SIFT_create()
+
+        kp1, des1 = sift.detectAndCompute(img1,None)
+        kp2, des2 = sift.detectAndCompute(img2,None)
+
+        good_matches = calculateMatches(des1,des2)
+
+        if(plot_result):
+            img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good_matches,None,flags=2)
+            plt.imshow(img3),plt.show()
+
+        if good_matches is None:
+            return 0
+        score = 100 * (len(good_matches)/min(len(kp1),len(kp2)))
+        return score
+    except:
+        return 0
+\end{lstlisting}
+Die Funktion \textit{get\_sift\_similarity\_score} nimmt drei Parameter entgegen.
+Die ersten beiden Parameter sind \textit{filename1} und \textit{filename2}, welche die Dateinamen für die zu vergleichenden Bilder sind.
+Der dritte Parameter ist optional, heißt \textit{plot\_result} und ist per default auf \textit{False} gesetzt.
+Die komplette Funktion befindet sich in einem \textit{try catch} Block, da bei einem Fehler davon ausgegangen wird dass die Bilder sich nicht ähnlich sind.
+Zuerst werden die zwei Bilder eingelesen und ein SIFT Objekt instanziert.
+Mithilfe der Funktion \textit{sift.detectAndCompute} werden die Keypoints und Deskriptoren für beide Bilder ermittelt.
+Anschließend werden die Matches berechnet (siehe Listing \ref{lst:sift_calculateMatches}).
+Wenn der Parameter \textit{plot\_result} auf \textit{True} gesetzt wurde, so werden die gefundenen Keypoints und die dazugehörigen Matches grafisch ausgegeben.
+Zuletzt wird der Ähnlichkeitswert mithilfe der Anzahl gefundenen Matches dividiert durch das Minimum der gefundenen Keypoints der beiden Bilder berechnet.
+Das Minimum wird benötigt, da es maximal soviele Matches geben kann wie Keypoints.
+
+Die Funktion zur Bestimmung der Matches nimmt die zwei Deskriptoren als Parameter entgegen.
+Mithilfe des Brute Force Matchers und der \textit{knnMatch} Funktion werden aus den Deskriptoren die Matches ermittlet.
+Aus diesen Matches werden die potentiell korrekten Matches extrahiert indem die Distanz der Matches verglichen wird. 
+Laut des Papers von David Lowe \cite{siftlowe} sind es korrekte Matches, wenn die Distanz der Matches kleiner einem Ratio von 0.7 entspricht.
+TBD.
+\begin{lstlisting}[frame=lines, caption=SIFT calculateMatches Funktion, captionpos=b, label = lst:sift_calculateMatches, language=Python, showstringspaces=false]
+def calculateMatches(des1,des2):
+    bf = cv2.BFMatcher()
+    if des1 is not None and des2 is not None:
+        matches = bf.knnMatch(des1,des2,k=2)
+        topResults1 = []
+        for m,n in matches:
+            if m.distance < 0.7*n.distance:
+                topResults1.append([m])
+        matches = bf.knnMatch(des2,des1,k=2)
+        topResults2 = []
+        for m,n in matches:
+            if m.distance < 0.7*n.distance:
+                topResults2.append([m])
+        topResults = []
+        for match1 in topResults1:
+            match1QueryIndex = match1[0].queryIdx
+            match1TrainIndex = match1[0].trainIdx
+            for match2 in topResults2:
+                match2QueryIndex = match2[0].queryIdx
+                match2TrainIndex = match2[0].trainIdx
+                if (match1QueryIndex == match2TrainIndex) and (match1TrainIndex == match2QueryIndex):
+                    topResults.append(match1)
+        return topResults
+\end{lstlisting}
+
+\subsection{Ergebnise}
+Um SIFT zu testen wurde eine Hilfsfunktion (siehe Listing \ref{lst:sift_test_function}) geschrieben, mithilfe der aus einem Pool an Bildern die Bilder mit dem höchsten SIFT Score ermittelt und ausgegeben werden können.
+Die Parameter der Funktion sind \textit{testImage\_path}, was der Pfad für das zu testende Bild ist, \textit{testFolder\_path}, was der Pfad für einen Ordner darstellt, in dem die zu überprüfenden Bilder sind und \textit{similar\_count} mit dem angegeben werden kann wieviele der top Resultate ausgegeben werden sollen.
+Die Funktion liest alle Bilder aus dem \textit{testFolder\_path} aus und für jedes Bild wird der SIFT Ähnlichkeitsscore in ein Dictionary gespeichert, wobei der Key für das Dictionary der Name des Bildes ist.
+Abschließend wird das Dictionary nach dem SIFT Ähnlichkeitsscore sortiert und die Bilder mit dem höchste Ergebnis werden grafisch ausgegeben.
+\begin{lstlisting}[frame=lines, caption=SIFT Testfunktion, captionpos=b, label = lst:sift_test_function, language=Python, showstringspaces=false]
+def get_similar_images(testImage_path, testFolder_path, similar_count):
+    all_images = list(Path(testFolder_path).rglob("*.gif"))
+    image_similarity_dictionary = {}
+    print("images to check: " + str(len(all_images)))
+    for image in all_images:
+        similarity = sift.get_sift_similarity_score(testImage_path,image)
+        image_similarity_dictionary[image] = similarity
+    sorted_image_similarity_dictionary = dict(sorted(image_similarity_dictionary.items(), key = lambda kv: kv[1],reverse=True)[:similar_count])
+    test_image=cv2.imread(str(testImage_path), cv2.COLOR_BGR2RGB)
+    pairs = []
+    scores = []
+    for image_name in sorted_image_similarity_dictionary:
+        print(image_name, '->', sorted_image_similarity_dictionary[image_name])
+        image_name=cv2.imread(str(image_name), cv2.COLOR_BGR2RGB)
+        pairs.append([test_image,image_name])
+        scores.append(sorted_image_similarity_dictionary[image_name])
+    utils.plot_pairs(pairs,scores,similar_count)
+\end{lstlisting}
+
+Es folgt nun ein Beispiel wie ein Test aussieht.
+Das zu testende Bild ist in Abbildung \ref{fig:sift_testimage} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3.5cm]{images/sift_testimage.png}
+	\caption{Testbild}
+	\label{fig:sift_testimage}
+\end{figure}
+In Abbildung \ref{fig:sift_test_folder} ist ein Ausschnitt der zu vergleichenden Bilder zu sehen.
+Insgesamt befinden sich in dem Ordner 997 Bilder.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=8cm]{images/sift_test_images.png}
+	\caption{Ausschnitt von den zu vergleichenden Bildern}
+	\label{fig:sift_test_folder}
+\end{figure}
+Abbildung \ref{fig:sift_test_result} veranschaulicht das Ergebnis.
+In dem gezeigten Fall funktioniert der SIFT Algorithmus zuverlässig und findet die ähnlichsten Bilder mit einem Score von zwischen 14.19 und 23.75.
+Ebenfalls ist zu festzuhalten, dass das Bild mit dem höchsten Ähnlichkeitsscore, welches dem Testbild nicht ähnelt, nur einen Wert von 6.76 hat.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=13cm]{images/sift_test_result.png}
+	\caption{Ausschnitt von den zu vergleichenden Bildern}
+	\label{fig:sift_test_result}
+\end{figure}
+
+In Abbildung \ref{fig:sift_match_good} sind die Keypoints und Matches zwischen dem Testbild und dem laut SIFT ähnlichsten Bild dargestellt.
+Die Matches befinden sich in diesem Fall hauptsächlich im Textbereich, wobei sich auch bei der Figur welche befinden.
+In Abbildung \ref{fig:sift_match_bad} sind die Keypoints und Matches zwischen dem Testbild und einem nicht ähnlichen Bild dargestellt und es ist zu sehen dass hier deutlich weniger Matches gefunden wurden.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=8.2cm]{images/sift_match_good.png}
+	\caption{SIFT Matching mit ähnlichem Bild}
+	\label{fig:sift_match_good}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=7.8cm]{images/sift_match_bad.png}
+	\caption{SIFT Matching mit unterschiedlichem Bild}
+	\label{fig:sift_match_bad}
+\end{figure}
 
 
+\newpage
+\section{Siamese Network}
+\label{sec:siamese_implementation}
+In diesem Abschnitt wird der Versuch für eine Bildähnlichkeitserkennung mittels eines siamesischen Netzwerkes beschrieben.
+\subsection{Trainingsdaten}
+Für das Simaesische Netzwerk werden Trainingsdaten benötigt.
+Diese Trainingsdaten teilen sich in positive und negative Bildpaare auf.
+Positive Paare sind jeweils zwei Bilder, welche sich ähnlich sind, wobei negative Paare zwei unterschiedliche Bilder beinhalten.
+\subsubsection{Negative Paare}
+Um negative Paare zu erstellen wurde eine Hilfsfunktion (siehe Listing \ref{lst:generate_random_negative_pairs}) geschrieben, welche zwei zufällige Bilder aus dem Datensatz hernimm
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Erstellung von negativen Paaren, captionpos=b, label = lst:generate_random_negative_pairs, language=Python, showstringspaces=false]
+def generate_random_negative_pairs(sourceFolder, destinationFolder, count):
+    files = list(Path(sourceFolder).rglob("*.gif"))
+    existing_pairs_count = int(len(list(Path(destinationFolder).rglob("*.gif"))) / 2)
+    print('[INFO] exisitng pairs: ' + str(existing_pairs_count))
+    new_index_pair = existing_pairs_count + 1
+    for x in range(new_index_pair, new_index_pair + count):
+        file1 = random.choice(files)
+        file2 = random.choice(files)
+        if(file1 != file2):
+            shutil.copyfile(file1, destinationFolder + '\\neg_' + str(x) + '_1.gif')
+            shutil.copyfile(file2, destinationFolder + '\\neg_' + str(x) + '_2.gif')
+\end{lstlisting}
+Die Hilfsfunktion nimmt die drei Parameter \textit{sourceFolder}, \textit{destinationFolder} und \textit{count} entgegen.
+Es werden alle Bilder, welche sich in dem \textit{sourceFolder} befinden, geladen, und die Anzahl der bereits exisitirenden Paare aus dem \textit{destinationFolder} ermittelt.
+Anschließend werden per Zufall zwei Bilder aus den geladenen Bildern ausgewählt und, sofern sie nicht dieselbe Datei sind, in den \textit{destinationFolder} kopiert.
+Dabei erhalten sie die Namenskonvention \textit{neg\_IndexDesPaares\_1.gif} bzw. \textit{neg\_IndexDesPaares\_2.gif}.
+Für das erste Paar sind die Namen beispielsweise \textit{neg\_1\_1.gif} und \textit{neg\_1\_2.gif}.
+Aufgrund der Größe des Datensatzes ist es sehr unwahrscheinlich, dass dadurch fälschlicherweise positive Paare mitgeneriert werden, jedoch wurden die Paare anschließend auf Richtigkeit geprüft.
+
+\subsubsection{Positive Paare}
 
 \newpage
 \chapter{Diskussion der Ergebnise}

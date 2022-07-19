@@ -20,18 +20,12 @@ def rename_pairs(prefix, folder):
 def generate_random_negative_pairs(sourceFolder, destinationFolder, count):
     files = list(Path(sourceFolder).rglob("*.gif"))
     existing_pairs_count = int(len(list(Path(destinationFolder).rglob("*.gif"))) / 2)
-    print('exisitng pairs: ' + str(existing_pairs_count))
+    print('[INFO] exisitng pairs: ' + str(existing_pairs_count))
     new_index_pair = existing_pairs_count + 1
     for x in range(new_index_pair, new_index_pair + count):
-        print(x)
         file1 = random.choice(files)
         file2 = random.choice(files)
         if(file1 != file2):
-            print(file1)
-            print(destinationFolder + '\\neg_' + str(x) + '_1.gif')
-            print(file2)
-            print(destinationFolder + '\\neg_' + str(x) + '_2.gif')
-            print('----')
             shutil.copyfile(file1, destinationFolder + '\\neg_' + str(x) + '_1.gif')
             shutil.copyfile(file2, destinationFolder + '\\neg_' + str(x) + '_2.gif')
 
@@ -93,6 +87,6 @@ def sift_test_pairs(folderPath):
     utils.plot_pairs(pairs, similarities)
 
 # sift_test_pairs("C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\\NegativePairs")
-# make_random_negative_pairs("C:\Study\FH_Campus\MasterThesis\source\Images", "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\\NegativePairs", 300)
-# rename_pairs('test', './SurveyPictures/Random_Test')
-generate_random_positive_pairs("C:\Study\FH_Campus\MasterThesis\source\Images", "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\\New_positives", 50)
+generate_random_negative_pairs("C:\Study\FH_Campus\MasterThesis\source\Images", "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\\NegativePairs", 400)
+# rename_pairs('pos', './SurveyPictures/PositivePairs')
+# generate_random_positive_pairs("C:\Study\FH_Campus\MasterThesis\source\Images", './SurveyPictures/PositivePairs', 1)

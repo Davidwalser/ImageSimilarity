@@ -62,7 +62,7 @@ def plot_pairs(pairs, titles, rows = 8):
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()
-	plt.savefig(config.SIFT_PLOT_PATH)
+	# plt.savefig(config.SIFT_PLOT_PATH)
 
 def plot_imagepairs(pairs, titles, rows = 8):
 	columns = 2

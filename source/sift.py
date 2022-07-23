@@ -57,3 +57,7 @@ def get_sift_similarity_score(filename1, filename2, plot_result = False):
 # get_sift_similarity_score("C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\sift_test1.gif", 
 # "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\sift_test2.gif",
 # True)
+
+# get_sift_similarity_score("C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\pos_148_1.gif", 
+# "C:\Study\FH_Campus\MasterThesis\source\SurveyPictures\pos_148_2.gif",
+# True)

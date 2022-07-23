@@ -238,7 +238,7 @@ Datum: \hspace{6cm} Unterschrift:\\
 \label{sec:Problembeschreibung}
 Für uns Menschen ist es eine ziemlich einfache Aufgabe zu ermitteln ob ein Bild ähnlich zu einem anderen ist oder nicht. 
 Wir erkennen alle Möglichen Merkmale eines Bildes, wie Farben, Texte oder Muster, ohne große Schwierigkeiten.
-Es stellt jedoch eine Herausforderung dar, wenn ein Bild mit 400.000 anderen Bildern verglichen und auf ähnlichkeit geprüft werden soll.
+Es stellt jedoch eine Herausforderung dar, wenn ein Bild mit 400.000 anderen Bildern verglichen und auf Ähnlichkeit geprüft werden soll.
 
 Im Jahre 2020 wurden 6260 neue Marken beim österreichischen Patentamt angemeldet \cite{oepastatistik2020}.
 Die meisten dieser Marken werden in Kombination mit einem Bild, auch Logo genannt, registriert.
@@ -1009,7 +1009,7 @@ Die Funktion zur Bestimmung der Matches nimmt die zwei Deskriptoren als Paramete
 Mithilfe des Brute Force Matchers und der \textit{knnMatch} Funktion werden aus den Deskriptoren die Matches ermittlet.
 Aus diesen Matches werden die potentiell korrekten Matches extrahiert indem die Distanz der Matches verglichen wird. 
 Laut des Papers von David Lowe \cite{siftlowe} sind es korrekte Matches, wenn die Distanz der Matches kleiner einem Ratio von 0.7 entspricht.
-TBD.
+Anschließend wird überprüft ob der beste Match für Deskriptor1 verglichen mit Deskriptor2 derselbe wie für Deskriptor2 verglichen mit Deskriptor1 ist, um so nur bidirektionale Matches zu haben.
 \begin{lstlisting}[frame=lines, caption=SIFT calculateMatches Funktion, captionpos=b, label = lst:sift_calculateMatches, language=Python, showstringspaces=false]
 def calculateMatches(des1,des2):
     bf = cv2.BFMatcher()
@@ -1083,27 +1083,85 @@ Ebenfalls ist zu festzuhalten, dass das Bild mit dem höchsten Ähnlichkeitsscor
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=13cm]{images/sift_test_result.png}
-	\caption{Ausschnitt von den zu vergleichenden Bildern}
+	\caption{Ergebnis SIFT Vergleich}
 	\label{fig:sift_test_result}
 \end{figure}
 
+\newpage
 In Abbildung \ref{fig:sift_match_good} sind die Keypoints und Matches zwischen dem Testbild und dem laut SIFT ähnlichsten Bild dargestellt.
-Die Matches befinden sich in diesem Fall hauptsächlich im Textbereich, wobei sich auch bei der Figur welche befinden.
-In Abbildung \ref{fig:sift_match_bad} sind die Keypoints und Matches zwischen dem Testbild und einem nicht ähnlichen Bild dargestellt und es ist zu sehen dass hier deutlich weniger Matches gefunden wurden.
+Die Matches befinden sich in diesem Fall hauptsächlich im Textbereich, wobei sich auch bei der Figur wenige befinden.
+In Abbildung \ref{fig:sift_match_bad} sind die Keypoints und Matches zwischen dem Testbild und einem nicht ähnlichen Bild dargestellt und es ist zu sehen dass hier deutlich weniger Matches gefunden werden.
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=8.2cm]{images/sift_match_good.png}
+		\includegraphics[height=8cm]{images/sift_match_good.png}
 	\caption{SIFT Matching mit ähnlichem Bild}
 	\label{fig:sift_match_good}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=7.8cm]{images/sift_match_bad.png}
+		\includegraphics[height=7cm]{images/sift_match_bad.png}
 	\caption{SIFT Matching mit unterschiedlichem Bild}
 	\label{fig:sift_match_bad}
 \end{figure}
 
+\newpage
+Ein weiterer durchgeführter Test war es negative und positive Paare mittels des SIFT Algorithmus zu vergleichen, um so mehr über SIFT und die Daten zu erfahren.
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Überprüfung von Paaren mittels SIFT, captionpos=b, label = lst:sift_test_pairs, language=Python, showstringspaces=false]
+def sift_test_pairs(folderPath):
+    images = list(Path(folderPath).rglob("*.gif"))
+    image_pairs = utils.pairwise(images)
+    result = []
+    count = 1
+    print("[INFO] total pairs count: ", len(image_pairs))
+    for pair in image_pairs:
+        img1, img2 = pair
+        similarity = sift.get_sift_similarity_score(img1,img2)
+        result.append([similarity,pair])
+        print("[INFO] currently checked: ", count)
+        count += 1
+    highest_results = sorted(result, key = lambda kv: kv[0], reverse=True)
+    lowest_results = sorted(result, key = lambda kv: kv[0], reverse=False)
+    plot_sift_test_pairs(highest_results)
+    plot_sift_test_pairs(lowest_results)
+\end{lstlisting}
+Mithilfe der Funktion aus Lisitng \ref{lst:sift_test_pairs} werden Paare aus einem Ordner mittels SIFT verglichen und jeweils die mit dem höchsten und niedrigsten grafisch ausgegeben.
+Getestet wurde mit 200 positiven, sowie negativen Paaren.
+In Abbildung \ref{fig:sift_test_negative_pairs} sind die Ergebnisse mit den negativen Paaren ersichtlich.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=13.5cm]{images/sift_test_negative_pairs_titled.png}
+	\caption{Analyse negative Paare mit SIFT}
+	\label{fig:sift_test_negative_pairs}
+\end{figure}
+Hier ist zu erkennen dass das Topresultat einen SIFT Score von 7.25 erzielt.
+Auf den ersten Blick ist zu erkennen dass die Schriftart sehr ähnlich ist, und daraus das gute Resultat entstanden sein könnte.
+Diese Hypothese konnte durch genaueres betrachten der Matches der Keypoints bestätigt werden (siehe Abbildung \ref{fig:sift_negative_pair_best_matches})
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=2cm]{images/sift_negative_pair_best_matches.png}
+	\caption{Analyse Topresultat negative Paare}
+	\label{fig:sift_negative_pair_best_matches}
+\end{figure}
+
+In Abbildung \ref{fig:sift_test_positive_pairs} sind die Ergebnisse der positiven Paare zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=13.5cm]{images/sift_test_positive_pairs_titled.png}
+	\caption{Analyse positive Paare mit SIFT}
+	\label{fig:sift_test_positive_pairs}
+\end{figure}
+Die Topresultate erzielen einen SIFT Score von über 50, jedoch sind die Ergebnisse mit den niedrigsten Scores unter einem Score von 3.
+Ebenfalls hat das niedrigste Paar einen SIFT Score von 0.
+Bei genauerer Analyse hat sich herausgestellt dass der Deskriptor1 auf den Deskriptor2 30 gute Matches (Distanz <0.7), der Deskriptor2 auf Deskriptor1 8 gute Matches erkennt, jedoch keine davon bidirektional sind.
+
+Schlussfolgerungen aus dieser Datenanalyse mit SIFT 
+Durch diese Datenanalyse mittels SIFT ergeben sich folgende Schlussfolgerungen:
+\begin{itemize}
+	\item Ein Paar mit einem \textbf{SIFT Score > 7.25} kann als \textbf{positiv} angesehen werden.
+	\item Ein Paar mit einem \textbf{SIFT Score < 7.25} kann jedoch \textbf{nicht} als \textbf{negativ} angesehen werden.
+	\item Mit dem SIFT Algorithmus können positive Paare einen niedrigen Score erzielen.
+\end{itemize}
 
 \newpage
 \section{Siamese Network}
@@ -1134,14 +1192,80 @@ Anschließend werden per Zufall zwei Bilder aus den geladenen Bildern ausgewähl
 Dabei erhalten sie die Namenskonvention \textit{neg\_IndexDesPaares\_1.gif} bzw. \textit{neg\_IndexDesPaares\_2.gif}.
 Für das erste Paar sind die Namen beispielsweise \textit{neg\_1\_1.gif} und \textit{neg\_1\_2.gif}.
 Aufgrund der Größe des Datensatzes ist es sehr unwahrscheinlich, dass dadurch fälschlicherweise positive Paare mitgeneriert werden, jedoch wurden die Paare anschließend auf Richtigkeit geprüft.
+In Abbildung \ref{fig:negative_pairs} sind negative Paare zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=9cm]{images/negative_pairs.png}
+	\caption{Beispiele negative Paare}
+	\label{fig:negative_pairs}
+\end{figure}
 
+\newpage
 \subsubsection{Positive Paare}
+Zu Beginn der Datenanalyse ist Aufgefallen dass es häufig der Fall ist, dass sich ähnliche Bilder in der Ordnerstruktur direkt nebeneinander befinden (siehe Abbildung rot markiert \ref{fig:data_positive_pair}).
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=4cm]{images/data_positive_pair.png}
+	\caption{Ausschnitt Datenstruktur positives Paar}
+	\label{fig:data_positive_pair}
+\end{figure}
+Zu Beginn wurden die positiven Paare händisch generiert, dies beanspruchte jedoch sehr viel Zeit.
+
+
+Mithilfe der gewonnen Erkentniss zum SIFT Algorithmus und der Datenanalyse wurde eine Hilfsfunktion geschrieben, mit der positive Paare generiert werden können.
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Überprüfung ob zwei Bilder ein positives Paar ergeben, captionpos=b, label = lst:is_positive, language=Python, showstringspaces=false]
+def is_positive(filename1, filename2):
+        score = sift.get_sift_similarity_score(filename1,filename2)
+        if(score > config.SIFT_SIMILARITY_SCORE):
+            print("[INFO] found match!")
+            print("[INFO] file1: ", filename1)
+            print("[INFO] file2: ",filename2)
+            return True
+        return False
+\end{lstlisting}
+In der in Listing \ref{lst:is_positive} gezeigten Funktion werden zwei Dateinamen entgegengenommen und überprüft ob der SIFT Score für diese Dateien größer einem im Konfigfile beschriebenen Grenzwert entspricht.
+Wenn dies der Fall ist so gibt die Funktion \textit{True} zurück, ansonsten \textit{False}.
+Da es sich im vorher gezeigten Versuch um einen Test mit wenigen Daten (200 Paare) handelt, wurde auf den Grenzwert von 7.25 ein Sicherheitspuffer hinzugefügt.
+Der Wert für \textit{config.SIFT\_SIMILARITY\_SCORE} wurde somit auf 9 gesetzt.
+Hier gilt es anzumerken dass dieser Wert beliebig verändert werden kann.
+Wird sich dieser Wert erhöht, dauert es durchschnittlich länger um positive Paare zu generieren, diese beinhalten dann jedoch weniger flasch positve Ergebnisse.
+Ebenso gilt es wenn sich der Wert verringert, so dauert es durchschnittlich weniger lang um positive Paare zu generieren, jedoch beinhalten diese mehr falsch positve Ergebnisse.
+
+\begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Generierung von positiven Paaren mittels SIFT, captionpos=b, label = lst:generate_random_positive_pairs, language=Python, showstringspaces=false]
+def generate_random_positive_pairs(sourceFolder, destinationFolder, count):
+    files = list(Path(sourceFolder).rglob("*.gif"))
+    existing_pairs_count = int(len(list(Path(destinationFolder).rglob("*.gif"))) / 2)
+    print('[INFO] exisitng pairs: ' + str(existing_pairs_count))
+    new_index_pair = existing_pairs_count + 1
+    new_pairs_count = 0
+    while(new_pairs_count < count):
+        index_to_check = random.randint(1,len(files)-2)
+        file_to_check = files[index_to_check]
+        file_neighbour1 = files[index_to_check-1]
+        if(is_positive(file_to_check, file_neighbour1)):
+            shutil.copyfile(file_to_check, destinationFolder + '\\pos_' + str(new_index_pair) + '_1.gif')
+            shutil.copyfile(file_neighbour1, destinationFolder + '\\pos_' + str(new_index_pair) + '_2.gif')
+            new_index_pair += 1
+            new_pairs_count += 1
+            print('[INFO] currently generated pairs: ', new_pairs_count)
+        file_neighbour2 = files[index_to_check+1]
+        if(is_positive(file_to_check, file_neighbour2)):
+            shutil.copyfile(file_to_check, destinationFolder + '\\pos_' + str(new_index_pair) + '_1.gif')
+            shutil.copyfile(file_neighbour2, destinationFolder + '\\pos_' + str(new_index_pair) + '_2.gif')
+            new_index_pair += 1
+            new_pairs_count += 1
+            print('[INFO] currently generated pairs: ', new_pairs_count)
+\end{lstlisting}
+Die Funktion um positive Paare zu generieren (siehe Listing \ref{lst:generate_random_positive_pairs}) lädt alle Bilder aus dem im Parameter \textit{sourceFolder} enthaltenen Bilder und prüft anschließend Bildepaare mithilfe der in Listing \ref{lst:is_positive} beschriebenen Funktion auf Ähnlichkeit.
+Dabei wird ein Bild per Zufall ausgewählt und mit seinen direkten Nachbarn verglichen, da die Datenanalyse ergeben hat, dass Nachbarn oft positive Paare darstellen (siehe Abbildung \ref{fig:data_positive_pair}).
+
 
 \newpage
 \chapter{Diskussion der Ergebnise}
 Vergleich SIFT vs. Simaese Network
 skizze: SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung, ist schnell, schlechte generalisierung, simple implementierung
 Siamese Network (mit CNN): benötigt Trainingsdaten um zu lernen, benötigt Bildvorverarbeitung, viele Parameter zu setzen
+Siamese Network Datenanalyse und Trainingsdatenaufbereitung hat viel Zeit in anspruch genommen, leider wenig zeit für finetuning vom Netzwerk selbst
 \begin{table*}[htbp]
 	\centering
 		\begin{tabular}{|c|c|m{20em}|}

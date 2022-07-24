@@ -17,6 +17,7 @@ import random
 from sklearn.model_selection import train_test_split
 from PIL import Image as PILImage
 import cv2
+from keras.utils.vis_utils import plot_model
 
 def pairwise(t):
 	it = iter(t)
@@ -42,7 +43,6 @@ def load_and_resize_images_from_folder(folder, resize=True, dim=True):
 		img=img/255.
 		
 		img = np.expand_dims(img, axis=-1)
-		# np.expand_dims(img1.image_array, axis=0)
 		if img is not None:
 			images.append(Image(img,filename))
 	return images
@@ -57,12 +57,10 @@ def plot_pairs(pairs, titles, rows = 8):
 		title = titles[row]
 		for column in range(columns):
 			img = pair[column]
-			# axs[row, column].imshow(img.astype('uint8'))
 			axs[row, column].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
 	plt.show()
-	# plt.savefig(config.SIFT_PLOT_PATH)
 
 def plot_imagepairs(pairs, titles, rows = 8):
 	columns = 2
@@ -72,7 +70,6 @@ def plot_imagepairs(pairs, titles, rows = 8):
 		title = titles[row]
 		for column in range(columns):
 			img = pair[column]
-			# axs[row, column].imshow(img.image_array.astype('uint8'))
 			axs[row, column].imshow(img.image_array)
 			axs[row, column].axis('off')
 			axs[row, column].set_title(title)
@@ -83,29 +80,18 @@ def make_test_and_train_pairs(positive_path, negative_path, test_size):
 	images = load_and_resize_images_from_folder(positive_path)
 	image_arrays = (image.image_array for image in images)
 	positive_pairs = pairwise(image_arrays)
-	# plot_pairs(positive_pairs)
-
 	images = load_and_resize_images_from_folder(negative_path)
 	image_arrays = (image.image_array for image in images)
 	negative_pairs = pairwise(image_arrays)
-	# plot_pairs(negative_pairs)
-	# initialize two empty lists to hold the (image, image) pairs and
-	# labels to indicate if a pair is positive or negative
 	pairImages = []
 	labels = []
-
 	for pair in positive_pairs:
 		pairImages.append(pair)
 		labels.append([1])
 	for pair in negative_pairs:
 		pairImages.append(pair)
 		labels.append([0])
-	
-	# combined_lists = list(zip(pairImages, labels))
-	# random.shuffle(combined_lists)
-	# pairImages_shuffled, labels_shuffled = zip(*combined_lists)
-	images_train, images_test, labels_train, labels_test = train_test_split(pairImages, labels, test_size=test_size)
-	# plot_pairs(pairImages_shuffled,pairLabels_shuffled)
+	images_train, images_test, labels_train, labels_test = train_test_split(pairImages, labels, test_size=test_size, shuffle=True)
 	return (np.array(images_train), np.array(labels_train), np.array(images_test), np.array(labels_test))
 
 def contrastive_loss(y, preds, margin=1):
@@ -125,22 +111,14 @@ def build_model():
 	print("[INFO] building siamese network...")
 	imgA = Input(shape=config.IMG_SHAPE)
 	imgB = Input(shape=config.IMG_SHAPE)
-	featureExtractor = siamese_network.build_siamese_model(config.IMG_SHAPE)
+	featureExtractor = siamese_network.build_cnn(config.IMG_SHAPE)
 	featsA = featureExtractor(imgA)
 	featsB = featureExtractor(imgB)
-	# finally, construct the siamese network
 	distance = Lambda(euclidean_distance)([featsA, featsB])
 	outputs = Dense(1, activation="sigmoid")(distance)
 	model = Model(inputs=[imgA, imgB], outputs=outputs)
-	# compile the model
-	print("[INFO] compiling model...")
-	# opt = tf.keras.optimizers.Adam(learning_rate=0.000001)
-	# model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
-
-	# model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
-
-	# model.compile(loss=contrastive_loss, optimizer="adam", metrics=["accuracy"])
+	model.summary()
+	plot_model(model, to_file=os.path.sep.join([config.BASE_OUTPUT,'model_siamese.png']))
 	return model
 
 def euclidean_distance(vectors):

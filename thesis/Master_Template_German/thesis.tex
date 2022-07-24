@@ -1257,6 +1257,7 @@ def generate_random_positive_pairs(sourceFolder, destinationFolder, count):
 \end{lstlisting}
 Die Funktion um positive Paare zu generieren (siehe Listing \ref{lst:generate_random_positive_pairs}) lädt alle Bilder aus dem im Parameter \textit{sourceFolder} enthaltenen Bilder und prüft anschließend Bildepaare mithilfe der in Listing \ref{lst:is_positive} beschriebenen Funktion auf Ähnlichkeit.
 Dabei wird ein Bild per Zufall ausgewählt und mit seinen direkten Nachbarn verglichen, da die Datenanalyse ergeben hat, dass Nachbarn oft positive Paare darstellen (siehe Abbildung \ref{fig:data_positive_pair}).
+Es benötigt nach der Generierung von positiven Paaren mittels SIFT eine händische Überprüfung der Paare, da es vorkommen kann dass falsch positive Paare dabei sind.
 In Abbildung \ref{fig:positive_pairs} sind positive Paare zu sehen.
 \begin{figure}[htbp]
 	\centering
@@ -1264,15 +1265,148 @@ In Abbildung \ref{fig:positive_pairs} sind positive Paare zu sehen.
 	\caption{Beispiele positive Paare}
 	\label{fig:positive_pairs}
 \end{figure}
-\subsection{Siamese Network Implementierung}
 
+\subsection{Siamese Network Implementierung}
+Für das gesamte Projekt wurde eine Konfigurationsdatei erstellt, in der Werte wie z.B. der schon Beschriebene \textit{SIFT\_SIMILARITY\_SCORE} oder auch \textit{IMG\_WIDTH} und \textit{IMG\_HEIGHT} verwaltet werden können.
+Hier wurden die Breite und Höhe Aufgrund von Speicherplatz auf die hälfte des in der Analyse ergebenen Mittelwertes gesetzt.
+\begin{lstlisting}[frame=lines, caption=Konfigurationsdatei, captionpos=b, label = lst:config, language=Python, showstringspaces=false]
+IMG_WIDTH = 415 # average: 830.66
+IMG_HEIGHT = 252 # average: 504.985
+IMG_SHAPE = (IMG_WIDTH, IMG_HEIGHT, 3)
+TEST_SPLIT=0.2
+BATCH_SIZE = 10
+EPOCHS = 50
+SIFT_SIMILARITY_SCORE = 9
+
+BASE_OUTPUT = "output"
+MODEL_PATH = os.path.sep.join([BASE_OUTPUT, "siamese_model"])
+SIFT_PLOT_PATH = os.path.sep.join([BASE_OUTPUT, "sift_plot.png"])
+PLOT_PATH = os.path.sep.join([BASE_OUTPUT, "plot.png"])
+PLOT_PATH_ZOOM = os.path.sep.join([BASE_OUTPUT, "plot_zoom.png"])
+WEIGHTS_PATH = os.path.sep.join([BASE_OUTPUT, "siamese_model", "weights.h5"])
+\end{lstlisting}
+Um das Model für das siamese network zu builden wurde eine Hilfsfunktion geschrieben (siehe Listing \ref{lst:build_model}).
+\begin{lstlisting}[frame=lines, caption=Siamese Network builden, captionpos=b, label = lst:build_model, language=Python, showstringspaces=false]
+def build_model():
+	print("[INFO] building siamese network...")
+	imgA = Input(shape=config.IMG_SHAPE)
+	imgB = Input(shape=config.IMG_SHAPE)
+	featureExtractor = siamese_network.build_cnn(config.IMG_SHAPE)
+	featsA = featureExtractor(imgA)
+	featsB = featureExtractor(imgB)
+	distance = Lambda(euclidean_distance)([featsA, featsB])
+	outputs = Dense(1, activation="sigmoid")(distance)
+	model = Model(inputs=[imgA, imgB], outputs=outputs)
+	return model
+\end{lstlisting}
+
+Mit der \textit{Input} Funktion wird ein Keras Tensor instanziert, welcher als Input für das Model verwendet wird.
+Dabei wird die in der Konfigurationsdatei angegebene \textit{IMG\_SHAPE} als Shape angegeben.
+Anschließend wird das ein CNN mittels der \textit{build\_cnn} Funktion konstruiert.
+Diese Funktion ist in Listing \ref{lst:build_cnn} zu sehen.
+Da es sich um ein siamese network handelt wird das CNN zwei mal instanziert und anschließend die euklidische Distanz angefügt.
+Die euklidische Distanz berechnet die Differenz der Outputs der beiden CNNs, und somit die Ähnlichkeit.
+Als Output-Layer wird ein vollständig verknüpftes Neuronales Netzwerk angefügt, welches mittels der Aktivierungsfunktion sigmoid einen Wert zwischen 0 und 1 ausgibt.
+Das aus Listing  \ref{lst:build_model} entstandene Model ist in Abbildung \ref{fig:model_siamese} zu sehen.
+\pagebreak
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=8cm]{images/model_siamese.png}
+	\caption{Siamese Model}
+	\label{fig:model_siamese}
+\end{figure}
+
+\begin{lstlisting}[frame=lines, caption=CNN builden, captionpos=b, label = lst:build_cnn, language=Python, showstringspaces=false]
+def build_cnn(inputShape, embeddingDim=48):
+	# specify the inputs for the feature extractor network
+	inputs = Input(shape=inputShape)
+	# define the first set of CONV => RELU => POOL => DROPOUT layers
+	x = Conv2D(64, (3, 3), padding="same", activation="relu")(inputs)
+	x = MaxPooling2D(pool_size=(2, 2))(x)
+	x = Dropout(0.3)(x)
+	# second set of CONV => RELU => POOL => DROPOUT layers
+	x = Conv2D(64, (3, 3), padding="same", activation="relu")(x)
+	x = MaxPooling2D(pool_size=2)(x)
+	x = Dropout(0.3)(x)
+	
+	pooledOutput = GlobalAveragePooling2D()(x)
+	outputs = Dense(embeddingDim)(pooledOutput)
+	# build the model
+	model = Model(inputs, outputs)
+	model.summary()
+	plot_model(model, to_file=os.path.sep.join([config.BASE_OUTPUT,'model.png']))
+	# return the model to the calling function
+	return model
+\end{lstlisting}
+
+Die in Listing  \ref{lst:build_cnn} gezeigte Funktion erzeugt ein CNN mit zwei Convolution Layern, die anschließend jeweils MaxPooling und ein Dropout haben.
+Abschließend gibt es ein GlobalAveragePooling gefolgt von einem vollständig verknüpften neuronalen Netzwerk.
+Das Model, welches aus dem Code aus in Listing  \ref{lst:build_cnn} erzeugt wird, ist in Abbildung \ref{fig:model_cnn}  zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=17cm]{images/model_cnn.png}
+	\caption{CNN Model}
+	\label{fig:model_cnn}
+\end{figure}
+
+\subsection{Training des siamese netwok}
+Zum Trainieren des siamese networks wurde eine Funktion geschrieben, welche in Listing \ref{lst:train_siamese_network} zu sehen ist.
+\begin{lstlisting}[frame=lines, caption=Funktion zum Trainieren des siamese networks, captionpos=b, label = lst:train_siamese_network, language=Python, showstringspaces=false]
+def train_siamese_network(positivePairs_path, negativePairs_path, testSplit):
+	# prepare the positive and negative pairs
+	print("[INFO] preparing positive and negative pairs...")
+	(pairTrain, labelTrain, pairTest, labelTest) = utils.make_test_and_train_pairs(positivePairs_path, negativePairs_path, testSplit)
+	print('[INFO] pairs train size: '+ str(len(pairTrain)))
+	print('[INFO] pairs test size: '+ str(len(pairTest)))
+
+	model = utils.build_model()
+	print("[INFO] compiling model...")
+	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+	print("[INFO] training model...")
+	history = model.fit(
+		[pairTrain[:, 0], pairTrain[:, 1]], labelTrain[:],
+		validation_data=([pairTest[:, 0], pairTest[:, 1]], labelTest[:]),
+		batch_size=config.BATCH_SIZE,
+		shuffle=True,
+		epochs=config.EPOCHS)
+
+	# serialize the model to disk
+	print("[INFO] saving siamese model...")
+	# model.save(config.MODEL_PATH)
+	model.save_weights(config.WEIGHTS_PATH)
+	# plot the training history
+	print("[INFO] plotting training history...")
+	utils.plot_training(history, config.PLOT_PATH)
+	utils.plot_training(history, config.PLOT_PATH_ZOOM, True)
+\end{lstlisting}
+Als Parameter werden die Pfade für die positiven und negativen Paare entgegengenommen, und ein Float, welcher angibt wie die Trainingsdaten ind Trainings- und Testdaten gesplittet werden soll.
+Die positiven und negativen Paare werden mithilfe der Funktion \textit{make\_test\_and\_train\_pairs} geladen und gelabelt.
+Positive Paare werden mit 1 gelabelt, und negative Paare mit 0 (siehe Abbildung \ref{fig:training_data}).
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5cm]{images/training_data.png}
+	\caption{CNN Model}
+	\label{fig:training_data}
+\end{figure}
+Anschließend wird das simaesische Model geladen und für das Training konfiguriert.
+In Listing \ref{lst:train_siamese_network} wird als Verlustfunktion \textit{binary\_crossentropy} gewählt, da es sich um ein Klassifikationsproblem von zwei Klassen handelt.
+Die zwei Klassen sind dabei entweder positve, sprich ähnliche Bilder, oder negative, sprich unterschiedliche Bilder.
+Mit der Funktion \textit{model.fit} wird das Model trainiert.
+Mit \textit{batch\_size} wird angegeben wieviele Proben das Netzwerk nehmen soll, bevor es die internen Parameter wie Gewichte anpasst.
+Mit \textit{epochs} wird angegeben wie oft die kompletten Trainingsdaten durchgearbeitet werden sollen.
+Nach dem Trainieren des Netzwerkes werden die Gewichte des Models gespeichert 
+Abschließend wird der Verlauf der Genauigkeit und des Verlustes über die Epochen grafisch ausgegeben.
+
+\subsection{Ergebnisse}
 
 \newpage
 \chapter{Diskussion der Ergebnise}
+DRAFT:
 Vergleich SIFT vs. Simaese Network
 skizze: SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung, ist schnell, schlechte generalisierung, simple implementierung
 Siamese Network (mit CNN): benötigt Trainingsdaten um zu lernen, benötigt Bildvorverarbeitung, viele Parameter zu setzen
 Siamese Network Datenanalyse und Trainingsdatenaufbereitung hat viel Zeit in anspruch genommen, leider wenig zeit für finetuning vom Netzwerk selbst
+Anmerkung: Vergleich SIFT und EINE Form von siamese Network, man könnte siamese network finetunen und eventuell bessere Resultate erzielen.
 \begin{table*}[htbp]
 	\centering
 		\begin{tabular}{|c|c|m{20em}|}

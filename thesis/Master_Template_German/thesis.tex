@@ -968,6 +968,7 @@ Das Ergebnis beträgt gerundet 831 Pixel breit und 505 Pixel hoch ist in Abbildu
 \end{figure}
 
 \section{Sift}
+\subsection{Sift Implementierung}
 \label{sec:sift_implementation}
 Die SIFT Implementierung stellte sich als schnelle und einfache (ca. 50 Zeilen Code) Lösung dar.
 \begin{lstlisting}[frame=lines, caption=SIFT Implementierung, captionpos=b, label = lst:sift_implementation, language=Python, showstringspaces=false]
@@ -1042,7 +1043,7 @@ Die Parameter der Funktion sind \textit{testImage\_path}, was der Pfad für das 
 Die Funktion liest alle Bilder aus dem \textit{testFolder\_path} aus und für jedes Bild wird der SIFT Ähnlichkeitsscore in ein Dictionary gespeichert, wobei der Key für das Dictionary der Name des Bildes ist.
 Abschließend wird das Dictionary nach dem SIFT Ähnlichkeitsscore sortiert und die Bilder mit dem höchste Ergebnis werden grafisch ausgegeben.
 \begin{lstlisting}[frame=lines, caption=SIFT Testfunktion, captionpos=b, label = lst:sift_test_function, language=Python, showstringspaces=false]
-def get_similar_images(testImage_path, testFolder_path, similar_count):
+def get_similar_images_sift(testImage_path, testFolder_path, similar_count):
     all_images = list(Path(testFolder_path).rglob("*.gif"))
     image_similarity_dictionary = {}
     print("images to check: " + str(len(all_images)))
@@ -1195,24 +1196,22 @@ Aufgrund der Größe des Datensatzes ist es sehr unwahrscheinlich, dass dadurch 
 In Abbildung \ref{fig:negative_pairs} sind negative Paare zu sehen.
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=9cm]{images/negative_pairs.png}
+		\includegraphics[height=10cm]{images/negative_pairs.png}
 	\caption{Beispiele negative Paare}
 	\label{fig:negative_pairs}
 \end{figure}
 
 \newpage
 \subsubsection{Positive Paare}
-Zu Beginn der Datenanalyse ist Aufgefallen dass es häufig der Fall ist, dass sich ähnliche Bilder in der Ordnerstruktur direkt nebeneinander befinden (siehe Abbildung rot markiert \ref{fig:data_positive_pair}).
+Zu Beginn der Datenanalyse ist Aufgefallen dass es häufig der Fall ist, dass sich ähnliche Bilder in der Ordnerstruktur direkt nebeneinander befinden (siehe Abbildung \ref{fig:data_positive_pair} in rot markiert).
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=4cm]{images/data_positive_pair.png}
+		\includegraphics[height=5cm]{images/data_positive_pair.png}
 	\caption{Ausschnitt Datenstruktur positives Paar}
 	\label{fig:data_positive_pair}
 \end{figure}
 Zu Beginn wurden die positiven Paare händisch generiert, dies beanspruchte jedoch sehr viel Zeit.
-
-
-Mithilfe der gewonnen Erkentniss zum SIFT Algorithmus und der Datenanalyse wurde eine Hilfsfunktion geschrieben, mit der positive Paare generiert werden können.
+Mithilfe der gewonnen Erkentniss zum SIFT Algorithmus und der Datenanalyse wurde desshalb eine Hilfsfunktion geschrieben, mit der positive Paare generiert werden können.
 \begin{lstlisting}[frame=lines, caption=Hilfsfunktion zur Überprüfung ob zwei Bilder ein positives Paar ergeben, captionpos=b, label = lst:is_positive, language=Python, showstringspaces=false]
 def is_positive(filename1, filename2):
         score = sift.get_sift_similarity_score(filename1,filename2)
@@ -1258,6 +1257,14 @@ def generate_random_positive_pairs(sourceFolder, destinationFolder, count):
 \end{lstlisting}
 Die Funktion um positive Paare zu generieren (siehe Listing \ref{lst:generate_random_positive_pairs}) lädt alle Bilder aus dem im Parameter \textit{sourceFolder} enthaltenen Bilder und prüft anschließend Bildepaare mithilfe der in Listing \ref{lst:is_positive} beschriebenen Funktion auf Ähnlichkeit.
 Dabei wird ein Bild per Zufall ausgewählt und mit seinen direkten Nachbarn verglichen, da die Datenanalyse ergeben hat, dass Nachbarn oft positive Paare darstellen (siehe Abbildung \ref{fig:data_positive_pair}).
+In Abbildung \ref{fig:positive_pairs} sind positive Paare zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=10cm]{images/positive_pairs.png}
+	\caption{Beispiele positive Paare}
+	\label{fig:positive_pairs}
+\end{figure}
+\subsection{Siamese Network Implementierung}
 
 
 \newpage

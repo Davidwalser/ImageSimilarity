@@ -9,7 +9,7 @@ from tensorflow.keras.layers import Lambda
 from tensorflow.keras.datasets import mnist
 import numpy as np
 from pathlib import Path
-
+import tensorflow as tf
 
 def train_siamese_network(positivePairs_path, negativePairs_path, testSplit):
 	# prepare the positive and negative pairs
@@ -17,10 +17,12 @@ def train_siamese_network(positivePairs_path, negativePairs_path, testSplit):
 	(pairTrain, labelTrain, pairTest, labelTest) = utils.make_test_and_train_pairs(positivePairs_path, negativePairs_path, testSplit)
 	print('[INFO] pairs train size: '+ str(len(pairTrain)))
 	print('[INFO] pairs test size: '+ str(len(pairTest)))
-	utils.plot_pairs(pairTrain, labelTrain)
+	# utils.plot_pairs(pairTrain, labelTrain)
 
 	model = utils.build_model()
 	print("[INFO] compiling model...")
+	# opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+	# model.compile(loss=utils.contrastive_loss, optimizer="adam", metrics=["accuracy"])
 	model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 	print("[INFO] training model...")
 	history = model.fit(
@@ -39,4 +41,4 @@ def train_siamese_network(positivePairs_path, negativePairs_path, testSplit):
 	utils.plot_training(history, config.PLOT_PATH)
 	utils.plot_training(history, config.PLOT_PATH_ZOOM, True)
 
-train_siamese_network(Path("./SurveyPictures/PositivePairs"),Path("./SurveyPictures/NegativePairs"), config.TEST_SPLIT)
+train_siamese_network(Path("./SurveyPictures/PositivePairs_small"),Path("./SurveyPictures/NegativePairs_small"), config.TEST_SPLIT)

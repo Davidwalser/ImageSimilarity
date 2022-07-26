@@ -1350,7 +1350,7 @@ Das Model, welches aus dem Code aus in Listing  \ref{lst:build_cnn} erzeugt wird
 \end{figure}
 
 \subsection{Training des siamese netwok}
-Zum Trainieren des siamese networks wurde eine Funktion geschrieben, welche in Listing \ref{lst:train_siamese_network} zu sehen ist.
+Zum Trainieren des siamese Networks wurde eine Funktion geschrieben, welche in Listing \ref{lst:train_siamese_network} zu sehen ist.
 \begin{lstlisting}[frame=lines, caption=Funktion zum Trainieren des siamese networks, captionpos=b, label = lst:train_siamese_network, language=Python, showstringspaces=false]
 def train_siamese_network(positivePairs_path, negativePairs_path, testSplit):
 	# prepare the positive and negative pairs
@@ -1398,15 +1398,64 @@ Nach dem Trainieren des Netzwerkes werden die Gewichte des Models gespeichert
 Abschließend wird der Verlauf der Genauigkeit und des Verlustes über die Epochen grafisch ausgegeben.
 
 \subsection{Ergebnisse}
+Um das siamese Network zu testen wurde analog zur SIFT Testfunktion (siehe Listing \ref{lst:sift_test_function}) eine Hilfsfunktion geschrieben.
+\begin{lstlisting}[frame=lines, caption=Siamese Testfunktion, captionpos=b, label = lst:get_similar_images_siamese, language=Python, showstringspaces=false]
+def get_similar_images_siamese(testImage_path, testFolder_path, similar_count):
+    original_test_image = cv2.cvtColor(utils.load_images(testImage_path)[0].image_array, cv2.COLOR_BGR2RGB)
+    images = utils.load_and_resize_images_from_folder(testFolder_path)
+    print("[INFO] images to check: " + str(len(images)))
+    test_image = utils.load_and_resize_images_from_folder(testImage_path)[0]
+    test_image_dimension = np.expand_dims(test_image.image_array, axis=0)
+    print("[INFO] loading siamese model...")
+    model = utils.build_model()
+    model.load_weights(config.WEIGHTS_PATH)
+    image_similarity_dictionary = {}
+    count = 1
+    for image in images:
+        print(count)
+        count += 1
+        image_dimension = np.expand_dims(image.image_array, axis=0)
+        similarity = model.predict([test_image_dimension, image_dimension])
+        image_similarity_dictionary[image.filename] = similarity
+    sorted_image_similarity_dictionary = dict(sorted(image_similarity_dictionary.items(), key = lambda kv: kv[1],reverse=True)[:similar_count])
+    pairs = []
+    scores = []
+    for image_name in sorted_image_similarity_dictionary:
+        print(image_name, '->', sorted_image_similarity_dictionary[image_name])
+        img=cv2.imread(str(Path.joinpath(Path(testFolder_path),image_name)), cv2.COLOR_BGR2RGB)
+        pairs.append([original_test_image,img])
+        scores.append(sorted_image_similarity_dictionary[image_name])
+    utils.plot_pairs(pairs,scores,similar_count)
+\end{lstlisting}
+Die in Lisitng \ref{lst:get_similar_images_siamese} gezeigte Funktion agiert nach demselben Prinzip wie die Testfunktion für SIFT, jedoch wird zum ermitteln der Ähnlichkeit das siamese Network anstelle von SIFT genommen.
+
+\subsubsection{1. Versuch}
+Der erste Versuch wurde mit den in Kapitel \ref{sec:siamese_implementation} beschriebenem Netzwerk getätig.
+Es wurden \textbf{50 Epochen} und eine \textbf{Batch Size} von \textbf{10} genommen.
+Trainiert wurde das siamese Network mit jeweils \textbf{800 positiven} und \textbf{800 negativen} Paaren.
+Die Genauigkeit und die Verluste pro Epoche während des Trainings ist in Abbildung \ref{fig:800_accuracy_loss} zu sehen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=10cm]{images/800_accuracy_loss.png}
+	\caption{Training Loss und Accuracy mit 1600 Paaren}
+	\label{fig:800_accuracy_loss}
+\end{figure}
+TBD.
+
+\subsubsection{2. Versuch}
+Es wurden \textbf{50 Epochen} und eine \textbf{Batch Size} von \textbf{10} genommen.
+Trainiert wurde das siamese Network mit jeweils \textbf{2000 positiven} und \textbf{2000 negativen} Paaren.
+TBD.
 
 \newpage
-\chapter{Diskussion der Ergebnise}
+\chapter{Diskussion der Ergebnisse}
 DRAFT:
 Vergleich SIFT vs. Simaese Network
 skizze: SIFT: benötigt keine Trainignsdaten + keine Bildvorverarbeitung, ist schnell, schlechte generalisierung, simple implementierung
 Siamese Network (mit CNN): benötigt Trainingsdaten um zu lernen, benötigt Bildvorverarbeitung, viele Parameter zu setzen
 Siamese Network Datenanalyse und Trainingsdatenaufbereitung hat viel Zeit in anspruch genommen, leider wenig zeit für finetuning vom Netzwerk selbst
 Anmerkung: Vergleich SIFT und EINE Form von siamese Network, man könnte siamese network finetunen und eventuell bessere Resultate erzielen.
+Hinzufügen: Durchschnittliche Zeit pro Bildvergleich bei SIFT und siamese
 \begin{table*}[htbp]
 	\centering
 		\begin{tabular}{|c|c|m{20em}|}

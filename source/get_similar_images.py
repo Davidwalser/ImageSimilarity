@@ -29,9 +29,7 @@ def get_similar_images_sift(testImage_path, testFolder_path, similar_count):
     utils.plot_pairs(pairs,scores,similar_count)
 
 def get_similar_images_siamese(testImage_path, testFolder_path, similar_count):
-    # all_images = list(Path(testFolder_path).rglob("*.gif"))
     original_test_image = cv2.cvtColor(utils.load_images(testImage_path)[0].image_array, cv2.COLOR_BGR2RGB)
-    # original_images = utils.load_images(testFolder_path)
     images = utils.load_and_resize_images_from_folder(testFolder_path)
     print("[INFO] images to check: " + str(len(images)))
     test_image = utils.load_and_resize_images_from_folder(testImage_path)[0]
@@ -46,7 +44,6 @@ def get_similar_images_siamese(testImage_path, testFolder_path, similar_count):
         count += 1
         image_dimension = np.expand_dims(image.image_array, axis=0)
         similarity = model.predict([test_image_dimension, image_dimension])
-	    # utils.plot_featuremaps([imageA, imageB])
         image_similarity_dictionary[image.filename] = similarity
     sorted_image_similarity_dictionary = dict(sorted(image_similarity_dictionary.items(), key = lambda kv: kv[1],reverse=True)[:similar_count])
     pairs = []
